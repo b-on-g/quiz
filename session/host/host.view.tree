@@ -1,0 +1,43 @@
+$bog_quiz_session_host $mol_page
+	session_id \
+	title <= session_title \
+	body /
+		<= Status_section $mol_section
+			title @ \Session Status
+			content /
+				<= State_info $mol_text
+					text <= state_text \
+				<= Join_link $mol_link
+					uri <= join_uri \
+					sub /
+						<= Join_button $mol_button_major
+							title @ \Join Link
+		<= Participants_section $mol_section
+			title @ \Participants
+			content /
+				<= Participants $mol_list
+					rows <= participant_rows /
+		<= Controls_section $mol_section
+			title @ \Controls
+			content /
+				<= Controls $mol_row
+					sub /
+						<= Start_button $mol_button_major
+							click?event <=> start?event null
+							title @ \Start Quiz
+							enabled <= can_start true
+						<= Next_button $mol_button_major
+							click?event <=> next?event null
+							title <= next_button_title \
+							enabled <= can_next false
+						<= End_button $mol_button_minor
+							click?event <=> end?event null
+							title @ \End Session
+							enabled <= can_end false
+	
+	Participant_card* $mol_card
+		title <= participant_name* \
+		Content <= Participant_content* $mol_view
+			sub /
+				<= Participant_status* $mol_text
+					text <= participant_status_text* \

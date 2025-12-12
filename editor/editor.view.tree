@@ -1,0 +1,55 @@
+$bog_quiz_editor $mol_page
+	quiz_id \
+	title <= quiz_title \
+	body /
+		<= Title_field $mol_string
+			value? <=> quiz_title_value? \
+			hint @ \Quiz Title
+		<= Questions_section $mol_section
+			title @ \Questions
+			content /
+				<= Add_question_button $mol_button_major
+					click?event <=> add_question?event null
+					title @ \Add Question
+				<= Questions $mol_list
+					rows <= question_rows /
+		<= Actions $mol_row
+			sub /
+				<= Start_session_button $mol_button_major
+					click?event <=> start_session?event null
+					title @ \Start Session
+	
+	Question_card* $mol_card
+		title <= question_number* \
+		Content <= Question_content* $mol_view
+			sub /
+				<= Question_text_field* $mol_text
+					text? <=> question_text*? \
+					hint @ \Question text
+				<= Question_type_switch* $mol_switch
+					value? <=> question_type*? \single
+					options *
+						single @ \Single Answer
+						multi @ \Multiple Answers
+				<= Options_label* $mol_paragraph
+					title @ \Answer Options
+				<= Add_option_button* $mol_button_minor
+					click?event <=> add_option*?event null
+					title @ \Add Option
+				<= Options_list* $mol_list
+					rows <= option_rows* /
+				<= Question_delete_button* $mol_button_minor
+					click?event <=> question_delete*?event null
+					title @ \Delete Question
+	
+	Option_row* $mol_row
+		sub /
+			<= Option_correct_check* $mol_check_box
+				checked? <=> option_correct*? false
+				title @ \Correct
+			<= Option_text_field* $mol_string
+				value? <=> option_text*? \
+				hint @ \Option text
+			<= Option_delete_button* $mol_button_minor
+				click?event <=> option_delete*?event null
+				title @ \Delete
