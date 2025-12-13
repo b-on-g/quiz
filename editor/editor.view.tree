@@ -1,5 +1,6 @@
 $bog_quiz_editor $mol_page
 	quiz_id \
+	realm $hyoo_crus_glob
 	title <= quiz_title \
 	body /
 		<= Title_field $mol_string

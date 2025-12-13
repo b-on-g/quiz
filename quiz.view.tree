@@ -12,5 +12,5 @@ $bog_quiz $mol_book2_catalog
 		<= Theme $mol_theme_auto
 	Placeholder null
 	Spread* <= Quiz_editor* $bog_quiz_editor
-		quiz_id <= spread_key*
+		quiz_id <= spread_key* null
 		realm <= Realm
