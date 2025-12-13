@@ -1,16 +1,10 @@
-$bog_quiz $mol_book2
+$bog_quiz $mol_book2_catalog
+	param \quiz
 	realm <= Realm $hyoo_crus_glob
 	plugins /
 		<= Theme $mol_theme_auto
-	Placeholder null
-	pages /
-		<= Home $bog_quiz_home
-		<= Quiz_list $bog_quiz_list
-		<= Quiz_editor* $bog_quiz_editor
-			quiz_id? <=> arg* \
-		<= Session_host* $bog_quiz_session_host
-			session_id \
-		<= Session_join* $bog_quiz_session_join
-			session_id \
-		<= Session_play* $bog_quiz_session_play
-			session_id \
+	Placeholder <= Home $bog_quiz_home
+		realm <= Realm
+	Spread* <= Quiz_editor* $bog_quiz_editor
+		quiz_id <= spread_key*
+		realm <= Realm

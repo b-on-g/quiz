@@ -172,9 +172,7 @@ namespace $.$$ {
 			}
 
 			// Получить owner и создать сессию
-			const owner = this.$.$hyoo_crus_glob.home().hall_by($bog_quiz_owner, {})
-			if (!owner) return event
-
+			const owner = this.$.$hyoo_crus_glob.home().hall_by($bog_quiz_owner, {})!
 			const session = owner.session_make(quiz)
 
 			// Навигация на host-экран

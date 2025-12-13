@@ -14,36 +14,33 @@ namespace $.$$ {
 			return this.$.$hyoo_crus_glob.home().hall_by($bog_quiz_owner, {})
 		}
 
-		override pages(): readonly any[] {
-			const pages: any[] = [this.Home()]
+		@$mol_mem
+		quiz_id(next?: $hyoo_crus_ref) {
+			const id = this.$.$mol_state_arg.value('quiz', next?.description)
+			if (!id) return null
+			return $hyoo_crus_ref(id)
+		}
 
-			// Добавляем страницы в зависимости от параметров URL
-			const list = this.arg('list')
-			if (list) {
-				pages.push(this.Quiz_list())
-			}
+		@$mol_mem
+		spread_ids() {
+			const owner = this.profile()
+			if (!owner) return []
+			return (
+				owner
+					.Quizzes()
+					?.remote_list()
+					.map(quiz => quiz.ref().description!) ?? []
+			)
+		}
 
-			const quiz_id = this.arg('quiz')
-			if (quiz_id) {
-				pages.push(this.Quiz_editor(quiz_id))
-			}
+		@$mol_mem_key
+		spread_key(id: string) {
+			return id
+		}
 
-			const host_id = this.arg('host')
-			if (host_id) {
-				pages.push(this.Session_host(host_id))
-			}
-
-			const join_id = this.arg('join')
-			if (join_id) {
-				pages.push(this.Session_join(join_id))
-			}
-
-			const play_id = this.arg('play')
-			if (play_id) {
-				pages.push(this.Session_play(play_id))
-			}
-
-			return pages
+		@$mol_mem_key
+		quiz(id: string) {
+			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $bog_quiz_quiz)
 		}
 	}
 }
