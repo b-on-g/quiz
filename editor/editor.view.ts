@@ -86,11 +86,16 @@ namespace $.$$ {
 			return question.Type(null)?.val() || 'single'
 		}
 
+		@$mol_action
 		question_delete(index: number, event?: Event) {
+			const quiz = this.quiz()
 			const question = this.question_entity(index)
-			if (!question) return event
+			if (!quiz || !question) return event
 
-			// TODO: Implement proper deletion
+			const questions = quiz.Questions(null)
+			if (!questions) return event
+
+			questions.cut(question.ref())
 			return event
 		}
 
@@ -145,6 +150,20 @@ namespace $.$$ {
 			if (!option) return false
 
 			if (next !== undefined) {
+				const [question_index] = key.split('_').map(Number)
+				const question = this.question_entity(question_index)
+				const is_single = question?.Type(null)?.val() === 'single'
+
+				// Для single answer - снять галочки с других опций
+				if (is_single && next === true) {
+					const options = question?.Options(null)?.remote_list() ?? []
+					options.forEach((opt: $bog_quiz_option) => {
+						if (opt.ref().description !== option.ref().description) {
+							opt.IsCorrect(null)!.val(false)
+						}
+					})
+				}
+
 				option.IsCorrect(null)!.val(next)
 				return next
 			}
@@ -152,20 +171,33 @@ namespace $.$$ {
 			return option.IsCorrect(null)?.val() ?? false
 		}
 
+		@$mol_action
 		option_delete(key: string, event?: Event) {
+			const [question_index, option_index] = key.split('_').map(Number)
+			const question = this.question_entity(question_index)
 			const option = this.option_entity(key)
-			if (!option) return event
+			if (!question || !option) return event
 
-			// TODO: Implement proper deletion
+			const options = question.Options(null)
+			if (!options) return event
+
+			options.cut(option.ref())
 			return event
 		}
 
+		@$mol_action
 		start_session(event?: Event) {
+			console.log('start_session() вызван')
 			const quiz = this.quiz()
-			if (!quiz) return event
+			console.log('quiz:', quiz)
+			if (!quiz) {
+				console.log('quiz не найден!')
+				return event
+			}
 
 			// Проверка, что есть хотя бы один вопрос
 			const questions = quiz.Questions(null)?.remote_list() ?? []
+			console.log('вопросов:', questions.length)
 			if (questions.length === 0) {
 				alert('Add at least one question before starting a session')
 				return event
@@ -173,11 +205,15 @@ namespace $.$$ {
 
 			// Получить owner и создать сессию
 			const owner = this.$.$hyoo_crus_glob.home().hall_by($bog_quiz_owner, {})!
+			console.log('owner:', owner)
 			const session = owner.session_make(quiz)
+			console.log('session создана:', session)
 
 			// Навигация на host-экран
 			const session_id = session.land().ref().description!
+			console.log('session_id:', session_id)
 			this.$.$mol_state_arg.value('host', session_id)
+			console.log('Навигация на host:', session_id)
 
 			return event
 		}

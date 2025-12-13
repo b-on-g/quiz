@@ -1,10 +1,16 @@
 $bog_quiz $mol_book2_catalog
 	param \quiz
 	realm <= Realm $hyoo_crus_glob
+	menu_title @ \Quiz App
+	menu_tools /
+		<= Quiz_add $mol_button_minor
+			click?event <=> quiz_add?event null
+			hint @ \Create Quiz
+			sub /
+				<= Quiz_add_icon $mol_icon_plus
 	plugins /
 		<= Theme $mol_theme_auto
-	Placeholder <= Home $bog_quiz_home
-		realm <= Realm
+	Placeholder null
 	Spread* <= Quiz_editor* $bog_quiz_editor
 		quiz_id <= spread_key*
 		realm <= Realm

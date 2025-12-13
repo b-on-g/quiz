@@ -42,5 +42,13 @@ namespace $.$$ {
 		quiz(id: string) {
 			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $bog_quiz_quiz)
 		}
+
+		@$mol_action
+		quiz_add(event?: Event) {
+			const owner = this.profile()!
+			const quiz = owner.quiz_make()
+			this.quiz_id(quiz.ref())
+			return event
+		}
 	}
 }
