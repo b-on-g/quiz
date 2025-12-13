@@ -14,8 +14,36 @@ namespace $.$$ {
 			return this.$.$hyoo_crus_glob.home().hall_by($bog_quiz_owner, {})
 		}
 
-		override pages() {
-			return [this.Home()]
+		override pages(): readonly any[] {
+			const pages: any[] = [this.Home()]
+
+			// Добавляем страницы в зависимости от параметров URL
+			const list = this.arg('list')
+			if (list) {
+				pages.push(this.Quiz_list())
+			}
+
+			const quiz_id = this.arg('quiz')
+			if (quiz_id) {
+				pages.push(this.Quiz_editor(quiz_id))
+			}
+
+			const host_id = this.arg('host')
+			if (host_id) {
+				pages.push(this.Session_host(host_id))
+			}
+
+			const join_id = this.arg('join')
+			if (join_id) {
+				pages.push(this.Session_join(join_id))
+			}
+
+			const play_id = this.arg('play')
+			if (play_id) {
+				pages.push(this.Session_play(play_id))
+			}
+
+			return pages
 		}
 	}
 }

@@ -128,5 +128,65 @@ namespace $ {
 
 			return participant
 		}
+
+		/**
+		 * Получить или создать ответ участника на текущий вопрос
+		 */
+		@$mol_mem_key
+		answer_for_participant(participant: $bog_quiz_participant) {
+			const question = this.current_question()
+			if (!question) return null
+
+			const answers_list = this.Answers(null)!
+			const existing_answers = answers_list.remote_list()
+
+			// Найти существующий ответ
+			const existing = existing_answers.find(ans => {
+				const ans_question = ans.Question()?.val()
+				const ans_participant = ans.Participant()?.val()
+				return (
+					ans_question?.description === question.ref().description &&
+					ans_participant?.description === participant.ref().description
+				)
+			})
+
+			if (existing) return existing as $bog_quiz_answer
+
+			// Создать новый ответ
+			const answer = answers_list.remote_make({ '': $hyoo_crus_rank_read })!
+			answer.Session(null)!.val(this.ref())
+			answer.Question(null)!.val(question.ref())
+			answer.Participant(null)!.val(participant.ref())
+			answer.UpdatedAt(null)!.val(BigInt(Date.now()))
+
+			return answer
+		}
+
+		/**
+		 * Получить общий счет участника
+		 */
+		@$mol_mem_key
+		participant_total_score(participant: $bog_quiz_participant) {
+			return $bog_quiz_scoring.calculate_participant_total_score(participant, this)
+		}
+
+		/**
+		 * Получить отсортированный рейтинг участников
+		 */
+		@$mol_mem
+		leaderboard() {
+			const participants = this.participant_list()
+
+			// Рассчитать очки для каждого участника
+			const with_scores = participants.map(p => ({
+				participant: p,
+				score: this.participant_total_score(p),
+			}))
+
+			// Сортировать по убыванию очков
+			with_scores.sort((a, b) => b.score - a.score)
+
+			return with_scores
+		}
 	}
 }

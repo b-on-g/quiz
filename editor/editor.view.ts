@@ -161,8 +161,26 @@ namespace $.$$ {
 		}
 
 		start_session(event?: Event) {
-			// TODO: Implement session creation and navigation
-			alert('Session creation not yet implemented')
+			const quiz = this.quiz()
+			if (!quiz) return event
+
+			// Проверка, что есть хотя бы один вопрос
+			const questions = quiz.Questions(null)?.remote_list() ?? []
+			if (questions.length === 0) {
+				alert('Add at least one question before starting a session')
+				return event
+			}
+
+			// Получить owner и создать сессию
+			const owner = this.$.$hyoo_crus_glob.home().hall_by($bog_quiz_owner, {})
+			if (!owner) return event
+
+			const session = owner.session_make(quiz)
+
+			// Навигация на host-экран
+			const session_id = session.land().ref().description!
+			this.$.$mol_state_arg.value('host', session_id)
+
 			return event
 		}
 	}

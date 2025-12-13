@@ -6,13 +6,17 @@ namespace $.$$ {
 		}
 
 		create(event?: Event) {
-			this.owner().quiz_make()
+			const owner = this.owner()
+			if (owner) owner.quiz_make()
 			return event
 		}
 
 		@$mol_mem
 		quiz_rows() {
-			const quizzes_list = this.owner().Quizzes(null)
+			const owner = this.owner()
+			if (!owner) return []
+
+			const quizzes_list = owner.Quizzes(null)
 			if (!quizzes_list) return []
 
 			const quizzes = quizzes_list.remote_list()

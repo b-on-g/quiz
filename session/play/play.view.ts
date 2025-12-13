@@ -7,18 +7,37 @@ namespace $.$$ {
 			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $bog_quiz_session) as $bog_quiz_session
 		}
 
+		/**
+		 * ID текущего участника в localStorage
+		 */
+		@$mol_mem
+		participant_id(next?: string) {
+			const session_id = this.session_id()
+			const key = `quiz_participant_${session_id}`
+
+			if (next !== undefined) {
+				localStorage.setItem(key, next)
+				return next
+			}
+
+			return localStorage.getItem(key) || ''
+		}
+
 		@$mol_mem
 		participant() {
-			// Get current participant from session
-			// TODO: Store participant ID in local storage or URL
 			const session = this.session()
 			if (!session) return null
+
+			const stored_id = this.participant_id()
+			if (!stored_id) return null
 
 			const participants_list = session.Participants(null)
 			if (!participants_list) return null
 
 			const participants = participants_list.remote_list() ?? []
-			return participants[0] as $bog_quiz_participant // Simplified for now
+			const found = participants.find(p => p.ref().description === stored_id)
+
+			return (found as $bog_quiz_participant) || null
 		}
 
 		@$mol_mem
@@ -104,51 +123,88 @@ namespace $.$$ {
 			return option.Text(null)?.str() || ''
 		}
 
+		/**
+		 * Получить текущий ответ участника
+		 */
+		@$mol_mem
+		current_answer() {
+			const session = this.session()
+			const participant = this.participant()
+			if (!session || !participant) return null
+
+			return session.answer_for_participant(participant)
+		}
+
 		@$mol_mem_key
 		option_selected(index: number): boolean {
-			// TODO: Track selected options in component state
-			return false
+			const answer = this.current_answer()
+			const option = this.option_entity(index)
+			if (!answer || !option) return false
+
+			return answer.is_option_selected(option)
 		}
 
 		@$mol_mem_key
 		option_background(index: number) {
-			return this.option_selected(index) ? '#e0f7fa' : 'transparent'
+			const state = this.state()
+			const selected = this.option_selected(index)
+
+			if (state === 'review') {
+				// В режиме review показываем правильные/неправильные
+				const option = this.option_entity(index)
+				if (!option) return 'transparent'
+
+				const is_correct = option.IsCorrect()?.val() ?? false
+				if (is_correct) return '#4caf50' // Зеленый для правильных
+				if (selected && !is_correct) return '#f44336' // Красный для неправильных выбранных
+			}
+
+			return selected ? '#e0f7fa' : 'transparent'
 		}
 
 		option_toggle(index: number, event?: Event) {
-			// TODO: Implement option selection
+			const state = this.state()
+			if (state !== 'question') return event // Можно выбирать только в режиме question
+
+			const answer = this.current_answer()
+			const option = this.option_entity(index)
 			const question = this.current_question()
-			if (!question) return event
+
+			if (!answer || !option || !question) return event
 
 			const type = question.Type()?.val() || 'single'
+			const is_single = type === 'single'
 
-			if (type === 'single') {
-				// Clear all other selections
-			}
-
-			// Toggle this option
+			answer.toggle_option(option, is_single)
 			return event
 		}
 
 		@$mol_mem
 		can_submit() {
-			// TODO: Check if at least one option is selected
-			return true
+			const answer = this.current_answer()
+			if (!answer) return false
+
+			const selected = answer.selected_option_list()
+			return selected.length > 0
 		}
 
 		submit_answer(event?: Event) {
 			const participant = this.participant()
 			if (!participant) return event
 
-			// TODO: Save selected options to participant answers
 			participant.update_last_seen()
 			return event
 		}
 
 		@$mol_mem
 		your_answer_text() {
-			// TODO: Show which options the participant selected
-			return 'Your answer: ...'
+			const answer = this.current_answer()
+			if (!answer) return 'No answer'
+
+			const selected = answer.selected_option_list()
+			const texts = selected.map(opt => opt.Text(null)?.str() || '')
+
+			return `Your answer: ${texts.join(', ') || 'None'}`
 		}
 
 		@$mol_mem
@@ -164,13 +220,22 @@ namespace $.$$ {
 
 		@$mol_mem
 		score_text() {
-			// TODO: Calculate score from answers
-			return `Your score: 0 points`
+			const session = this.session()
+			const answer = this.current_answer()
+			if (!session || !answer) return 'Score: 0 points'
+
+			const score = $bog_quiz_scoring.calculate_answer_score(answer, session)
+			return `Score: ${Math.round(score)} points`
 		}
 
 		@$mol_mem
 		final_score_text() {
-			return this.score_text()
+			const session = this.session()
+			const participant = this.participant()
+			if (!session || !participant) return 'Total score: 0 points'
+
+			const total = session.participant_total_score(participant)
+			return `Total score: ${Math.round(total)} points`
 		}
 
 		@$mol_mem
@@ -178,16 +243,9 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return []
 
-			const participants_list = session.Participants(null)
-			if (!participants_list) return []
+			const leaderboard = session.leaderboard()
 
-			const participants = participants_list.remote_list() ?? []
-
-			// Sort by score descending
-			// TODO: Sort by actual score from answers
-			const sorted = [...participants]
-
-			return sorted.map((participant: $bog_quiz_participant, index: number) => {
+			return leaderboard.map((entry, index) => {
 				return this.Leaderboard_item(index)
 			})
 		}
@@ -197,19 +255,23 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return ''
 
-			const participants_list = session.Participants(null)
-			if (!participants_list) return ''
+			const leaderboard = session.leaderboard()
+			if (index >= leaderboard.length) return ''
 
-			const participants = participants_list.remote_list() ?? []
-
-			// TODO: Sort by actual score from answers
-			const sorted = [...participants]
-
-			const participant = sorted[index] as $bog_quiz_participant
+			const entry = leaderboard[index]
+			const participant = entry.participant
+			const score = entry.score
 			const name = participant.display_name_text()
-			const score = 0 // TODO: Calculate score from answers
 
-			return `${index + 1}. ${name} - ${score} points`
+			// Определить место (с учетом tie)
+			let rank = 1
+			for (let i = 0; i < index; i++) {
+				if (leaderboard[i].score > score) {
+					rank = i + 2
+				}
+			}
+
+			return `${rank}. ${name} - ${Math.round(score)} points`
 		}
 	}
 }

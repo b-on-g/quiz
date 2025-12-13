@@ -40,9 +40,15 @@ namespace $.$$ {
 
 			const participant = session.participant_make()
 			participant.DisplayName(null)!.str(name)
+			participant.UserId(null)!.val(this.$.$hyoo_crus_glob.home().land().auth().lord().description!)
+
+			// Сохранить ID участника в localStorage
+			const session_id = session.land().ref().description!
+			const participant_id = participant.land().ref().description!
+			const key = `quiz_participant_${session_id}`
+			localStorage.setItem(key, participant_id)
 
 			// Navigate to play page
-			const session_id = session.land().ref().description!
 			this.$.$mol_state_arg.value('play', session_id)
 			return event
 		}
