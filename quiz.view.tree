@@ -11,6 +11,9 @@ $bog_quiz $mol_book2_catalog
 	plugins /
 		<= Theme $mol_theme_auto
 	Placeholder null
+	spreads *
+		\
+			<= Bot $giper_bot
 	Spread* <= Quiz_editor* $bog_quiz_editor
 		quiz_id <= spread_key* null
 		realm <= Realm
