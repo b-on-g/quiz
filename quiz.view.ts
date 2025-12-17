@@ -50,5 +50,23 @@ namespace $.$$ {
 			this.quiz_id(quiz.ref())
 			return event
 		}
+
+		// Определяем, какой компонент показать для данного ID
+		@$mol_mem_key
+		Quiz_spread(id: string) {
+			// Если ID начинается с 'host:', показываем host компонент
+			if (id.startsWith('host:')) {
+				const session_id = id.substring(5) // Убираем префикс 'host:'
+				const host = new this.$.$bog_quiz_session_host()
+				host.session_id = () => session_id
+				return host
+			}
+
+			// Иначе показываем редактор квиза
+			const editor = new this.$.$bog_quiz_editor()
+			editor.quiz_id = () => id
+			editor.realm = () => this.Realm()
+			return editor
+		}
 	}
 }

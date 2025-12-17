@@ -209,11 +209,11 @@ namespace $.$$ {
 			const session = owner.session_make(quiz)
 			console.log('session создана:', session)
 
-			// Навигация на host-экран
+			// Навигация на host-экран с префиксом 'host:'
 			const session_id = session.land().ref().description!
 			console.log('session_id:', session_id)
-			this.$.$mol_state_arg.value('host', session_id)
-			console.log('Навигация на host:', session_id)
+			this.$.$mol_state_arg.value('quiz', 'host:' + session_id)
+			console.log('Навигация на host:', 'host:' + session_id)
 
 			return event
 		}
