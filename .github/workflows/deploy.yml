@@ -46,28 +46,80 @@ jobs:
 
       - name: Build & zip Linux app
         run: |
+          set -e
           APP_NAME="${GITHUB_REPOSITORY##*/}"
-          mkdir -p dist
+
           nativefier "$PWA_PUBLIC_URL" \
             --name "$APP_NAME" \
             --platform linux \
             --arch x64 \
             --disable-dev-tools \
-            --single-instance \
-            --out dist
-          echo "dist contents after nativefier:"
-          ls -R dist
-          cd dist
-          ZIP_NAME="${APP_NAME}-linux-x64.zip"
-          zip -r "$ZIP_NAME" .
-          ls -l
+            --single-instance
+
+          echo "Workspace after nativefier:"
+          ls -la
+
+          OUT_DIR=$(ls -d "${APP_NAME}-linux-"* 2>/dev/null | head -n 1)
+          if [ -z "$OUT_DIR" ]; then
+            echo "No output dir like ${APP_NAME}-linux-* found" >&2
+            exit 1
+          fi
+
+          mkdir -p artifacts
+          zip -r "artifacts/${APP_NAME}-linux-x64.zip" "$OUT_DIR"
+          ls -la artifacts
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
           name: desktop-linux
-          path: dist/*.zip
-  
+          path: artifacts/*.zip
+
+  desktop_macos:
+    needs: build
+    runs-on: macos-latest
+    if: github.ref == 'refs/heads/master'
+    continue-on-error: true
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Nativefier
+        run: npm install -g nativefier
+
+      - name: Build & zip macOS app
+        run: |
+          set -e
+          APP_NAME="${GITHUB_REPOSITORY##*/}"
+
+          nativefier "$PWA_PUBLIC_URL" \
+            --name "$APP_NAME" \
+            --platform darwin \
+            --arch x64 \
+            --disable-dev-tools \
+            --single-instance
+
+          echo "Workspace after nativefier:"
+          ls -la
+
+          OUT_DIR=$(ls -d "${APP_NAME}-darwin-"* 2>/dev/null | head -n 1)
+          if [ -z "$OUT_DIR" ]; then
+            echo "No output dir like ${APP_NAME}-darwin-* found" >&2
+            exit 1
+          fi
+
+          mkdir -p artifacts
+          zip -r "artifacts/${APP_NAME}-macos-x64.zip" "$OUT_DIR"
+          ls -la artifacts
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-macos
+          path: artifacts/*.zip
   
   desktop_windows:
     needs: build
@@ -108,46 +160,6 @@ jobs:
           name: desktop-windows
           path: dist/*.zip
  
- 
-  desktop_macos:
-    needs: build
-    runs-on: macos-latest
-    if: github.ref == 'refs/heads/master'
-    continue-on-error: true
-
-    steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install Nativefier
-        run: npm install -g nativefier
-
-      - name: Build & zip macOS app
-        run: |
-          APP_NAME="${GITHUB_REPOSITORY##*/}"
-          mkdir -p dist
-          nativefier "$PWA_PUBLIC_URL" \
-            --name "$APP_NAME" \
-            --platform darwin \
-            --arch x64 \
-            --disable-dev-tools \
-            --single-instance \
-            --out dist
-          echo "dist contents after nativefier:"
-          ls -R dist
-          cd dist
-          ZIP_NAME="${APP_NAME}-macos-x64.zip"
-          zip -r "$ZIP_NAME" .
-          ls -l
-
-      - name: Upload macOS artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: desktop-macos
-          path: dist/*.zip
-  
   
   vk_miniapp:
     needs: build
@@ -271,6 +283,7 @@ jobs:
       - desktop_windows
       - desktop_macos
       - android_twa
+      - vk_miniapp
     runs-on: ubuntu-latest
     if: ${{ always() && github.ref == 'refs/heads/master' && github.event_name == 'push' }}
     continue-on-error: true
@@ -282,13 +295,17 @@ jobs:
           path: dist
 
       - name: List downloaded artifacts
-        run: ls -R dist
+        run: |
+          echo "Downloaded to dist/:"
+          ls -la
+          ls -R dist || true
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: release
-          name: ${{ env.REPO_NAME }} ${{ github.ref_name }}
+          tag_name: nightly
+          name: ${{ github.event.repository.name }} nightly
+          make_latest: true
           files: |
             dist/**/*.zip
             dist/**/*.apk
