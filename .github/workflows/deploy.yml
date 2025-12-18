@@ -107,10 +107,9 @@ jobs:
           name: ${{ env.REPO_NAME }}-windows-x64
           path: dist/${{ env.REPO_NAME }}-windows-x64.zip
 
-  # ----------------- DESKTOP: MACOS -----------------
   desktop_macos:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     if: github.ref == 'refs/heads/master'
     continue-on-error: true
 
@@ -118,7 +117,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Install Nativefier
         run: npm install -g nativefier
@@ -132,16 +131,16 @@ jobs:
             --arch x64 \
             --disable-dev-tools \
             --single-instance \
-            --out dist/macos || echo "macOS build may fail on Linux host"
+            --out dist/macos
 
       - name: Archive macOS app
         run: |
           cd dist
-          zip -r "${REPO_NAME}-macos-x64.zip" macos || echo "No macOS build to archive"
-          cd ..
+          APP_DIR=$(ls macos | head -n1)
+          echo "Packaging macOS app dir: $APP_DIR"
+          zip -r "${REPO_NAME}-macos-x64.zip" "macos/$APP_DIR"
 
       - name: Upload macOS artifact
-        if: hashFiles('dist/${{ env.REPO_NAME }}-macos-x64.zip') != ''
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.REPO_NAME }}-macos-x64
