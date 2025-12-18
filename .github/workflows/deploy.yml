@@ -7,19 +7,174 @@ on:
   push:
   pull_request:
   schedule:
-  - cron: "0 7 * * *"
+    - cron: "0 7 * * *"
+
+env:
+  REPO_OWNER: ${{ github.repository_owner }}
+  REPO_NAME: ${{ github.event.repository.name }}
+  # https://<org>.github.io/<repo>/
+  PWA_PUBLIC_URL: ${{ format('https://{0}.github.io/{1}/', github.repository_owner, github.event.repository.name) }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    
-    - uses: hyoo-ru/mam_build@master2
-      with:
-        package: 'bog/quiz'
-    
-    - uses: hyoo-ru/gh-deploy@v4.4.1
-      if: github.ref == 'refs/heads/master'
-      with:
-        folder: 'bog/quiz/-'
+      - uses: hyoo-ru/mam_build@master2
+        with:
+          package: 'bog/quiz'
+
+      - uses: hyoo-ru/gh-deploy@v4.4.1
+        if: github.ref == 'refs/heads/master'
+        with:
+          folder: 'bog/quiz/-'
+
+  # ----------------- DESKTOP: LINUX -----------------
+  desktop_linux:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    continue-on-error: true
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Nativefier
+        run: npm install -g nativefier
+
+      - name: Build Linux app
+        run: |
+          mkdir -p dist/linux
+          nativefier "$PWA_PUBLIC_URL" \
+            --name "$REPO_NAME" \
+            --platform linux \
+            --arch x64 \
+            --disable-dev-tools \
+            --single-instance \
+            --out dist/linux
+
+      - name: Archive Linux app
+        run: |
+          cd dist
+          zip -r "${REPO_NAME}-linux-x64.zip" linux
+          cd ..
+
+      - name: Upload Linux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPO_NAME }}-linux-x64
+          path: dist/${{ env.REPO_NAME }}-linux-x64.zip
+
+  # ----------------- DESKTOP: WINDOWS -----------------
+  desktop_windows:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    continue-on-error: true
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Nativefier
+        run: npm install -g nativefier
+
+      - name: Build Windows app
+        run: |
+          mkdir -p dist/windows
+          nativefier "$PWA_PUBLIC_URL" \
+            --name "$REPO_NAME" \
+            --platform windows \
+            --arch x64 \
+            --disable-dev-tools \
+            --single-instance \
+            --out dist/windows
+
+      - name: Archive Windows app
+        run: |
+          cd dist
+          zip -r "${REPO_NAME}-windows-x64.zip" windows
+          cd ..
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPO_NAME }}-windows-x64
+          path: dist/${{ env.REPO_NAME }}-windows-x64.zip
+
+  # ----------------- DESKTOP: MACOS -----------------
+  desktop_macos:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    continue-on-error: true
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Nativefier
+        run: npm install -g nativefier
+
+      - name: Build macOS app
+        run: |
+          mkdir -p dist/macos
+          nativefier "$PWA_PUBLIC_URL" \
+            --name "$REPO_NAME" \
+            --platform darwin \
+            --arch x64 \
+            --disable-dev-tools \
+            --single-instance \
+            --out dist/macos || echo "macOS build may fail on Linux host"
+
+      - name: Archive macOS app
+        run: |
+          cd dist
+          zip -r "${REPO_NAME}-macos-x64.zip" macos || echo "No macOS build to archive"
+          cd ..
+
+      - name: Upload macOS artifact
+        if: hashFiles('dist/${{ env.REPO_NAME }}-macos-x64.zip') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPO_NAME }}-macos-x64
+          path: dist/${{ env.REPO_NAME }}-macos-x64.zip
+
+
+  # ----------------- RELEASE (GitHub Releases) -----------------
+  release:
+    needs:
+      - desktop_linux
+      - desktop_windows
+      - desktop_macos
+      - android_twa
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    continue-on-error: true
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: List downloaded artifacts
+        run: ls -R dist
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ env.REPO_NAME }} ${{ github.ref_name }}
+          files: |
+            dist/**/*.zip
+            dist/**/*.apk
+            dist/**/*.aab
+        # token берётся по умолчанию из github.token, без GITHUB_TOKEN в env
