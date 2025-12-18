@@ -154,11 +154,23 @@ jobs:
           Compress-Archive -Path dist\* -DestinationPath $zipPath -Force
           Get-ChildItem dist
 
+      - name: Archive Windows app
+        shell: pwsh
+        run: |
+          $appName = $env:GITHUB_REPOSITORY.Split('/')[-1]
+          $dir = Get-ChildItem -Directory | Where-Object Name -like "$appName-win32-*" | Select-Object -First 1
+          if (-not $dir) { throw "No output dir like $appName-win32-* found" }
+
+          New-Item -ItemType Directory -Force -Path artifacts | Out-Null
+          Compress-Archive -Path $dir.FullName -DestinationPath "artifacts/$appName-windows-x64.zip" -Force
+          Get-ChildItem artifacts
+
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
           name: desktop-windows
-          path: dist/*.zip
+          path: artifacts/*.zip
+          if-no-files-found: error
  
   
   vk_miniapp:
@@ -276,6 +288,7 @@ jobs:
           path: dist-android
 
 
+
   # ----------------- RELEASE (GitHub Releases) -----------------
   release:
     needs:
@@ -283,7 +296,6 @@ jobs:
       - desktop_windows
       - desktop_macos
       - android_twa
-      - vk_miniapp
     runs-on: ubuntu-latest
     if: ${{ always() && github.ref == 'refs/heads/master' && github.event_name == 'push' }}
     continue-on-error: true
@@ -306,6 +318,7 @@ jobs:
           tag_name: nightly
           name: ${{ github.event.repository.name }} nightly
           make_latest: true
+          overwrite_files: true
           files: |
             dist/**/*.zip
             dist/**/*.apk
