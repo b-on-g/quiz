@@ -46,9 +46,11 @@ jobs:
 
       - name: Build Linux app
         run: |
+          set -e
+          APP_NAME="${GITHUB_REPOSITORY##*/}"
           mkdir -p dist
           nativefier "$PWA_PUBLIC_URL" \
-            --name "$REPO_NAME" \
+            --name "$APP_NAME" \
             --platform linux \
             --arch x64 \
             --disable-dev-tools \
@@ -59,22 +61,26 @@ jobs:
 
       - name: Archive Linux app
         run: |
+          set -e
           cd dist
-          APP_DIR=$(find . -maxdepth 1 -type d -name "${REPO_NAME}-linux*" | head -n 1)
+          APP_DIR=$(find . -maxdepth 1 -mindepth 1 -type d | head -n 1)
           if [ -z "$APP_DIR" ]; then
-            echo "No Linux app dir found" >&2
+            echo "No app dir found in dist" >&2
             ls -R .
             exit 1
           fi
-          zip -r "${REPO_NAME}-linux-x64.zip" "$APP_DIR"
+          APP_NAME="${GITHUB_REPOSITORY##*/}"
+          ZIP_NAME="${APP_NAME}-linux-x64.zip"
+          echo "Zipping $APP_DIR -> $ZIP_NAME"
+          zip -r "$ZIP_NAME" "$APP_DIR"
           ls -l
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.REPO_NAME }}-linux-x64
-          path: dist/${{ env.REPO_NAME }}-linux-x64.zip
-
+          name: desktop-linux
+          path: dist/*.zip
+  
   desktop_windows:
     needs: build
     runs-on: windows-latest
@@ -93,9 +99,10 @@ jobs:
       - name: Build Windows app
         shell: pwsh
         run: |
+          $appName = $env:GITHUB_REPOSITORY.Split('/')[-1]
           New-Item -ItemType Directory -Force -Path dist | Out-Null
           nativefier "$env:PWA_PUBLIC_URL" `
-            --name "$env:REPO_NAME" `
+            --name "$appName" `
             --platform windows `
             --arch x64 `
             --disable-dev-tools `
@@ -107,22 +114,24 @@ jobs:
       - name: Archive Windows app
         shell: pwsh
         run: |
-          $dir = Get-ChildItem dist -Directory -Name "$env:REPO_NAME-win32*"
+          $appName = $env:GITHUB_REPOSITORY.Split('/')[-1]
+          $dir = Get-ChildItem dist -Directory | Select-Object -First 1
           if (-not $dir) {
             Write-Error "No Windows app dir found"
             Get-ChildItem -Recurse dist
             exit 1
           }
-          $zipPath = "dist/$($env:REPO_NAME)-windows-x64.zip"
-          Compress-Archive -Path ("dist/" + $dir) -DestinationPath $zipPath -Force
+          $zipPath = "dist/$appName-windows-x64.zip"
+          Write-Host "Zipping $($dir.FullName) -> $zipPath"
+          Compress-Archive -Path $dir.FullName -DestinationPath $zipPath -Force
           Get-ChildItem dist
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.REPO_NAME }}-windows-x64
-          path: dist/${{ env.REPO_NAME }}-windows-x64.zip
-
+          name: desktop-windows
+          path: dist/*.zip
+  
   desktop_macos:
     needs: build
     runs-on: macos-latest
@@ -140,9 +149,11 @@ jobs:
 
       - name: Build macOS app
         run: |
+          set -e
+          APP_NAME="${GITHUB_REPOSITORY##*/}"
           mkdir -p dist
           nativefier "$PWA_PUBLIC_URL" \
-            --name "$REPO_NAME" \
+            --name "$APP_NAME" \
             --platform darwin \
             --arch x64 \
             --disable-dev-tools \
@@ -153,22 +164,26 @@ jobs:
 
       - name: Archive macOS app
         run: |
+          set -e
           cd dist
-          APP_DIR=$(find . -maxdepth 1 -type d -name "${REPO_NAME}-darwin*" | head -n 1)
+          APP_DIR=$(find . -maxdepth 1 -mindepth 1 -type d | head -n 1)
           if [ -z "$APP_DIR" ]; then
             echo "No macOS app dir found" >&2
             ls -R .
             exit 1
           fi
-          zip -r "${REPO_NAME}-macos-x64.zip" "$APP_DIR"
+          APP_NAME="${GITHUB_REPOSITORY##*/}"
+          ZIP_NAME="${APP_NAME}-macos-x64.zip"
+          echo "Zipping $APP_DIR -> $ZIP_NAME"
+          zip -r "$ZIP_NAME" "$APP_DIR"
           ls -l
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.REPO_NAME }}-macos-x64
-          path: dist/${{ env.REPO_NAME }}-macos-x64.zip
-
+          name: desktop-macos
+          path: dist/*.zip
+  
   vk_miniapp:
     needs: build
     runs-on: ubuntu-latest
