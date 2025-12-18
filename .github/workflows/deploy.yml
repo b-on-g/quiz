@@ -237,6 +237,66 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install Bubblewrap CLI
+        run: npm install -g @bubblewrap/cli
+
+      - name: Init & build TWA (use built-in JDK+SDK)
+        run: |
+          rm -rf twa
+          mkdir twa
+          cd twa
+
+          MANIFEST_URL="${PWA_PUBLIC_URL}manifest.webmanifest"
+          if ! curl -fsI "$MANIFEST_URL" >/dev/null 2>&1; then
+            MANIFEST_URL="${PWA_PUBLIC_URL}manifest.json"
+          fi
+          echo "Using manifest: $MANIFEST_URL"
+
+          # JDK и Android SDK уже есть в ubuntu-latest
+          JDK_PATH="${JAVA_HOME_17_X64:-$JAVA_HOME}"
+          SDK_PATH="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+
+          echo "JDK: $JDK_PATH"
+          echo "SDK: $SDK_PATH"
+
+          (
+            echo "n"          # Do you want Bubblewrap to install the JDK? -> No
+            echo "$JDK_PATH"  # Path to existing JDK
+            echo "n"          # Do you want Bubblewrap to install the Android SDK? -> No
+            echo "$SDK_PATH"  # Path to existing Android SDK
+            yes "" | head -n 30   # дальше просто жмём Enter на всё остальное
+          ) | bubblewrap init --manifest="$MANIFEST_URL" --directory="."
+
+          bubblewrap build --skipPwaValidation || bubblewrap build
+          ls -R .
+
+      - name: Collect Android artifacts
+        run: |
+          mkdir -p dist-android
+          cp twa/app-release*.apk dist-android/ 2>/dev/null || true
+          cp twa/app-release*.aab dist-android/ 2>/dev/null || true
+          ls -R dist-android || true
+
+      - name: Upload Android artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.REPO_NAME }}-android
+          path: dist-android
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    continue-on-error: true
+
+    env:
+      BUBBLEWRAP_KEYSTORE_PASSWORD: password
+      BUBBLEWRAP_KEY_PASSWORD: password
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
