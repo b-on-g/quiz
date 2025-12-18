@@ -147,6 +147,135 @@ jobs:
           name: ${{ env.REPO_NAME }}-macos-x64
           path: dist/${{ env.REPO_NAME }}-macos-x64.zip
 
+  vk_miniapp:
+      needs: build
+      runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/master'
+      continue-on-error: true
+  
+      env:
+        VK_MINIAPP_APP_ID: ${{ vars.VK_MINIAPP_APP_ID }}
+        MINI_APPS_ACCESS_TOKEN: ${{ secrets.VK_MINI_APPS_TOKEN }}
+  
+      steps:
+        - name: Check VK env
+          run: |
+            if [ -z "$VK_MINIAPP_APP_ID" ]; then
+              echo "VK_MINIAPP_APP_ID is not set, skip VK deploy"
+              exit 0
+            fi
+            if [ -z "$MINI_APPS_ACCESS_TOKEN" ]; then
+              echo "VK_MINI_APPS_TOKEN is not set, skip VK deploy"
+              exit 0
+            fi
+  
+        - name: Checkout main
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+  
+        - name: Fetch gh-pages into worktree
+          run: |
+            git fetch origin gh-pages || echo "no gh-pages yet"
+            if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+              git worktree add gh-pages origin/gh-pages
+            else
+              echo "gh-pages branch not found, skip VK deploy"
+              exit 0
+            fi
+  
+        - name: Generate vk-hosting-config.json
+          run: |
+            cat > vk-hosting-config.json <<EOF
+            {
+              "static_path": "gh-pages",
+              "app_id": ${VK_MINIAPP_APP_ID},
+              "endpoints": {
+                "mobile": "index.html",
+                "mvk": "index.html",
+                "web": "index.html"
+              }
+            }
+            EOF
+            cat vk-hosting-config.json
+  
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
+  
+        - name: Install VK Mini Apps deploy
+          run: npm install -g @vkontakte/vk-miniapps-deploy
+  
+        - name: Deploy to VK Mini Apps hosting
+          env:
+            MINI_APPS_ACCESS_TOKEN: ${{ env.MINI_APPS_ACCESS_TOKEN }}
+            MINI_APPS_ENVIRONMENT: production
+          run: vk-miniapps-deploy
+
+  android_twa:
+      needs: build
+      runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/master'
+      continue-on-error: true
+  
+      env:
+        # пароли для keystore, чтобы build не задавал вопросов
+        BUBBLEWRAP_KEYSTORE_PASSWORD: password
+        BUBBLEWRAP_KEY_PASSWORD: password
+  
+      steps:
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
+  
+        - name: Setup Java
+          uses: actions/setup-java@v4
+          with:
+            distribution: 'temurin'
+            java-version: '17'
+  
+        - name: Setup Android SDK
+          uses: android-actions/setup-android@v3
+  
+        - name: Install Bubblewrap CLI
+          run: npm install -g @bubblewrap/cli
+  
+        - name: Init Bubblewrap project from PWA
+          run: |
+            mkdir -p twa
+            cd twa
+            MANIFEST_URL="${PWA_PUBLIC_URL}manifest.webmanifest"
+            echo "Trying manifest: $MANIFEST_URL"
+            if ! curl -fsI "$MANIFEST_URL" >/dev/null 2>&1; then
+              MANIFEST_URL="${PWA_PUBLIC_URL}manifest.json"
+              echo "Fallback to: $MANIFEST_URL"
+            fi
+            echo "Using manifest: $MANIFEST_URL"
+            # жмём Enter на все вопросы, берём дефолты из манифеста
+            yes "" | bubblewrap init --manifest="$MANIFEST_URL" --directory="."
+  
+        - name: Build Android app (APK/AAB)
+          run: |
+            cd twa
+            # если CLI всё-таки спросит пароли - он возьмёт их из env
+            bubblewrap build --skipPwaValidation || bubblewrap build
+  
+        - name: Collect Android artifacts
+          run: |
+            cd twa
+            mkdir -p ../dist-android
+            shopt -s nullglob || true
+            cp app-release*.apk ../dist-android/ 2>/dev/null || true
+            cp app-release*.aab ../dist-android/ 2>/dev/null || true
+  
+        - name: Upload Android artifacts
+          uses: actions/upload-artifact@v4
+          with:
+            name: ${{ env.REPO_NAME }}-android
+            path: dist-android
+
 
   # ----------------- RELEASE (GitHub Releases) -----------------
   release:
