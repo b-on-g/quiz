@@ -150,7 +150,7 @@ jobs:
   vk_miniapp:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' && vars.VK_MINIAPP_APP_ID != '' && secrets.VK_MINI_APPS_TOKEN != ''
+    if: github.ref == 'refs/heads/master' && vars.VK_MINIAPP_APP_ID != '' 
     continue-on-error: true
 
     env:
