@@ -44,9 +44,8 @@ jobs:
       - name: Install Nativefier
         run: npm install -g nativefier
 
-      - name: Build Linux app
+      - name: Build & zip Linux app
         run: |
-          set -e
           APP_NAME="${GITHUB_REPOSITORY##*/}"
           mkdir -p dist
           nativefier "$PWA_PUBLIC_URL" \
@@ -56,23 +55,11 @@ jobs:
             --disable-dev-tools \
             --single-instance \
             --out dist
-          echo "Built dirs in dist:"
+          echo "dist contents after nativefier:"
           ls -R dist
-
-      - name: Archive Linux app
-        run: |
-          set -e
           cd dist
-          APP_DIR=$(find . -maxdepth 1 -mindepth 1 -type d | head -n 1)
-          if [ -z "$APP_DIR" ]; then
-            echo "No app dir found in dist" >&2
-            ls -R .
-            exit 1
-          fi
-          APP_NAME="${GITHUB_REPOSITORY##*/}"
           ZIP_NAME="${APP_NAME}-linux-x64.zip"
-          echo "Zipping $APP_DIR -> $ZIP_NAME"
-          zip -r "$ZIP_NAME" "$APP_DIR"
+          zip -r "$ZIP_NAME" .
           ls -l
 
       - name: Upload Linux artifact
@@ -80,6 +67,7 @@ jobs:
         with:
           name: desktop-linux
           path: dist/*.zip
+  
   
   desktop_windows:
     needs: build
@@ -96,7 +84,7 @@ jobs:
       - name: Install Nativefier
         run: npm install -g nativefier
 
-      - name: Build Windows app
+      - name: Build & zip Windows app
         shell: pwsh
         run: |
           $appName = $env:GITHUB_REPOSITORY.Split('/')[-1]
@@ -108,22 +96,10 @@ jobs:
             --disable-dev-tools `
             --single-instance `
             --out dist
-          Write-Host "Built dirs in dist:"
+          Write-Host "dist contents after nativefier:"
           Get-ChildItem -Recurse dist
-
-      - name: Archive Windows app
-        shell: pwsh
-        run: |
-          $appName = $env:GITHUB_REPOSITORY.Split('/')[-1]
-          $dir = Get-ChildItem dist -Directory | Select-Object -First 1
-          if (-not $dir) {
-            Write-Error "No Windows app dir found"
-            Get-ChildItem -Recurse dist
-            exit 1
-          }
           $zipPath = "dist/$appName-windows-x64.zip"
-          Write-Host "Zipping $($dir.FullName) -> $zipPath"
-          Compress-Archive -Path $dir.FullName -DestinationPath $zipPath -Force
+          Compress-Archive -Path dist\* -DestinationPath $zipPath -Force
           Get-ChildItem dist
 
       - name: Upload Windows artifact
@@ -131,7 +107,8 @@ jobs:
         with:
           name: desktop-windows
           path: dist/*.zip
-  
+ 
+ 
   desktop_macos:
     needs: build
     runs-on: macos-latest
@@ -147,9 +124,8 @@ jobs:
       - name: Install Nativefier
         run: npm install -g nativefier
 
-      - name: Build macOS app
+      - name: Build & zip macOS app
         run: |
-          set -e
           APP_NAME="${GITHUB_REPOSITORY##*/}"
           mkdir -p dist
           nativefier "$PWA_PUBLIC_URL" \
@@ -159,23 +135,11 @@ jobs:
             --disable-dev-tools \
             --single-instance \
             --out dist
-          echo "Built dirs in dist:"
+          echo "dist contents after nativefier:"
           ls -R dist
-
-      - name: Archive macOS app
-        run: |
-          set -e
           cd dist
-          APP_DIR=$(find . -maxdepth 1 -mindepth 1 -type d | head -n 1)
-          if [ -z "$APP_DIR" ]; then
-            echo "No macOS app dir found" >&2
-            ls -R .
-            exit 1
-          fi
-          APP_NAME="${GITHUB_REPOSITORY##*/}"
           ZIP_NAME="${APP_NAME}-macos-x64.zip"
-          echo "Zipping $APP_DIR -> $ZIP_NAME"
-          zip -r "$ZIP_NAME" "$APP_DIR"
+          zip -r "$ZIP_NAME" .
           ls -l
 
       - name: Upload macOS artifact
@@ -183,6 +147,7 @@ jobs:
         with:
           name: desktop-macos
           path: dist/*.zip
+  
   
   vk_miniapp:
     needs: build
