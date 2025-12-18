@@ -231,24 +231,27 @@ jobs:
     if: github.ref == 'refs/heads/master'
     continue-on-error: true
 
-    env:
-      BUBBLEWRAP_KEYSTORE_PASSWORD: password
-      BUBBLEWRAP_KEY_PASSWORD: password
-
     steps:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install Bubblewrap CLI
-        run: npm install -g @bubblewrap/cli
-
-      - name: Init & build TWA (use built-in JDK+SDK)
+      - name: Install Bubblewrap + expect
         run: |
-          rm -rf twa
-          mkdir twa
-          cd twa
+          npm install -g @bubblewrap/cli
+          sudo apt-get update
+          sudo apt-get install -y expect
+
+      - name: Init & build TWA (non-interactive)
+        env:
+          KEYSTORE_PASSWORD: password
+          KEY_PASSWORD: password
+        run: |
+          set -euo pipefail
+
+          REPO="${GITHUB_REPOSITORY##*/}"
+          OWNER="${GITHUB_REPOSITORY%/*}"
 
           MANIFEST_URL="${PWA_PUBLIC_URL}manifest.webmanifest"
           if ! curl -fsI "$MANIFEST_URL" >/dev/null 2>&1; then
@@ -256,37 +259,79 @@ jobs:
           fi
           echo "Using manifest: $MANIFEST_URL"
 
-          # JDK и Android SDK уже есть в ubuntu-latest
-          JDK_PATH="${JAVA_HOME_17_X64:-$JAVA_HOME}"
-          SDK_PATH="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+          JDK_PATH="${JAVA_HOME_17_X64:-${JAVA_HOME:-/usr/lib/jvm/temurin-17-jdk-amd64}}"
+          SDK_PATH="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-/usr/local/lib/android/sdk}}"
 
           echo "JDK: $JDK_PATH"
           echo "SDK: $SDK_PATH"
 
-          (
-            echo "n"          # Do you want Bubblewrap to install the JDK? -> No
-            echo "$JDK_PATH"  # Path to existing JDK
-            echo "n"          # Do you want Bubblewrap to install the Android SDK? -> No
-            echo "$SDK_PATH"  # Path to existing Android SDK
-            yes "" | head -n 30   # дальше просто жмём Enter на всё остальное
-          ) | bubblewrap init --manifest="$MANIFEST_URL" --directory="."
+          OWNER_SAFE="$(echo "$OWNER" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/_/g')"
+          REPO_SAFE="$(echo "$REPO" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/_/g')"
+          PACKAGE_ID="app.${OWNER_SAFE}.${REPO_SAFE}"
+          echo "PACKAGE_ID: $PACKAGE_ID"
+
+          rm -rf twa
+          mkdir -p twa
+          cd twa
+
+          bubblewrap updateConfig --jdkPath="$JDK_PATH" --androidSdkPath="$SDK_PATH"
+
+          cat > bwrap.expect <<'EXP'
+          #!/usr/bin/expect -f
+          set timeout 1200
+
+          set manifest [lindex $argv 0]
+          set jdk      [lindex $argv 1]
+          set sdk      [lindex $argv 2]
+          set appName  [lindex $argv 3]
+          set package  [lindex $argv 4]
+          set kspass   [lindex $argv 5]
+          set kpass    [lindex $argv 6]
+
+          spawn bubblewrap init --manifest=$manifest --directory=.
+
+          expect {
+            -nocase -re "install the JDK.*\\(Y/n\\)"          { send "n\r"; exp_continue }
+            -nocase -re "Path to your existing JDK"          { send "$jdk\r"; exp_continue }
+            -nocase -re "install the Android SDK.*\\(Y/n\\)" { send "n\r"; exp_continue }
+            -nocase -re "Path to your existing Android SDK"  { send "$sdk\r"; exp_continue }
+
+            -nocase -re "application name"                   { send "$appName\r"; exp_continue }
+            -nocase -re "launcher name"                      { send "$appName\r"; exp_continue }
+            -nocase -re "package.*id"                        { send "$package\r"; exp_continue }
+
+            -nocase -re "create.*signing.*key"               { send "y\r"; exp_continue }
+            -nocase -re "keystore.*path|path.*keystore"      { send "keystore.jks\r"; exp_continue }
+            -nocase -re "keystore.*password"                 { send "$kspass\r"; exp_continue }
+            -nocase -re "key alias"                          { send "release\r"; exp_continue }
+            -nocase -re "key password"                       { send "$kpass\r"; exp_continue }
+
+            -nocase -re "\\? .*"                             { send "\r"; exp_continue }
+            eof
+          }
+          EXP
+
+          chmod +x bwrap.expect
+          expect -f bwrap.expect "$MANIFEST_URL" "$JDK_PATH" "$SDK_PATH" "$REPO" "$PACKAGE_ID" "$KEYSTORE_PASSWORD" "$KEY_PASSWORD"
 
           bubblewrap build --skipPwaValidation || bubblewrap build
-          ls -R .
+
+          echo "APK/AAB found:"
+          find . -maxdepth 6 -type f \( -name "*.apk" -o -name "*.aab" \) -print
 
       - name: Collect Android artifacts
         run: |
           mkdir -p dist-android
-          cp twa/app-release*.apk dist-android/ 2>/dev/null || true
-          cp twa/app-release*.aab dist-android/ 2>/dev/null || true
-          ls -R dist-android || true
+          find twa -maxdepth 6 -type f -name "*.apk" -exec cp {} dist-android/ \; || true
+          find twa -maxdepth 6 -type f -name "*.aab" -exec cp {} dist-android/ \; || true
+          ls -la dist-android || true
 
-      - name: Upload Android artifacts
+      - name: Upload Android artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.REPO_NAME }}-android
+          name: android
           path: dist-android
-
+          if-no-files-found: error
 
 
   # ----------------- RELEASE (GitHub Releases) -----------------
