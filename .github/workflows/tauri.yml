@@ -80,7 +80,7 @@ jobs:
         if: matrix.target == 'android'
         run: |
           mkdir -p artifacts
-          find bog/quiz/src-tauri/gen/android/build -type f \( -name "*.apk" -o -name "*.aab" \) -exec cp {} artifacts/ \;
+          find bog/quiz/src-tauri/gen/android -type f \( -name "*.apk" -o -name "*.aab" \) -exec cp {} artifacts/ \;
 
       - uses: actions/upload-artifact@v4
         with:
