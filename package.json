@@ -1,6 +1,6 @@
 {
-  "name": "bog_quiz",
-  "version": "0.0.1",
+  "name": "@bog/quiz",
+  "version": "1.0.1",
   "exports": {
     "node": {
       "import": "./node.mjs",
@@ -365,5 +365,12 @@
   "dependencies": {
     "autoinstall": "*",
     "jsdom": "*"
+  },
+  "private": true,
+  "scripts": {
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.2.1"
   }
 }
