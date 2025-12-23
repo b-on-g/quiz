@@ -84,15 +84,13 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    enum $hyoo_crus_part {
-        land = 3,
-        face = 11,
-        pass = 255,
-        gift = 247,
-        sand = 8,
-        rock = 5,
-        root = 1,
-        buck = 9
+    enum $giper_baza_slot_kind {
+        free = 0,
+        land = 76,
+        sand = 252,
+        gift = 253,
+        seal = 254,
+        pass = 255
     }
 }
 
@@ -139,164 +137,6 @@ declare namespace $ {
         asArray(): Uint8Array<ArrayBuffer>;
         toString(): string;
     }
-}
-
-declare namespace $ {
-    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
-}
-
-declare namespace $ {
-    type $mol_data_tagged_type<Value, Tag extends PropertyKey> = Value & {
-        [Key in Tag]: Value;
-    };
-    type $mol_data_tagged_parser<Input, Output> = {
-        Value: Output;
-    } & ((val: $mol_data_tagged_type<Input, never>) => Output);
-    export function $mol_data_tagged<Config extends Record<string, $mol_data_value>>(config: Config): { [Type in keyof Config]: $mol_data_tagged_parser<Parameters<Config[Type]>[0], $mol_data_tagged_type<ReturnType<Config[Type]>, Type>>; };
-    export {};
-}
-
-declare namespace $ {
-    const $hyoo_crus_ref: {
-        Value: symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-    } & ((val: (string | symbol) & {}) => symbol & {
-        $hyoo_crus_ref: symbol;
-    });
-    type $hyoo_crus_ref = typeof $hyoo_crus_ref.Value;
-    function $hyoo_crus_ref_check(val: string): string;
-    function $hyoo_crus_ref_lord(ref: $hyoo_crus_ref): symbol & {
-        $hyoo_crus_ref: symbol;
-    };
-    function $hyoo_crus_ref_land(ref: $hyoo_crus_ref): symbol & {
-        $hyoo_crus_ref: symbol;
-    };
-    function $hyoo_crus_ref_peer(ref: $hyoo_crus_ref): string;
-    function $hyoo_crus_ref_area(ref: $hyoo_crus_ref): string;
-    function $hyoo_crus_ref_head(ref: $hyoo_crus_ref): string;
-    function $hyoo_crus_ref_encode(ref: $hyoo_crus_ref): Uint8Array<ArrayBuffer>;
-    function $hyoo_crus_ref_decode(bin: Uint8Array<ArrayBuffer>): symbol & {
-        $hyoo_crus_ref: symbol;
-    };
-    function $hyoo_crus_ref_relate(base: $hyoo_crus_ref, ref: $hyoo_crus_ref): symbol & {
-        $hyoo_crus_ref: symbol;
-    };
-    function $hyoo_crus_ref_resolve(base: $hyoo_crus_ref, ref: $hyoo_crus_ref): symbol & {
-        $hyoo_crus_ref: symbol;
-    };
-}
-
-declare namespace $ {
-    type $mol_type_unary_func = ((param: any) => any);
-    type $mol_type_unary_class = new (param: any) => any;
-    type $mol_type_unary = $mol_type_unary_func | $mol_type_unary_class;
-}
-
-declare namespace $ {
-    type $mol_type_param<Func, Index extends number> = Func extends (...params: infer Params) => any ? Params[Index] : Func extends new (...params: infer Params2) => any ? Params2[Index] : never;
-}
-
-declare namespace $ {
-    type $mol_type_tail<Tuple extends readonly any[]> = ((...tail: Tuple) => any) extends ((head: any, ...tail: infer Tail) => any) ? Tail : never;
-}
-
-declare namespace $ {
-    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
-        config: Config;
-        Value: ReturnType<Value>;
-    };
-}
-
-declare namespace $ {
-    function $mol_func_is_class<Func extends Function>(func: Func): func is Func & (new (...args: any[]) => any);
-}
-
-declare namespace $ {
-    type $mol_type_result<Func> = Func extends (...params: any) => infer Result ? Result : Func extends new (...params: any) => infer Result ? Result : never;
-}
-
-declare namespace $ {
-    type $mol_type_foot<Tuple extends readonly any[]> = Tuple['length'] extends 0 ? never : Tuple[$mol_type_tail<Tuple>['length']];
-}
-
-declare namespace $ {
-    type Guard_value<Funcs extends $mol_type_unary[], Index extends keyof Funcs> = $mol_type_param<Index extends keyof $mol_type_tail<Funcs> ? $mol_type_tail<Funcs>[Index] : any, 0>;
-    type Guard<Funcs extends $mol_type_unary[]> = {
-        [Index in keyof Funcs]: (Funcs[Index] extends $mol_type_unary_func ? (input: $mol_type_param<Funcs[Index], 0>) => Guard_value<Funcs, Index> : new (input: $mol_type_param<Funcs[Index], 0>) => Guard_value<Funcs, Index>);
-    };
-    export function $mol_data_pipe<Funcs extends $mol_type_unary[]>(...funcs: Funcs & Guard<Funcs>): ((this: any, input: $mol_type_param<Funcs[0], 0>) => $mol_type_result<$mol_type_foot<Funcs>>) & {
-        config: {
-            funcs: Funcs & Guard<Funcs>;
-        };
-        Value: $mol_type_result<$mol_type_foot<Funcs>>;
-    };
-    export {};
-}
-
-declare namespace $ {
-    class $mol_error_mix<Cause extends {} = {}> extends AggregateError {
-        readonly cause: Cause;
-        name: string;
-        constructor(message: string, cause?: Cause, ...errors: readonly Error[]);
-        static [Symbol.toPrimitive](): string;
-        static toString(): string;
-        static make(...params: ConstructorParameters<typeof $mol_error_mix>): $mol_error_mix<{}>;
-    }
-}
-
-declare namespace $ {
-    class $mol_data_error extends $mol_error_mix {
-    }
-}
-
-declare namespace $ {
-    let $mol_data_number: (val: number) => number;
-}
-
-declare namespace $ {
-    function $mol_data_integer(val: number): number;
-}
-
-declare namespace $ {
-    const $hyoo_crus_rank: {
-        Value: number & {
-            $hyoo_crus_rank: number;
-        };
-    } & ((val: number & {}) => number & {
-        $hyoo_crus_rank: number;
-    });
-    function $hyoo_crus_rank_make(tier: keyof typeof $hyoo_crus_rank_tier, fame: keyof typeof $hyoo_crus_rank_rate): typeof $hyoo_crus_rank.Value;
-    enum $hyoo_crus_rank_tier {
-        deny = 0,
-        read = 16,
-        join = 48,
-        post = 112,
-        rule = 240
-    }
-    enum $hyoo_crus_rank_rate {
-        late = 0,
-        long = 3,
-        slow = 7,
-        fast = 11,
-        just = 15
-    }
-    const $hyoo_crus_rank_deny: number & {
-        $hyoo_crus_rank: number;
-    };
-    const $hyoo_crus_rank_read: number & {
-        $hyoo_crus_rank: number;
-    };
-    const $hyoo_crus_rank_rule: number & {
-        $hyoo_crus_rank: number;
-    };
-    function $hyoo_crus_rank_join(rate: keyof typeof $hyoo_crus_rank_rate): number & {
-        $hyoo_crus_rank: number;
-    };
-    function $hyoo_crus_rank_post(rate: keyof typeof $hyoo_crus_rank_rate): number & {
-        $hyoo_crus_rank: number;
-    };
-    type $hyoo_crus_rank_preset = Record<string, typeof $hyoo_crus_rank.Value>;
 }
 
 declare namespace $ {
@@ -354,6 +194,17 @@ interface $node {
     [key: string]: any;
 }
 declare var $node: $node;
+
+declare namespace $ {
+    class $mol_error_mix<Cause extends {} = {}> extends AggregateError {
+        readonly cause: Cause;
+        name: string;
+        constructor(message: string, cause?: Cause, ...errors: readonly Error[]);
+        static [Symbol.toPrimitive](): string;
+        static toString(): string;
+        static make(...params: ConstructorParameters<typeof $mol_error_mix>): $mol_error_mix<{}>;
+    }
+}
 
 declare namespace $ {
     function $mol_env(): Record<string, string | undefined>;
@@ -749,6 +600,44 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_crypto_hash(input: ArrayBufferView): Uint8Array<ArrayBuffer>;
+}
+
+declare namespace $ {
+    function $mol_charset_encode(str: string): Uint8Array<ArrayBuffer>;
+    function $mol_charset_encode_to(str: string, buf: Uint8Array<ArrayBuffer>, from?: number): number;
+    function $mol_charset_encode_size(str: string): number;
+}
+
+declare namespace $ {
+    function $giper_baza_link_compare(left: $giper_baza_link, right: $giper_baza_link): 1 | -1 | 0;
+    class $giper_baza_link extends Object {
+        readonly str: string;
+        constructor(str: string);
+        static hole: $giper_baza_link;
+        static check(val: string): string | null;
+        toString(): string;
+        toJSON(): string;
+        [Symbol.toPrimitive](): string;
+        [$mol_dev_format_head](): any[];
+        toBin(): Uint8Array<ArrayBuffer>;
+        static from_int(int: number): $giper_baza_link;
+        static from_bin(bin: Uint8Array<ArrayBuffer>): $giper_baza_link;
+        static _hash_cache: WeakMap<ArrayBufferView<ArrayBufferLike>, $giper_baza_link>;
+        static hash_bin(bin: ArrayBufferView): $giper_baza_link;
+        static hash_str(str: string): $giper_baza_link;
+        peer(): $giper_baza_link;
+        area(): $giper_baza_link;
+        head(): $giper_baza_link;
+        lord(): $giper_baza_link;
+        land(): $giper_baza_link;
+        relate(base: $giper_baza_link): $giper_baza_link;
+        resolve(base: $giper_baza_link): $giper_baza_link;
+        mix(mixin: Uint8Array<ArrayBuffer> | $giper_baza_link): Uint8Array<ArrayBuffer>;
+    }
+}
+
+declare namespace $ {
     const $mol_key_store: WeakMap<object, string>;
     function $mol_key<Value>(value: Value): string;
 }
@@ -779,6 +668,14 @@ declare namespace $ {
         get?: (() => (...args: Args) => any) | undefined;
         set?: ((value: (...args: Args) => any) => void) | undefined;
     };
+}
+
+declare namespace $ {
+    type $mol_type_tail<Tuple extends readonly any[]> = ((...tail: Tuple) => any) extends ((head: any, ...tail: infer Tail) => any) ? Tail : never;
+}
+
+declare namespace $ {
+    type $mol_type_foot<Tuple extends readonly any[]> = Tuple['length'] extends 0 ? never : Tuple[$mol_type_tail<Tuple>['length']];
 }
 
 declare namespace $ {
@@ -907,12 +804,6 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_charset_decode(buffer: AllowSharedBufferSource, encoding?: $mol_charset_encoding): string;
-}
-
-declare namespace $ {
-    function $mol_charset_encode(str: string): Uint8Array<ArrayBuffer>;
-    function $mol_charset_encode_to(str: string, buf: Uint8Array<ArrayBuffer>, from?: number): number;
-    function $mol_charset_encode_size(str: string): number;
 }
 
 declare namespace $ {
@@ -1094,35 +985,46 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_crypto_secret extends Object {
-        readonly native: CryptoKey & {
-            type: 'secret';
-        };
-        static size: number;
-        constructor(native: CryptoKey & {
-            type: 'secret';
-        });
-        static generate(): Promise<$mol_crypto_secret>;
-        static from(serial: BufferSource): Promise<$mol_crypto_secret>;
-        static pass(pass: string, salt: Uint8Array<ArrayBuffer>): Promise<$mol_crypto_secret>;
-        static derive(private_serial: string, public_serial: string): Promise<$mol_crypto_secret>;
-        serial(): Promise<Uint8Array<ArrayBuffer>>;
-        encrypt(open: BufferSource, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
-        decrypt(closed: BufferSource, salt: BufferSource): Promise<Uint8Array<ArrayBuffer>>;
+    function $mol_crypto_sacred_shared(priv: $mol_crypto_key_private, pub: $mol_crypto_key_public): Promise<$mol_crypto_sacred>;
+}
+
+declare namespace $ {
+    class $giper_baza_auth_pass extends $mol_crypto_key_public {
+        static like(bin: Uint8Array<ArrayBuffer>): $giper_baza_auth_pass | null;
+        hash(): $giper_baza_link;
+        path(): string;
+        lord(): $giper_baza_link;
+        peer(): $giper_baza_link;
+        [$mol_dev_format_head](): any[];
+    }
+    class $giper_baza_auth extends $mol_crypto_key_private {
+        static current(next?: $giper_baza_auth | null): $giper_baza_auth;
+        static embryos: string[];
+        static grab(): $giper_baza_auth;
+        static generate(): Promise<$giper_baza_auth>;
+        pass(): $giper_baza_auth_pass;
+        secret_mutual(pub: $mol_crypto_key_public): $mol_crypto_sacred;
+        [$mol_dev_format_head](): any[];
     }
 }
 
 declare namespace $ {
-    class $hyoo_crus_auth extends $mol_crypto_key_private {
-        static current(next?: $hyoo_crus_auth | null): $hyoo_crus_auth;
-        static embryos: string[];
-        static grab(): $hyoo_crus_auth;
-        static generate(): Promise<$hyoo_crus_auth>;
-        lord(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        peer(): string;
-        secret_mutual(pub: string): $mol_crypto_secret;
+    class $mol_graph<Node, Edge> {
+        nodes: Set<Node>;
+        edges_out: Map<Node, Map<Node, Edge>>;
+        edges_in: Map<Node, Map<Node, Edge>>;
+        link(from: Node, to: Node, edge: Edge): void;
+        unlink(from: Node, to: Node): void;
+        link_out(from: Node, to: Node, edge: Edge): void;
+        link_in(to: Node, from: Node, edge: Edge): void;
+        edge(from: Node, to: Node): NonNullable<Edge> | null;
+        edge_out(from: Node, to: Node): NonNullable<Edge> | null;
+        edge_in(to: Node, from: Node): NonNullable<Edge> | null;
+        acyclic(get_weight: (edge: Edge) => number): void;
+        get sorted(): Set<Node>;
+        get roots(): Node[];
+        nodes_depth(select: (left: number, right: number) => number): Map<Node, number>;
+        depth_nodes(select: (left: number, right: number) => number): Node[][];
     }
 }
 
@@ -1257,23 +1159,146 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $hyoo_crus_time_moment(time: number): $mol_time_moment;
-    function $hyoo_crus_time_tick(time: number): number;
-    function $hyoo_crus_time_dump(time: number): string;
-    function $hyoo_crus_time_now(): number;
-    function $hyoo_crus_time_freeze(task: () => void): void;
+    type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
 }
 
 declare namespace $ {
-    type $hyoo_crus_face_data = Iterable<readonly [peer: string, time: number]>;
-    class $hyoo_crus_face_map extends Map<string, number> {
-        last_time: number;
-        total: number;
-        constructor(entries?: $hyoo_crus_face_data);
-        sync(right: $hyoo_crus_face_data): void;
-        time_max(peer: string, time: number): void;
-        tick(): number;
-        last_moment(): $mol_time_moment;
+    type $mol_data_tagged_type<Value, Tag extends PropertyKey> = Value & {
+        [Key in Tag]: Value;
+    };
+    type $mol_data_tagged_parser<Input, Output> = {
+        Value: Output;
+    } & ((val: $mol_data_tagged_type<Input, never>) => Output);
+    export function $mol_data_tagged<Config extends Record<string, $mol_data_value>>(config: Config): { [Type in keyof Config]: $mol_data_tagged_parser<Parameters<Config[Type]>[0], $mol_data_tagged_type<ReturnType<Config[Type]>, Type>>; };
+    export {};
+}
+
+declare namespace $ {
+    type $mol_type_unary_func = ((param: any) => any);
+    type $mol_type_unary_class = new (param: any) => any;
+    type $mol_type_unary = $mol_type_unary_func | $mol_type_unary_class;
+}
+
+declare namespace $ {
+    type $mol_type_param<Func, Index extends number> = Func extends (...params: infer Params) => any ? Params[Index] : Func extends new (...params: infer Params2) => any ? Params2[Index] : never;
+}
+
+declare namespace $ {
+    function $mol_data_setup<Value extends $mol_data_value, Config = never>(value: Value, config: Config): Value & {
+        config: Config;
+        Value: ReturnType<Value>;
+    };
+}
+
+declare namespace $ {
+    function $mol_func_is_class<Func extends Function>(func: Func): func is Func & (new (...args: any[]) => any);
+}
+
+declare namespace $ {
+    type $mol_type_result<Func> = Func extends (...params: any) => infer Result ? Result : Func extends new (...params: any) => infer Result ? Result : never;
+}
+
+declare namespace $ {
+    type Guard_value<Funcs extends $mol_type_unary[], Index extends keyof Funcs> = $mol_type_param<Index extends keyof $mol_type_tail<Funcs> ? $mol_type_tail<Funcs>[Index] : any, 0>;
+    type Guard<Funcs extends $mol_type_unary[]> = {
+        [Index in keyof Funcs]: (Funcs[Index] extends $mol_type_unary_func ? (input: $mol_type_param<Funcs[Index], 0>) => Guard_value<Funcs, Index> : new (input: $mol_type_param<Funcs[Index], 0>) => Guard_value<Funcs, Index>);
+    };
+    export function $mol_data_pipe<Funcs extends $mol_type_unary[]>(...funcs: Funcs & Guard<Funcs>): ((this: any, input: $mol_type_param<Funcs[0], 0>) => $mol_type_result<$mol_type_foot<Funcs>>) & {
+        config: {
+            funcs: Funcs & Guard<Funcs>;
+        };
+        Value: $mol_type_result<$mol_type_foot<Funcs>>;
+    };
+    export {};
+}
+
+declare namespace $ {
+    class $mol_data_error extends $mol_error_mix {
+    }
+}
+
+declare namespace $ {
+    let $mol_data_number: (val: number) => number;
+}
+
+declare namespace $ {
+    function $mol_data_integer(val: number): number;
+}
+
+declare namespace $ {
+    const $giper_baza_rank: {
+        Value: number & {
+            $giper_baza_rank: number;
+        };
+    } & ((val: number & {}) => number & {
+        $giper_baza_rank: number;
+    });
+    function $giper_baza_rank_make(tier: keyof typeof $giper_baza_rank_tier, fame: keyof typeof $giper_baza_rank_rate): typeof $giper_baza_rank.Value;
+    enum $giper_baza_rank_tier {
+        deny = 0,
+        read = 16,
+        post = 48,
+        pull = 112,
+        rule = 240
+    }
+    function $giper_baza_rank_tier_of(rank: typeof $giper_baza_rank.Value): $giper_baza_rank_tier;
+    enum $giper_baza_rank_rate {
+        late = 0,
+        long = 3,
+        slow = 7,
+        fast = 11,
+        just = 15
+    }
+    function $giper_baza_rank_rate_of(rank: typeof $giper_baza_rank.Value): $giper_baza_rank_rate;
+    const $giper_baza_rank_deny: number & {
+        $giper_baza_rank: number;
+    };
+    const $giper_baza_rank_read: number & {
+        $giper_baza_rank: number;
+    };
+    const $giper_baza_rank_rule: number & {
+        $giper_baza_rank: number;
+    };
+    function $giper_baza_rank_pull(rate: keyof typeof $giper_baza_rank_rate): number & {
+        $giper_baza_rank: number;
+    };
+    function $giper_baza_rank_post(rate: keyof typeof $giper_baza_rank_rate): number & {
+        $giper_baza_rank: number;
+    };
+    type $giper_baza_rank_preset = [$giper_baza_auth_pass | null, typeof $giper_baza_rank.Value][];
+}
+
+declare namespace $ {
+    function $giper_baza_time_moment(time: number): $mol_time_moment;
+    function $giper_baza_time_dump(time: number): string;
+    function $giper_baza_time_now(): number;
+    function $giper_baza_time_freeze(task: () => void): void;
+}
+
+declare namespace $ {
+    type $giper_baza_face_data = Iterable<readonly [peer: string, face: $giper_baza_face]>;
+    class $giper_baza_face extends Object {
+        time: number;
+        tick: number;
+        summ: number;
+        static length(): 16;
+        constructor(time?: number, tick?: number, summ?: number);
+        clone(): $giper_baza_face;
+        get moment(): $mol_time_moment;
+        get time_tick(): number;
+        sync_time(time: number, tick: number): void;
+        sync_summ(summ: number): void;
+        [$mol_dev_format_head](): any[];
+    }
+    class $giper_baza_face_map extends Map<string, $giper_baza_face> {
+        stat: $giper_baza_face;
+        constructor(entries?: $giper_baza_face_data);
+        clone(): $giper_baza_face_map;
+        sync(right: $giper_baza_face_data): void;
+        peer_time(peer: string, time: number, tick: number): void;
+        peer_summ(peer: string, summ: number): void;
+        peer_summ_shift(peer: string, diff: number): void;
+        tick(): $giper_baza_face;
         [$mol_dev_format_head](): any[];
     }
 }
@@ -1297,57 +1322,68 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $hyoo_crus_fund<Key, Node> extends $mol_object {
-        readonly item_make: (head: Key) => Node;
-        constructor(item_make: (head: Key) => Node);
-        Item(head: Key): Node;
+    function $mol_hash_numbers(buff: ArrayLike<number>, seed?: number): number;
+}
+
+declare namespace $ {
+    class $giper_baza_fund<Node> extends $mol_object {
+        readonly item_make: (head: $giper_baza_link) => Node;
+        constructor(item_make: (head: $giper_baza_link) => Node);
+        Item(head: $giper_baza_link): Node;
+        Data(): Node;
+        Tine(): Node;
     }
 }
 
 declare namespace $ {
-    class $mol_graph<Node, Edge> {
-        nodes: Set<Node>;
-        edges_out: Map<Node, Map<Node, Edge>>;
-        edges_in: Map<Node, Map<Node, Edge>>;
-        link(from: Node, to: Node, edge: Edge): void;
-        unlink(from: Node, to: Node): void;
-        link_out(from: Node, to: Node, edge: Edge): void;
-        link_in(to: Node, from: Node, edge: Edge): void;
-        edge(from: Node, to: Node): NonNullable<Edge> | null;
-        edge_out(from: Node, to: Node): NonNullable<Edge> | null;
-        edge_in(to: Node, from: Node): NonNullable<Edge> | null;
-        acyclic(get_weight: (edge: Edge) => number): void;
-        get sorted(): Set<Node>;
-        get roots(): Node[];
-        nodes_depth(select: (left: number, right: number) => number): Map<Node, number>;
-        depth_nodes(select: (left: number, right: number) => number): Node[][];
-    }
-}
-
-declare namespace $ {
-    function $mol_crypto_hash(input: ArrayBufferView): Uint8Array<ArrayBuffer>;
-}
-
-declare namespace $ {
-    type $hyoo_crus_pack_parts = {
-        lands: Record<$hyoo_crus_ref, {
-            faces: $hyoo_crus_face_map;
-            units: $hyoo_crus_unit[];
+    class $mol_state_arg extends $mol_object {
+        prefix: string;
+        static prolog: string;
+        static separator: string;
+        static href(next?: string): string;
+        static href_normal(): string;
+        static dict(next?: {
+            [key: string]: string | null;
+        }): Readonly<{
+            [key: string]: string;
         }>;
-        rocks: [Uint8Array<ArrayBuffer>, null | Uint8Array<ArrayBuffer>][];
-    };
-    class $hyoo_crus_pack extends $mol_buffer {
+        static value(key: string, next?: string | null): string | null;
+        static link(next: Record<string, string | null>): string;
+        static make_link(next: Record<string, string | null>): string;
+        static go(next: {
+            [key: string]: string | null;
+        }): void;
+        static commit(): void;
+        constructor(prefix?: string);
+        value(key: string, next?: string): string | null;
+        sub(postfix: string): $mol_state_arg;
+        link(next: Record<string, string | null>): string;
+    }
+}
+
+declare namespace $ {
+    function $giper_baza_log(this: $): boolean;
+}
+
+declare namespace $ {
+    const $giper_baza_pack_four_code: Uint8Array<ArrayBuffer>;
+    const $giper_baza_pack_head_size: number;
+    type $giper_baza_pack_parts = [string, $giper_baza_pack_part][];
+    class $giper_baza_pack_part extends Object {
+        units: $giper_baza_unit[];
+        faces: $giper_baza_face_map;
+        constructor(units?: $giper_baza_unit[], faces?: $giper_baza_face_map);
+        static from(units: $giper_baza_unit_base[], faces?: $giper_baza_face_map): $giper_baza_pack_part;
+        [Symbol.iterator](): Generator<never, {
+            units: $giper_baza_unit[];
+            faces: $giper_baza_face_map;
+        }, unknown>;
+    }
+    class $giper_baza_pack extends $mol_buffer {
         toBlob(): Blob;
-        parts(land?: $hyoo_crus_ref | null): {
-            lands: Record<symbol & {
-                $hyoo_crus_ref: symbol;
-            }, {
-                faces: $hyoo_crus_face_map;
-                units: $hyoo_crus_unit[];
-            }>;
-            rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer> | null][];
-        };
-        static make({ lands, rocks }: $hyoo_crus_pack_parts): $hyoo_crus_pack;
+        parts(offsets?: WeakMap<$giper_baza_unit, number>): [string, $giper_baza_pack_part][];
+        static length(parts: $giper_baza_pack_parts): number;
+        static make(parts: $giper_baza_pack_parts): $giper_baza_pack;
     }
 }
 
@@ -1372,6 +1408,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_bigint_encode(num: bigint): Uint8Array<ArrayBuffer>;
+}
+
+declare namespace $ {
+    function $mol_bigint_decode(buf: Uint8Array<ArrayBuffer>): bigint;
+}
+
+declare namespace $ {
     function $mol_dom_serialize(node: Node): string;
 }
 
@@ -1380,84 +1424,75 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    type json = null | boolean | number | string | {
-        [key in string]: json;
-    } | readonly json[];
-    export type $hyoo_crus_vary_type = Uint8Array<ArrayBuffer> | bigint | $hyoo_crus_ref | BigInt64Array | Float64Array | $mol_time_moment | $mol_time_duration | $mol_time_interval | $mol_tree2 | json | Node;
-    export let $hyoo_crus_vary_mapping: {
-        nil: null;
-        bin: {
-            new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint8Array<ArrayBuffer>;
-            readonly prototype: Uint8Array<ArrayBufferLike>;
-            readonly BYTES_PER_ELEMENT: number;
-            of(...items: number[]): Uint8Array<ArrayBuffer>;
-            from(arrayLike: ArrayLike<number>): Uint8Array<ArrayBuffer>;
-            from<T>(arrayLike: ArrayLike<T>, mapfn: (v: T, k: number) => number, thisArg?: any): Uint8Array<ArrayBuffer>;
-            from(elements: Iterable<number>): Uint8Array<ArrayBuffer>;
-            from<T>(elements: Iterable<T>, mapfn?: (v: T, k: number) => number, thisArg?: any): Uint8Array<ArrayBuffer>;
-        };
-        bool: BooleanConstructor;
-        int: BigIntConstructor;
-        real: NumberConstructor;
-        ints: BigInt64ArrayConstructor;
-        reals: Float64ArrayConstructor;
-        ref: SymbolConstructor;
-        str: StringConstructor;
-        time: typeof $mol_time_moment;
-        dur: typeof $mol_time_duration;
-        range: typeof $mol_time_interval;
-        json: ObjectConstructor;
-        jsan: ArrayConstructor;
-        dom: {
-            new (): Element;
-            prototype: Element;
-        };
-        tree: typeof $mol_tree2;
-    };
-    export type $hyoo_crus_vary_classes = typeof $hyoo_crus_vary_mapping[keyof typeof $hyoo_crus_vary_mapping];
-    export type $hyoo_crus_vary_pack = {
-        tip: keyof typeof $hyoo_crus_vary_tip;
-        bin: Uint8Array<ArrayBuffer>;
-    };
-    export enum $hyoo_crus_vary_tip {
-        nil = 1,
-        bin = 2,
-        bool = 3,
-        int = 4,
-        real = 5,
-        ints = 6,
-        reals = 7,
-        ref = 8,
-        str = 16,
-        time = 17,
-        dur = 18,
-        range = 19,
-        json = 20,
-        jsan = 21,
-        dom = 22,
-        tree = 23
+    enum $mol_vary_tip {
+        uint = 0,
+        link = 32,
+        spec = 64,
+        list = 96,
+        blob = 128,
+        text = 160,
+        tupl = 192,
+        sint = 224
     }
-    export function $hyoo_crus_vary_switch<Ways extends {
-        nil: (vary: null) => any;
-        bin: (vary: Uint8Array<ArrayBuffer>) => any;
+    enum $mol_vary_len {
+        L1 = 28,
+        L2 = 29,
+        L4 = 30,
+        L8 = 31,
+        LA = 32
+    }
+    enum $mol_vary_spec {
+        none,
+        true,
+        fake,
+        both,
+        fp16,
+        fp32,
+        fp64,
+        f128,
+        f256
+    }
+    class $mol_vary_class extends Object {
+        lean_symbol: symbol;
+        array: Uint8Array<ArrayBuffer>;
+        buffer: DataView<ArrayBuffer>;
+        pack(data: readonly unknown[]): Uint8Array<ArrayBuffer>;
+        take(array: Uint8Array<ArrayBuffer>): unknown;
+        rich_index: Map<string | null, any>;
+        zone(): $mol_vary_class;
+        rich_node(keys: readonly string[]): Map<string | null, any>;
+        lean_find(val: any): any;
+        type<const Instance extends object, const Keys extends readonly any[], const Vals extends readonly any[]>({ type, keys, rich, lean }: {
+            type: new (...vals: any[]) => Instance;
+            keys: Keys;
+            lean: (obj: Instance) => Vals;
+            rich: (vals: Vals) => Instance;
+        }): void;
+    }
+    let $mol_vary: $mol_vary_class;
+}
+
+declare namespace $ {
+    type $giper_baza_vary_type = null | boolean | number | bigint | string | Uint8Array<ArrayBuffer> | Uint16Array<ArrayBuffer> | Uint32Array<ArrayBuffer> | BigUint64Array<ArrayBuffer> | Int8Array<ArrayBuffer> | Int16Array<ArrayBuffer> | Int32Array<ArrayBuffer> | BigInt64Array<ArrayBuffer> | Float64Array<ArrayBuffer> | Float32Array<ArrayBuffer> | Float64Array<ArrayBuffer> | $mol_time_moment | $mol_time_duration | $mol_time_interval | $mol_tree2 | $giper_baza_link | Element | readonly $giper_baza_vary_type[] | {
+        [key in string]: $giper_baza_vary_type;
+    };
+    let $giper_baza_vary: $mol_vary_class;
+    function $giper_baza_vary_switch<Ways extends {
+        none: (vary: null) => any;
+        blob: (vary: ArrayBufferView<ArrayBuffer>) => any;
         bool: (vary: boolean) => any;
-        int: (vary: bigint) => any;
-        ints: (vary: BigInt64Array<ArrayBuffer>) => any;
+        bint: (vary: bigint) => any;
         real: (vary: number) => any;
-        reals: (vary: Float64Array<ArrayBuffer>) => any;
-        ref: (vary: $hyoo_crus_ref) => any;
-        str: (vary: string) => any;
+        link: (vary: $giper_baza_link) => any;
+        text: (vary: string) => any;
         time: (vary: $mol_time_moment) => any;
-        dur: (vary: $mol_time_duration) => any;
-        range: (vary: $mol_time_interval) => any;
-        json: (vary: {}) => any;
-        jsan: (vary: any[]) => any;
-        dom: (vary: Element) => any;
+        dura: (vary: $mol_time_duration) => any;
+        span: (vary: $mol_time_interval) => any;
+        dict: (vary: {}) => any;
+        list: (vary: any[]) => any;
+        elem: (vary: Element) => any;
         tree: (vary: $mol_tree2) => any;
-    }>(vary: $hyoo_crus_vary_type, ways: Ways): $mol_type_result<Ways[keyof Ways]>;
-    export function $hyoo_crus_vary_encode(vary: $hyoo_crus_vary_type): $hyoo_crus_vary_pack;
-    export function $hyoo_crus_vary_decode({ tip, bin }: $hyoo_crus_vary_pack): $hyoo_crus_vary_type;
-    export {};
+    }>(vary: $giper_baza_vary_type, ways: Ways): $mol_type_result<Ways[keyof Ways]>;
 }
 
 declare namespace $ {
@@ -1516,40 +1551,35 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $hyoo_crus_vary_cast_bin(vary: $hyoo_crus_vary_type): Uint8Array<ArrayBuffer> | null;
-    function $hyoo_crus_vary_cast_bool(vary: $hyoo_crus_vary_type): boolean | null;
-    function $hyoo_crus_vary_cast_int(vary: $hyoo_crus_vary_type): bigint | null;
-    function $hyoo_crus_vary_cast_real(vary: $hyoo_crus_vary_type): number | null;
-    function $hyoo_crus_vary_cast_ints(vary: $hyoo_crus_vary_type): BigInt64Array | null;
-    function $hyoo_crus_vary_cast_reals(vary: $hyoo_crus_vary_type): Float64Array | null;
-    function $hyoo_crus_vary_cast_ref(vary: $hyoo_crus_vary_type): $hyoo_crus_ref | null;
-    function $hyoo_crus_vary_cast_str(vary: $hyoo_crus_vary_type): string | null;
-    function $hyoo_crus_vary_cast_time(vary: $hyoo_crus_vary_type): $mol_time_moment | null;
-    function $hyoo_crus_vary_cast_dur(vary: $hyoo_crus_vary_type): $mol_time_duration | null;
-    function $hyoo_crus_vary_cast_range(vary: $hyoo_crus_vary_type): $mol_time_interval | null;
-    function $hyoo_crus_vary_cast_json(vary: $hyoo_crus_vary_type): {} | null;
-    function $hyoo_crus_vary_cast_jsan(vary: $hyoo_crus_vary_type): any[] | null;
-    function $hyoo_crus_vary_cast_dom(vary: $hyoo_crus_vary_type): Element | null;
-    function $hyoo_crus_vary_cast_tree(vary: $hyoo_crus_vary_type): $mol_tree2 | null;
-    const $hyoo_crus_vary_cast_funcs: {
-        readonly nil: () => null;
-        readonly bin: typeof $hyoo_crus_vary_cast_bin;
-        readonly bool: typeof $hyoo_crus_vary_cast_bool;
-        readonly int: typeof $hyoo_crus_vary_cast_int;
-        readonly real: typeof $hyoo_crus_vary_cast_real;
-        readonly ints: typeof $hyoo_crus_vary_cast_ints;
-        readonly reals: typeof $hyoo_crus_vary_cast_reals;
-        readonly ref: typeof $hyoo_crus_vary_cast_ref;
-        readonly str: typeof $hyoo_crus_vary_cast_str;
-        readonly time: typeof $hyoo_crus_vary_cast_time;
-        readonly dur: typeof $hyoo_crus_vary_cast_dur;
-        readonly range: typeof $hyoo_crus_vary_cast_range;
-        readonly json: typeof $hyoo_crus_vary_cast_json;
-        readonly jsan: typeof $hyoo_crus_vary_cast_jsan;
-        readonly dom: typeof $hyoo_crus_vary_cast_dom;
-        readonly tree: typeof $hyoo_crus_vary_cast_tree;
+    function $giper_baza_vary_cast_blob(vary: $giper_baza_vary_type): ArrayLike<number | bigint> | null;
+    function $giper_baza_vary_cast_bool(vary: $giper_baza_vary_type): boolean | null;
+    function $giper_baza_vary_cast_bint(vary: $giper_baza_vary_type): bigint | null;
+    function $giper_baza_vary_cast_real(vary: $giper_baza_vary_type): number | null;
+    function $giper_baza_vary_cast_link(vary: $giper_baza_vary_type): $giper_baza_link | null;
+    function $giper_baza_vary_cast_text(vary: $giper_baza_vary_type): string | null;
+    function $giper_baza_vary_cast_time(vary: $giper_baza_vary_type): $mol_time_moment | null;
+    function $giper_baza_vary_cast_dura(vary: $giper_baza_vary_type): $mol_time_duration | null;
+    function $giper_baza_vary_cast_span(vary: $giper_baza_vary_type): $mol_time_interval | null;
+    function $giper_baza_vary_cast_dict(vary: $giper_baza_vary_type): {} | null;
+    function $giper_baza_vary_cast_list(vary: $giper_baza_vary_type): any[] | null;
+    function $giper_baza_vary_cast_elem(vary: $giper_baza_vary_type): Element | null;
+    function $giper_baza_vary_cast_tree(vary: $giper_baza_vary_type): $mol_tree2 | null;
+    const $giper_baza_vary_cast_funcs: {
+        readonly none: () => null;
+        readonly blob: typeof $giper_baza_vary_cast_blob;
+        readonly bool: typeof $giper_baza_vary_cast_bool;
+        readonly bint: typeof $giper_baza_vary_cast_bint;
+        readonly real: typeof $giper_baza_vary_cast_real;
+        readonly link: typeof $giper_baza_vary_cast_link;
+        readonly text: typeof $giper_baza_vary_cast_text;
+        readonly time: typeof $giper_baza_vary_cast_time;
+        readonly dura: typeof $giper_baza_vary_cast_dura;
+        readonly span: typeof $giper_baza_vary_cast_span;
+        readonly dict: typeof $giper_baza_vary_cast_dict;
+        readonly list: typeof $giper_baza_vary_cast_list;
+        readonly elem: typeof $giper_baza_vary_cast_elem;
+        readonly tree: typeof $giper_baza_vary_cast_tree;
     };
-    function $hyoo_crus_vary_cast<Tip extends keyof typeof $hyoo_crus_vary_tip>(tip: Tip, vary: $hyoo_crus_vary_type): {} | null;
 }
 
 declare namespace $ {
@@ -1568,124 +1598,87 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_state_arg extends $mol_object {
-        prefix: string;
-        static prolog: string;
-        static separator: string;
-        static href(next?: string): string;
-        static href_normal(): string;
-        static dict(next?: {
-            [key: string]: string | null;
-        }): Readonly<{
-            [key: string]: string;
-        }>;
-        static value(key: string, next?: string | null): string | null;
-        static link(next: Record<string, string | null>): string;
-        static make_link(next: Record<string, string | null>): string;
-        static go(next: {
-            [key: string]: string | null;
-        }): void;
-        static commit(): void;
-        constructor(prefix?: string);
-        value(key: string, next?: string): string | null;
-        sub(postfix: string): $mol_state_arg;
-        link(next: Record<string, string | null>): string;
-    }
+    function $mol_array_chunks<Item>(array: readonly Item[], rule: number | ((item: Item, index: number) => boolean)): Item[][];
 }
 
 declare namespace $ {
-    function $hyoo_crus_log(this: $): boolean;
-}
-
-declare namespace $ {
-    function $mol_wire_race<Tasks extends ((...args: any) => any)[]>(...tasks: Tasks): {
-        [index in keyof Tasks]: ReturnType<Tasks[index]>;
+    const $giper_baza_land_root: {
+        data: $giper_baza_link;
+        tine: $giper_baza_link;
     };
-}
-
-declare namespace $ {
-    enum $hyoo_crus_land_root {
-        data = "",
-        tine = "AQAAAAAA"
-    }
-    class $hyoo_crus_land extends $mol_object {
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        auth(): $hyoo_crus_auth;
-        faces: $hyoo_crus_face_map;
-        pass: $mol_wire_dict<string, $hyoo_crus_pass>;
-        gift: $mol_wire_dict<symbol & {
-            $hyoo_crus_ref: symbol;
-        }, $hyoo_crus_gift>;
-        sand: $mol_wire_dict<string, $mol_wire_dict<string, $mol_wire_dict<string, $hyoo_crus_sand>>>;
-        self_all: $mol_wire_dict<string, $hyoo_crus_sand | null>;
-        self_make(idea?: number): string;
-        home(): $hyoo_crus_home;
-        area_make(idea?: number): $hyoo_crus_land;
-        Data<Node extends typeof $hyoo_crus_node>(Node: Node): InstanceType<Node>;
-        Tine(): $hyoo_crus_list_ref;
-        Node<Node extends typeof $hyoo_crus_node>(Node: Node): $hyoo_crus_fund<string, InstanceType<Node>>;
+    class $giper_baza_land extends $mol_object {
+        link(): $giper_baza_link;
+        auth(): $giper_baza_auth;
+        faces: $giper_baza_face_map;
+        _pass: $mol_wire_dict<string, $giper_baza_auth_pass>;
+        _seal_item: $mol_wire_dict<string, $giper_baza_unit_seal>;
+        _seal_shot: $mol_wire_dict<string, $giper_baza_unit_seal>;
+        _seal_partial: Set<$giper_baza_unit_seal>;
+        _gift: $mol_wire_dict<string, $giper_baza_unit_gift>;
+        _sand: $mol_wire_dict<string, $mol_wire_dict<string, $mol_wire_dict<string, $giper_baza_unit_sand>>>;
+        pass_add(pass: $giper_baza_auth_pass): void;
+        seal_add(seal: $giper_baza_unit_seal): void;
+        gift_add(gift: $giper_baza_unit_gift): void;
+        sand_add(sand: $giper_baza_unit_sand): void;
+        units_reaping: Set<$giper_baza_unit_base>;
+        unit_seal_inc(unit: $giper_baza_unit): void;
+        unit_seal_dec(unit: $giper_baza_unit): void;
+        seal_del(seal: $giper_baza_unit_seal): void;
+        gift_del(gift: $giper_baza_unit_gift): void;
+        sand_del(sand: $giper_baza_unit_sand): void;
+        lord_pass(lord: $giper_baza_link): $giper_baza_auth_pass | null;
+        unit_seal(unit: $giper_baza_unit): $giper_baza_unit_seal | null;
+        sand_get(head: $giper_baza_link, lord: $giper_baza_link, self: $giper_baza_link): $giper_baza_unit_sand | null;
+        _self_all: $mol_wire_dict<string, $giper_baza_unit_sand | null>;
+        self_make(idea?: number): $giper_baza_link;
+        home(): $giper_baza_home;
+        area_make(idea?: number): $giper_baza_land;
+        inherit(): void;
+        Data<Node extends typeof $giper_baza_node>(Node: Node): InstanceType<Node>;
+        Tine(): $giper_baza_list_link;
+        Node<Node extends typeof $giper_baza_node>(Node: Node): $giper_baza_fund<InstanceType<Node>>;
         total(): number;
-        joined_list(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        key(): $hyoo_crus_auth | null;
-        lord_rank(lord: $hyoo_crus_ref, next?: typeof $hyoo_crus_rank.Value): typeof $hyoo_crus_rank.Value;
-        peer_rank(peer: string): number & {
-            $hyoo_crus_rank: number;
+        king_pass(): $giper_baza_auth_pass;
+        pass_rank(pass: $giper_baza_auth_pass, next?: typeof $giper_baza_rank.Value): typeof $giper_baza_rank.Value;
+        lord_tier(lord: $giper_baza_link): $giper_baza_rank_tier;
+        lord_rate(lord: $giper_baza_link): $giper_baza_rank_rate;
+        lord_rank(lord: $giper_baza_link, next?: typeof $giper_baza_rank.Value): number & {
+            $giper_baza_rank: number;
         };
-        unit_sort(units: readonly $hyoo_crus_unit[]): $hyoo_crus_unit[];
-        delta_unit(face?: $hyoo_crus_face_map): $hyoo_crus_unit[];
-        delta_pack(face?: $hyoo_crus_face_map): $hyoo_crus_pack | null;
-        delta_parts(face?: $hyoo_crus_face_map): {
-            lands: {
-                [x: symbol]: {
-                    faces: $hyoo_crus_face_map;
-                    units: $hyoo_crus_unit[];
-                };
-            };
-            rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer> | null][];
-        } | null;
-        faces_pack(): $hyoo_crus_pack;
-        apply_unit(delta: readonly $hyoo_crus_unit[], skip_check?: 'skip_check'): string[];
-        units_verify(units: readonly $hyoo_crus_unit[]): Promise<string[]>;
-        apply_unit_trust(delta: readonly $hyoo_crus_unit[], skip_check?: 'skip_check'): ("" | "Need reg rank to join" | "Need law rank to change rank" | "Need mod rank to post data")[];
-        apply_land(land: $hyoo_crus_land): string[];
-        recheck(): void;
-        fork(preset?: $hyoo_crus_rank_preset): $hyoo_crus_land;
+        diff_units(skip_faces?: $giper_baza_face_map): $giper_baza_unit[];
+        face_pack(): $giper_baza_pack;
+        diff_apply(units: readonly $giper_baza_unit[], skip_load?: 'skip_load'): readonly $giper_baza_unit[] | undefined;
+        rank_audit(): void;
+        fork(preset?: $giper_baza_rank_preset): $giper_baza_land;
         sand_ordered({ head, peer }: {
-            head: string;
-            peer: string | null;
-        }): $hyoo_crus_sand[];
-        join(): $hyoo_crus_pass;
-        give(dest: $hyoo_crus_auth | $hyoo_crus_ref | null, rank: typeof $hyoo_crus_rank.Value): $hyoo_crus_gift;
-        post(lead: string, head: string, self: string, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): $hyoo_crus_sand;
-        sand_move(sand: $hyoo_crus_sand, head: string, seat: number, peer?: string | null): $hyoo_crus_sand | undefined;
-        sand_wipe(sand: $hyoo_crus_sand, peer?: string | null): $hyoo_crus_sand;
+            head: $giper_baza_link;
+            peer: $giper_baza_link | null;
+        }): $giper_baza_unit_sand[];
+        join(): void;
+        give(mate_pass: $giper_baza_auth_pass | null, rank: typeof $giper_baza_rank.Value): $giper_baza_unit_gift;
+        post(lead: $giper_baza_link, head: $giper_baza_link, self: $giper_baza_link, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): $giper_baza_unit_sand;
+        sand_move(sand: $giper_baza_unit_sand, head: $giper_baza_link, seat: number, peer?: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        sand_wipe(sand: $giper_baza_unit_sand, peer?: $giper_baza_link | null): $giper_baza_unit_sand;
         broadcast(): void;
         sync(): this;
         destructor(): void;
-        sync_mine(): $mol_wire_atom<unknown, [], void> | undefined;
+        mine(): $giper_baza_mine;
+        sync_mine(): $mol_wire_atom<unknown, [], Promise<this> | undefined> | undefined;
         sync_yard(): $mol_wire_atom<unknown, [], void> | undefined;
-        bus(): $mol_bus<ArrayBuffer[]>;
+        bus(): $mol_bus<ArrayBuffer>;
         loading(): void;
-        saving(): void;
-        unit_sign(unit: $hyoo_crus_unit): void;
-        sand_encode(sand: $hyoo_crus_sand): $hyoo_crus_sand;
-        sand_decode(sand: $hyoo_crus_sand): $hyoo_crus_vary_type;
-        sand_decode_raw(sand: $hyoo_crus_sand): $hyoo_crus_vary_type;
-        key_public(peer: string): $mol_crypto_key_public | null;
-        secret_mutual(key_public: string): $mol_crypto_secret;
+        saving(): Promise<this> | undefined;
+        save(encoding: $giper_baza_unit_sand[], signing: $giper_baza_unit_base[], persisting: $giper_baza_unit[]): Promise<this>;
+        units_sign(units: readonly $giper_baza_unit_base[]): Promise<$giper_baza_unit_seal[]>;
+        sand_encode(sand: $giper_baza_unit_sand): Promise<$giper_baza_unit_sand>;
+        sand_decode(sand: $giper_baza_unit_sand): $giper_baza_vary_type;
+        sand_decode_raw(sand: $giper_baza_unit_sand): $giper_baza_vary_type;
         encryptable(): boolean;
         encrypted(next?: boolean): boolean;
-        secret(): $mol_crypto_secret | null;
+        secret(): $mol_crypto_sacred | null;
         dump(): {
-            land: symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            units: $hyoo_crus_unit[];
-            rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer>][];
+            land: $giper_baza_link;
+            units: $giper_baza_unit_base[];
         };
         [$mol_dev_format_head](): any[];
     }
@@ -1810,7 +1803,7 @@ declare namespace $ {
             op: keyof typeof $mol_websocket_frame_op;
             fin: boolean;
         } | {
-            op: "stop" | "bin" | "con" | "txt" | "ping" | "pong";
+            op: "stop" | "con" | "txt" | "bin" | "ping" | "pong";
             fin: number;
         };
         data(next?: {
@@ -1849,11 +1842,9 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $hyoo_crus_yard extends $mol_object {
-        glob(): $hyoo_crus_glob;
-        lands_news: $mol_wire_set<symbol & {
-            $hyoo_crus_ref: symbol;
-        }>;
+    class $giper_baza_yard extends $mol_object {
+        glob(): $giper_baza_glob;
+        lands_news: $mol_wire_set<string>;
         static masters: string[];
         master_cursor(next?: number): number;
         master_current(): string;
@@ -1867,151 +1858,130 @@ declare namespace $ {
         sync_port_lands(port: $mol_rest_port): void;
         ports(): $mol_rest_port[];
         masters(): $mol_rest_port[];
-        port_lands_active(port: $mol_rest_port): $mol_wire_set<symbol & {
-            $hyoo_crus_ref: symbol;
-        }>;
-        port_lands_passive(port: $mol_rest_port): Set<symbol & {
-            $hyoo_crus_ref: symbol;
-        }>;
+        port_lands_active(port: $mol_rest_port): $mol_wire_set<string>;
+        port_lands_passive(port: $mol_rest_port): Set<string>;
         port_income(port: $mol_rest_port, msg: Uint8Array<ArrayBuffer>): void;
-        face_port_sync(port: $mol_rest_port, income: Record<$hyoo_crus_ref, {
-            faces: $hyoo_crus_face_map;
-            units: $hyoo_crus_unit[];
-        }>): void;
-        sync_land(land: $hyoo_crus_ref): void;
-        forget_land(land: $hyoo_crus_land): void;
-        sync_port_land([port, land]: [$mol_rest_port, $hyoo_crus_ref]): void;
-        init_port_land([port, land]: [$mol_rest_port, $hyoo_crus_ref]): void;
-        face_port_land([port, land]: [$mol_rest_port, $hyoo_crus_ref], next?: null | $hyoo_crus_face_map): $hyoo_crus_face_map | null;
+        face_port_sync(port: $mol_rest_port, income: $giper_baza_pack_parts): void;
+        sync_land(land: $giper_baza_link): void;
+        forget_land(land: $giper_baza_land): void;
+        sync_port_land([port, land]: [$mol_rest_port, $giper_baza_link]): void;
+        init_port_land([port, land]: [$mol_rest_port, $giper_baza_link]): void;
+        face_port_land([port, land]: [$mol_rest_port, $giper_baza_link], next?: null | $giper_baza_face_map): $giper_baza_face_map | null;
     }
 }
 
 declare namespace $ {
-    enum $hyoo_crus_unit_kind {
-        pass = 255,
-        gift = 247,
-        sand = 8
+    enum $giper_baza_unit_kind {
+        sand = 252,
+        gift = 253,
+        seal = 254,
+        pass = 255
     }
-    let $hyoo_crus_unit_trusted: WeakSet<$hyoo_crus_unit>;
-    class $hyoo_crus_unit extends $mol_buffer {
-        static size: 128;
-        constructor(buffer?: ArrayBuffer, byteOffset?: number, byteLength?: number);
-        kind(): keyof typeof $hyoo_crus_unit_kind;
+    let $giper_baza_unit_trusted: WeakSet<$giper_baza_unit_base>;
+    function $giper_baza_unit_trusted_grant(unit: $giper_baza_unit): void;
+    function $giper_baza_unit_trusted_check(unit: $giper_baza_unit): boolean;
+    type $giper_baza_unit = $giper_baza_unit_base | $giper_baza_auth_pass;
+    function $giper_baza_unit_sort(units: readonly $giper_baza_unit[]): $giper_baza_unit[];
+    class $giper_baza_unit_base extends $mol_buffer {
+        static compare(left: $giper_baza_unit_base | undefined, right: $giper_baza_unit_base | undefined): number;
+        static narrow(buf: ArrayBuffer): $giper_baza_auth_pass | $giper_baza_unit_sand | $giper_baza_unit_seal | $giper_baza_unit_gift;
+        constructor(buffer: ArrayBuffer, byteOffset?: number, byteLength?: number);
+        kind(next?: keyof typeof $giper_baza_unit_kind): Exclude<keyof typeof $giper_baza_unit_kind, 'pass'>;
         choose<Res>(ways: {
-            pass: (unit: $hyoo_crus_pass) => Res;
-            gift: (unit: $hyoo_crus_gift) => Res;
-            sand: (unit: $hyoo_crus_sand) => Res;
+            gift: (unit: $giper_baza_unit_gift) => Res;
+            sand: (unit: $giper_baza_unit_sand) => Res;
+            seal: (unit: $giper_baza_unit_seal) => Res;
         }): Res;
-        narrow(): $hyoo_crus_sand | $hyoo_crus_pass | $hyoo_crus_gift;
-        key(): string;
-        id6(offset: number, next?: string): string;
-        id12(offset: number, next?: $hyoo_crus_ref): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        _peer: string;
-        peer(next?: string): string;
+        path(): string;
+        id6(offset: number, next?: $giper_baza_link): $giper_baza_link;
+        id12(offset: number, next?: $giper_baza_link): $giper_baza_link;
+        time(next?: number): number;
+        moment(): $mol_time_moment;
+        tick(next?: number): number;
+        time_tick(next?: number): number;
+        _lord: $giper_baza_link | null;
+        lord(next?: $giper_baza_link): $giper_baza_link;
         salt(): Uint8Array<ArrayBuffer>;
-        sens(next?: ArrayLike<number>): Uint8Array<ArrayBuffer>;
-        mix(mixin: Uint8Array<ArrayBuffer>): void;
-        sign(next?: ArrayLike<number>): Uint8Array<ArrayBuffer>;
-        signed(): boolean;
-        work(): number;
-        rank_min(): number & {
-            $hyoo_crus_rank: number;
-        };
-        _land: null | $hyoo_crus_land;
+        hash(): $giper_baza_link;
+        tier_min(): $giper_baza_rank_tier;
+        _land: null | $giper_baza_land;
         dump(): {};
     }
 }
 
 declare namespace $ {
-    class $hyoo_crus_pass extends $hyoo_crus_unit {
-        _lord: $hyoo_crus_ref;
-        lord(next?: $hyoo_crus_ref): symbol & {
-            $hyoo_crus_ref: symbol;
+    function $giper_baza_unit_gift_sort(gifts: $giper_baza_unit_gift[]): $giper_baza_unit_gift[];
+    class $giper_baza_unit_gift extends $giper_baza_unit_base {
+        static length(): number;
+        static make(): $giper_baza_unit_gift;
+        rank(next?: typeof $giper_baza_rank.Value): number & {
+            $giper_baza_rank: number;
         };
-        key(): string;
-        auth(next?: ArrayLike<number>): Uint8Array<ArrayBuffer>;
+        tier(): $giper_baza_rank_tier;
+        rate(): $giper_baza_rank_rate;
+        mate(next?: $giper_baza_link): $giper_baza_link;
+        path(): string;
+        _code: Uint8Array<ArrayBuffer>;
+        code(): Uint8Array<ArrayBuffer>;
+        code_exists(): boolean;
         dump(): {
-            kind: "pass" | "gift" | "sand";
-            lord: string;
-        };
-        rank_min(): number & {
-            $hyoo_crus_rank: number;
-        };
-        [$mol_dev_format_head](): any[];
-    }
-}
-
-declare namespace $ {
-    class $hyoo_crus_gift extends $hyoo_crus_unit {
-        rank(next?: typeof $hyoo_crus_rank.Value): number & {
-            $hyoo_crus_rank: number;
-        };
-        time(next?: number): number;
-        free(): Uint8Array<ArrayBuffer>;
-        _dest: $hyoo_crus_ref;
-        dest(next?: $hyoo_crus_ref): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        key(): string;
-        bill(): Uint8Array<ArrayBuffer>;
-        static compare(left: $hyoo_crus_gift, right: $hyoo_crus_gift): number;
-        dump(): {
-            kind: "pass" | "gift" | "sand";
-            peer: string;
-            dest: string;
+            kind: "sand" | "gift" | "seal";
+            lord: $giper_baza_link;
+            mate: $giper_baza_link;
             tier: string;
-            work: number;
+            rate: $giper_baza_rank_rate;
             time: string;
         };
-        rank_min(): number & {
-            $hyoo_crus_rank: number;
-        };
+        tier_min(): $giper_baza_rank_tier;
         [$mol_dev_format_head](): any[];
     }
 }
 
 declare namespace $ {
-    class $hyoo_crus_mine extends $mol_object {
-        static unit_updates: number;
-        static unit_appends: number;
-        static rock_writes: number;
-        static hash(blob: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer>;
-        static rock(hash: Uint8Array<ArrayBuffer>, next?: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> | null;
-        static rock_save(blob: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer>;
-        static units_persisted: WeakSet<$hyoo_crus_unit>;
-        static units(land: $hyoo_crus_ref, next?: readonly $hyoo_crus_unit[]): readonly $hyoo_crus_unit[];
-        static units_load(land: $hyoo_crus_ref): Promise<readonly $hyoo_crus_unit[]>;
-        static units_save(land: $hyoo_crus_ref, units: readonly $hyoo_crus_unit[]): Promise<void>;
+    let $giper_baza_unit_seal_limit: number;
+    class $giper_baza_unit_seal extends $giper_baza_unit_base {
+        static length(size: number): number;
+        static make(size: number, wide: boolean): $giper_baza_unit_seal;
+        meta(next?: {
+            size: number;
+            wide: boolean;
+        }): number;
+        size(): number;
+        wide(): boolean;
+        alive_items: Set<string>;
+        alive_full(): boolean;
+        alive_list(): $giper_baza_link[];
+        hash_item(index: number, next?: $giper_baza_link): $giper_baza_link;
+        _hash_list: readonly $giper_baza_link[];
+        hash_list(next?: $giper_baza_link[]): $giper_baza_link[];
+        _shot: $giper_baza_link;
+        shot(): $giper_baza_link;
+        sign(next?: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer>;
+        work(): number;
+        rate_min(): number;
+        tier_min(): $giper_baza_rank_tier;
+        rank_min(): number;
+        path(): string;
+        [$mol_dev_format_head](): any[];
     }
 }
 
 declare namespace $ {
-    class $hyoo_crus_mine_pg extends $hyoo_crus_mine {
-        static urn(): string | null;
-        static url(): URL;
-        static rock(hash: Uint8Array<ArrayBuffer>, next?: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> | null;
-        static rock_load(hash: Uint8Array<ArrayBuffer>): Promise<Uint8Array<ArrayBuffer> | null>;
-        static units_save(land: $hyoo_crus_ref, units: readonly $hyoo_crus_unit[]): Promise<void>;
-        static units_load(land: $hyoo_crus_ref): Promise<($hyoo_crus_sand | $hyoo_crus_pass | $hyoo_crus_gift)[]>;
-        static db_sync(): import("pg").Pool | null;
-        static db(): Promise<import("pg").Pool | null>;
-    }
-}
-
-declare namespace $ {
-    class $hyoo_crus_mine_fs extends $hyoo_crus_mine {
-        static root(): $mol_file;
-        static rock_file(hash: Uint8Array<ArrayBuffer>): $mol_file;
-        static rock(hash: Uint8Array<ArrayBuffer>, next?: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> | null;
-        static units_file(land: $hyoo_crus_ref): $mol_file;
-        static units_offsets(land: $hyoo_crus_ref): Map<string, number>;
-        static units_sizes: Map<symbol & {
-            $hyoo_crus_ref: symbol;
-        }, number>;
-        static units_save(land: $hyoo_crus_ref, units: readonly $hyoo_crus_unit[]): any;
-        static units_load(land: $hyoo_crus_ref): Promise<$hyoo_crus_unit[]>;
+    type $giper_baza_mine_diff = {
+        ins: $giper_baza_unit[];
+        del: $giper_baza_unit[];
+    };
+    class $giper_baza_mine extends $mol_object {
+        static land(land: $giper_baza_link): $giper_baza_mine;
+        land(): $giper_baza_link;
+        unit_deletes: number;
+        unit_inserts: number;
+        ball_inserts: number;
+        ball_deletes: number;
+        units_persisted: WeakSet<$giper_baza_unit>;
+        units_save(diff: $giper_baza_mine_diff): void;
+        units_load(): readonly $giper_baza_unit[];
+        ball_load(path: string): Uint8Array<ArrayBuffer>;
     }
 }
 
@@ -2019,74 +1989,69 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    enum $hyoo_crus_sand_tag {
+    enum $giper_baza_unit_sand_tag {
         term = 0,
-        solo = 1,
-        vals = 2,
-        keys = 3
+        solo = 64,
+        vals = 128,
+        keys = 192
     }
-    class $hyoo_crus_sand extends $hyoo_crus_unit {
-        _vary: undefined | $hyoo_crus_vary_type;
-        _open: null | Uint8Array<ArrayBuffer>;
-        hint(tip?: keyof typeof $hyoo_crus_vary_tip, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        tag(): keyof typeof $hyoo_crus_sand_tag;
-        tip(): keyof typeof $hyoo_crus_vary_tip;
-        utf(): boolean;
+    class $giper_baza_unit_sand extends $giper_baza_unit_base {
+        static size_equator: number;
+        static size_max: number;
+        _vary: undefined | $giper_baza_vary_type;
+        _open: Uint8Array<ArrayBuffer> | null;
+        static length(size: number): number;
+        static length_ball(size: number): number;
+        static make(size: number): $giper_baza_unit_sand;
+        hint(tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        tag(): keyof typeof $giper_baza_unit_sand_tag;
+        big(): boolean;
         size(next?: number): number;
-        time(next?: number): number;
-        _head: string;
-        head(next?: string): string;
-        _self: string;
-        self(next?: string): string;
-        key(): string;
-        _lead: string;
-        lead(next?: string): string;
-        hash(next?: Uint8Array<ArrayBuffer>, tip?: keyof typeof $hyoo_crus_vary_tip, tag?: keyof typeof $hyoo_crus_sand_tag): Uint8Array<ArrayBuffer>;
-        meta(): Uint8Array<ArrayBuffer>;
-        data(next?: Uint8Array<ArrayBuffer>, tip?: keyof typeof $hyoo_crus_vary_tip, tag?: keyof typeof $hyoo_crus_sand_tag): Uint8Array<ArrayBuffer>;
+        _head: $giper_baza_link;
+        head(next?: $giper_baza_link): $giper_baza_link;
+        _self: $giper_baza_link;
+        self(next?: $giper_baza_link): $giper_baza_link;
+        _lead: $giper_baza_link;
+        lead(next?: $giper_baza_link): $giper_baza_link;
+        path(): string;
+        _shot: $giper_baza_link;
+        shot(next?: $giper_baza_link): $giper_baza_link;
+        _data: Uint8Array<ArrayBuffer>;
+        data(next?: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer>;
+        _ball: Uint8Array<ArrayBuffer>;
+        ball(next?: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer>;
         idea(): number;
-        static compare(left: $hyoo_crus_sand, right: $hyoo_crus_sand): number;
         dump(): {
-            kind: "pass" | "gift" | "sand";
-            peer: string;
-            lead: string;
-            head: string;
-            self: string;
-            tip: "ref" | "nil" | "bin" | "bool" | "int" | "real" | "ints" | "reals" | "str" | "time" | "dur" | "range" | "json" | "jsan" | "dom" | "tree";
+            kind: "sand" | "gift" | "seal";
+            lord: $giper_baza_link;
+            lead: $giper_baza_link;
+            head: $giper_baza_link;
+            self: $giper_baza_link;
             tag: "keys" | "term" | "solo" | "vals";
             size: number;
             time: string;
         };
-        rank_min(): number & {
-            $hyoo_crus_rank: number;
-        };
+        tier_min(): $giper_baza_rank_tier.post | $giper_baza_rank_tier.pull;
         [$mol_dev_format_head](): any[];
     }
 }
 
 declare namespace $ {
-    class $hyoo_crus_node extends $mol_object {
-        static tag: keyof typeof $hyoo_crus_sand_tag;
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node extends typeof $hyoo_crus_node>(Node: Node): InstanceType<Node>;
-        nodes<Node extends typeof $hyoo_crus_node>(Node: Node | null): readonly InstanceType<Node>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+    class $giper_baza_node extends $mol_object {
+        static tag: keyof typeof $giper_baza_unit_sand_tag;
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node extends typeof $giper_baza_node>(Node: Node): InstanceType<Node>;
+        nodes<Node extends typeof $giper_baza_node>(Node: Node | null): readonly InstanceType<Node>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         [$mol_dev_format_head](): any[];
     }
 }
@@ -2106,51 +2071,44 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    export class $hyoo_crus_list_vary extends $hyoo_crus_node {
-        static tag: keyof typeof $hyoo_crus_sand_tag;
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+    export class $giper_baza_list_vary extends $giper_baza_node {
+        static tag: keyof typeof $giper_baza_unit_sand_tag;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node extends typeof $hyoo_crus_node>(Node: Node, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node>;
+        node_make<Node extends typeof $giper_baza_node>(Node: Node, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node>;
         [$mol_dev_format_head](): any[];
     }
-    export function $hyoo_crus_list<Parse extends $mol_data_value>(parse: Parse): (abstract new () => {
+    export function $giper_baza_list<Parse extends $mol_data_value>(parse: Parse): (abstract new () => {
         items(next?: readonly ReturnType<Parse>[]): readonly ReturnType<Parse>[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2161,7 +2119,7 @@ declare namespace $ {
     }) & {
         parse: Parse;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2169,38 +2127,31 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    const $hyoo_crus_list_bin_base: (abstract new () => {
-        items(next?: readonly (Uint8Array<ArrayBuffer> | null)[] | undefined): readonly (Uint8Array<ArrayBuffer> | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+    const $giper_baza_list_bin_base: (abstract new () => {
+        items(next?: readonly (ArrayLike<number | bigint> | null)[] | undefined): readonly (ArrayLike<number | bigint> | null)[];
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2209,9 +2160,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_bin;
+        parse: typeof $giper_baza_vary_cast_blob;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2219,40 +2170,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_bin extends $hyoo_crus_list_bin_base {
+    export class $giper_baza_list_bin extends $giper_baza_list_bin_base {
     }
-    const $hyoo_crus_list_bool_base: (abstract new () => {
+    const $giper_baza_list_bool_base: (abstract new () => {
         items(next?: readonly (boolean | null)[] | undefined): readonly (boolean | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2261,9 +2205,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_bool;
+        parse: typeof $giper_baza_vary_cast_bool;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2271,40 +2215,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_bool extends $hyoo_crus_list_bool_base {
+    export class $giper_baza_list_bool extends $giper_baza_list_bool_base {
     }
-    const $hyoo_crus_list_int_base: (abstract new () => {
+    const $giper_baza_list_int_base: (abstract new () => {
         items(next?: readonly (bigint | null)[] | undefined): readonly (bigint | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2313,9 +2250,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_int;
+        parse: typeof $giper_baza_vary_cast_bint;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2323,40 +2260,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_int extends $hyoo_crus_list_int_base {
+    export class $giper_baza_list_int extends $giper_baza_list_int_base {
     }
-    const $hyoo_crus_list_real_base: (abstract new () => {
+    const $giper_baza_list_real_base: (abstract new () => {
         items(next?: readonly (number | null)[] | undefined): readonly (number | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2365,9 +2295,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_real;
+        parse: typeof $giper_baza_vary_cast_real;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2375,40 +2305,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_real extends $hyoo_crus_list_real_base {
+    export class $giper_baza_list_real extends $giper_baza_list_real_base {
     }
-    const $hyoo_crus_list_ints_base: (abstract new () => {
-        items(next?: readonly (BigInt64Array<ArrayBufferLike> | null)[] | undefined): readonly (BigInt64Array<ArrayBufferLike> | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+    const $giper_baza_list_link_base_1: (abstract new () => {
+        items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2417,9 +2340,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_ints;
+        parse: typeof $giper_baza_vary_cast_link;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2427,148 +2350,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_ints extends $hyoo_crus_list_ints_base {
+    export class $giper_baza_list_link extends $giper_baza_list_link_base_1 {
     }
-    const $hyoo_crus_list_reals_base: (abstract new () => {
-        items(next?: readonly (Float64Array<ArrayBufferLike> | null)[] | undefined): readonly (Float64Array<ArrayBufferLike> | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
-        move(from: number, to: number): void;
-        wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-        [Symbol.dispose](): void;
-    }) & {
-        parse: typeof $hyoo_crus_vary_cast_reals;
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class $hyoo_crus_list_reals extends $hyoo_crus_list_reals_base {
-    }
-    const $hyoo_crus_list_ref_base_1: (abstract new () => {
-        items(next?: readonly ((symbol & {
-            $hyoo_crus_ref: symbol;
-        }) | null)[] | undefined): readonly ((symbol & {
-            $hyoo_crus_ref: symbol;
-        }) | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
-        move(from: number, to: number): void;
-        wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-        [Symbol.dispose](): void;
-    }) & {
-        parse: typeof $hyoo_crus_vary_cast_ref;
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class $hyoo_crus_list_ref extends $hyoo_crus_list_ref_base_1 {
-    }
-    const $hyoo_crus_list_str_base: (abstract new () => {
+    const $giper_baza_list_str_base: (abstract new () => {
         items(next?: readonly (string | null)[] | undefined): readonly (string | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2577,9 +2385,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_str;
+        parse: typeof $giper_baza_vary_cast_text;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2587,40 +2395,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_str extends $hyoo_crus_list_str_base {
+    export class $giper_baza_list_str extends $giper_baza_list_str_base {
     }
-    const $hyoo_crus_list_time_base: (abstract new () => {
+    const $giper_baza_list_time_base: (abstract new () => {
         items(next?: readonly ($mol_time_moment | null)[] | undefined): readonly ($mol_time_moment | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2629,9 +2430,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_time;
+        parse: typeof $giper_baza_vary_cast_time;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2639,40 +2440,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_time extends $hyoo_crus_list_time_base {
+    export class $giper_baza_list_time extends $giper_baza_list_time_base {
     }
-    const $hyoo_crus_list_dur_base: (abstract new () => {
+    const $giper_baza_list_dur_base: (abstract new () => {
         items(next?: readonly ($mol_time_duration | null)[] | undefined): readonly ($mol_time_duration | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2681,9 +2475,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_dur;
+        parse: typeof $giper_baza_vary_cast_dura;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2691,40 +2485,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_dur extends $hyoo_crus_list_dur_base {
+    export class $giper_baza_list_dur extends $giper_baza_list_dur_base {
     }
-    const $hyoo_crus_list_range_base: (abstract new () => {
+    const $giper_baza_list_range_base: (abstract new () => {
         items(next?: readonly ($mol_time_interval | null)[] | undefined): readonly ($mol_time_interval | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2733,9 +2520,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_range;
+        parse: typeof $giper_baza_vary_cast_span;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2743,40 +2530,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_range extends $hyoo_crus_list_range_base {
+    export class $giper_baza_list_range extends $giper_baza_list_range_base {
     }
-    const $hyoo_crus_list_json_base: (abstract new () => {
+    const $giper_baza_list_json_base: (abstract new () => {
         items(next?: readonly ({} | null)[] | undefined): readonly ({} | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2785,9 +2565,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_json;
+        parse: typeof $giper_baza_vary_cast_dict;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2795,40 +2575,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_json extends $hyoo_crus_list_json_base {
+    export class $giper_baza_list_json extends $giper_baza_list_json_base {
     }
-    const $hyoo_crus_list_jsan_base: (abstract new () => {
+    const $giper_baza_list_jsan_base: (abstract new () => {
         items(next?: readonly (any[] | null)[] | undefined): readonly (any[] | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2837,9 +2610,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_jsan;
+        parse: typeof $giper_baza_vary_cast_list;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2847,40 +2620,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_jsan extends $hyoo_crus_list_jsan_base {
+    export class $giper_baza_list_jsan extends $giper_baza_list_jsan_base {
     }
-    const $hyoo_crus_list_dom_base: (abstract new () => {
+    const $giper_baza_list_dom_base: (abstract new () => {
         items(next?: readonly (Element | null)[] | undefined): readonly (Element | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2889,9 +2655,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_dom;
+        parse: typeof $giper_baza_vary_cast_elem;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2899,40 +2665,33 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_dom extends $hyoo_crus_list_dom_base {
+    export class $giper_baza_list_dom extends $giper_baza_list_dom_base {
     }
-    const $hyoo_crus_list_tree_base: (abstract new () => {
+    const $giper_baza_list_tree_base: (abstract new () => {
         items(next?: readonly ($mol_tree2 | null)[] | undefined): readonly ($mol_tree2 | null)[];
-        items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-        splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-        has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-        add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-        cut(vary: $hyoo_crus_vary_type): void;
+        items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+        splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+        has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+        add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+        cut(vary: $giper_baza_vary_type): void;
         move(from: number, to: number): void;
         wipe(seat: number): void;
-        node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+        node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -2941,9 +2700,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_tree;
+        parse: typeof $giper_baza_vary_cast_tree;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -2951,52 +2710,41 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_list_tree extends $hyoo_crus_list_tree_base {
+    export class $giper_baza_list_tree extends $giper_baza_list_tree_base {
     }
-    export class $hyoo_crus_list_ref_base extends $hyoo_crus_list_ref {
+    export class $giper_baza_list_link_base extends $giper_baza_list_link {
     }
-    export function $hyoo_crus_list_ref_to<const Value extends any, Vals extends readonly any[] = readonly $mol_type_result<$mol_type_result<Value>>[]>(Value: Value): {
+    export function $giper_baza_list_link_to<const Value extends any, Vals extends readonly any[] = readonly $mol_type_result<$mol_type_result<Value>>[]>(Value: Value): {
         new (): {
             remote_list(next?: Vals): Vals;
             remote_add(item: Vals[number]): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): Vals[number];
-            remote_make(config: $hyoo_crus_rank_preset): Vals[number];
+            make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): Vals[number];
+            remote_make(config: $giper_baza_rank_preset): Vals[number];
             local_make(idea?: number): Vals[number];
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -3007,8 +2755,8 @@ declare namespace $ {
         };
         Value: Value;
         toString(): any;
-        parse: typeof $hyoo_crus_vary_cast_ref;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        parse: typeof $giper_baza_vary_cast_link;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3024,60 +2772,53 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $hyoo_crus_dict extends $hyoo_crus_list_vary {
-        static tag: keyof typeof $hyoo_crus_sand_tag;
-        keys(): readonly $hyoo_crus_vary_type[];
-        dive<Node extends typeof $hyoo_crus_node>(key: $hyoo_crus_vary_type, Node: Node, auto?: any): InstanceType<Node> | null;
-        static schema: Record<string, typeof $hyoo_crus_node>;
-        static with<This extends typeof $hyoo_crus_dict, const Schema extends Record<string, {
-            tag: keyof typeof $hyoo_crus_sand_tag;
+    class $giper_baza_dict extends $giper_baza_list_vary {
+        static tag: keyof typeof $giper_baza_unit_sand_tag;
+        keys(): readonly $giper_baza_vary_type[];
+        dive<Node extends typeof $giper_baza_node>(key: $giper_baza_vary_type, Node: Node, auto?: any): InstanceType<Node> | null;
+        static schema: Record<string, typeof $giper_baza_node>;
+        static with<This extends typeof $giper_baza_dict, const Schema extends Record<string, {
+            tag: keyof typeof $giper_baza_unit_sand_tag;
             new (): {};
         }>>(this: This, schema: Schema): Omit<This, "prototype"> & (new (...args: any[]) => $mol_type_override<InstanceType<This>, { readonly [Key in keyof Schema]: (auto?: any) => InstanceType<Schema[Key]> | null; }>) & {
             schema: {
-                [x: string]: typeof $hyoo_crus_node;
+                [x: string]: typeof $giper_baza_node;
             } & Schema;
         };
         [$mol_dev_format_head](): any[];
     }
-    function $hyoo_crus_dict_to<Value extends {
-        tag: keyof typeof $hyoo_crus_sand_tag;
+    function $giper_baza_dict_to<Value extends {
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         new (): {};
     }>(Value: Value): {
         new (): {
             Value: Value;
-            key(key: $hyoo_crus_vary_type, auto?: any): InstanceType<Value>;
-            keys(): readonly $hyoo_crus_vary_type[];
-            dive<Node_1 extends typeof $hyoo_crus_node>(key: $hyoo_crus_vary_type, Node: Node_1, auto?: any): InstanceType<Node_1> | null;
+            key(key: $giper_baza_vary_type, auto?: any): InstanceType<Value>;
+            keys(): readonly $giper_baza_vary_type[];
+            dive<Node_1 extends typeof $giper_baza_node>(key: $giper_baza_vary_type, Node: Node_1, auto?: any): InstanceType<Node_1> | null;
             [$mol_dev_format_head](): any[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -3087,14 +2828,14 @@ declare namespace $ {
             [Symbol.dispose](): void;
         };
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        schema: Record<string, typeof $hyoo_crus_node>;
-        with<This extends typeof $hyoo_crus_dict, const Schema extends Record<string, {
-            tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
+        schema: Record<string, typeof $giper_baza_node>;
+        with<This extends typeof $giper_baza_dict, const Schema extends Record<string, {
+            tag: keyof typeof $giper_baza_unit_sand_tag;
             new (): {};
         }>>(this: This, schema: Schema): Omit<This, "prototype"> & (new (...args: any[]) => $mol_type_override<InstanceType<This>, { readonly [Key in keyof Schema]: (auto?: any) => InstanceType<Schema[Key]> | null; }>) & {
             schema: {
-                [x: string]: typeof $hyoo_crus_node;
+                [x: string]: typeof $giper_baza_node;
             } & Schema;
         };
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
@@ -3107,51 +2848,40 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_hash_numbers(buff: ArrayLike<number>, seed?: number): number;
-}
-
-declare namespace $ {
     function $mol_hash_string(str: string, seed?: number): number;
 }
 
 declare namespace $ {
-    export class $hyoo_crus_atom_vary extends $hyoo_crus_node {
-        static tag: keyof typeof $hyoo_crus_sand_tag;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+    export class $giper_baza_atom_vary extends $giper_baza_node {
+        static tag: keyof typeof $giper_baza_unit_sand_tag;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
     }
-    export class $hyoo_crus_atom_enum_base extends $hyoo_crus_atom_vary {
-        static options: readonly $hyoo_crus_vary_type[];
+    export class $giper_baza_atom_enum_base extends $giper_baza_atom_vary {
+        static options: readonly $giper_baza_vary_type[];
     }
-    export function $hyoo_crus_atom_enum<const Options extends readonly $hyoo_crus_vary_type[]>(options: Options): (abstract new () => {
+    export function $giper_baza_atom_enum<const Options extends readonly $giper_baza_vary_type[]>(options: Options): (abstract new () => {
         val(next?: Options[number]): Options[number] | null;
-        val_of(peer: string | null, next?: Options[number]): Options[number] | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: Options[number]): Options[number] | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3162,7 +2892,7 @@ declare namespace $ {
     }) & {
         options: Options;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3170,33 +2900,26 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export function $hyoo_crus_atom<Parse extends $mol_data_value>(parse: Parse): (abstract new () => {
+    export function $giper_baza_atom<Parse extends $mol_data_value>(parse: Parse): (abstract new () => {
         val(next?: ReturnType<Parse>): ReturnType<Parse> | null;
-        val_of(peer: string | null, next?: ReturnType<Parse>): ReturnType<Parse> | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: ReturnType<Parse>): ReturnType<Parse> | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3207,7 +2930,7 @@ declare namespace $ {
     }) & {
         parse: Parse;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3215,33 +2938,26 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    const $hyoo_crus_atom_bin_base: (abstract new () => {
-        val(next?: Uint8Array<ArrayBuffer> | null | undefined): Uint8Array<ArrayBuffer> | null;
-        val_of(peer: string | null, next?: Uint8Array<ArrayBuffer> | null | undefined): Uint8Array<ArrayBuffer> | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+    const $giper_baza_atom_blob_base: (abstract new () => {
+        val(next?: ArrayLike<number | bigint> | null | undefined): ArrayLike<number | bigint> | null;
+        val_of(peer: $giper_baza_link | null, next?: ArrayLike<number | bigint> | null | undefined): ArrayLike<number | bigint> | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3250,9 +2966,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_bin;
+        parse: typeof $giper_baza_vary_cast_blob;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3260,35 +2976,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_bin extends $hyoo_crus_atom_bin_base {
+    export class $giper_baza_atom_blob extends $giper_baza_atom_blob_base {
     }
-    const $hyoo_crus_atom_bool_base: (abstract new () => {
+    const $giper_baza_atom_bool_base: (abstract new () => {
         val(next?: boolean | null | undefined): boolean | null;
-        val_of(peer: string | null, next?: boolean | null | undefined): boolean | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: boolean | null | undefined): boolean | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3297,9 +3006,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_bool;
+        parse: typeof $giper_baza_vary_cast_bool;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3307,35 +3016,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_bool extends $hyoo_crus_atom_bool_base {
+    export class $giper_baza_atom_bool extends $giper_baza_atom_bool_base {
     }
-    const $hyoo_crus_atom_int_base: (abstract new () => {
+    const $giper_baza_atom_bint_base: (abstract new () => {
         val(next?: bigint | null | undefined): bigint | null;
-        val_of(peer: string | null, next?: bigint | null | undefined): bigint | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: bigint | null | undefined): bigint | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3344,9 +3046,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_int;
+        parse: typeof $giper_baza_vary_cast_bint;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3354,35 +3056,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_int extends $hyoo_crus_atom_int_base {
+    export class $giper_baza_atom_bint extends $giper_baza_atom_bint_base {
     }
-    const $hyoo_crus_atom_real_base: (abstract new () => {
+    const $giper_baza_atom_real_base: (abstract new () => {
         val(next?: number | null | undefined): number | null;
-        val_of(peer: string | null, next?: number | null | undefined): number | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: number | null | undefined): number | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3391,9 +3086,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_real;
+        parse: typeof $giper_baza_vary_cast_real;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3401,35 +3096,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_real extends $hyoo_crus_atom_real_base {
+    export class $giper_baza_atom_real extends $giper_baza_atom_real_base {
     }
-    const $hyoo_crus_atom_ints_base: (abstract new () => {
-        val(next?: BigInt64Array<ArrayBufferLike> | null | undefined): BigInt64Array<ArrayBufferLike> | null;
-        val_of(peer: string | null, next?: BigInt64Array<ArrayBufferLike> | null | undefined): BigInt64Array<ArrayBufferLike> | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+    const $giper_baza_atom_link_base_1: (abstract new () => {
+        val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+        val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3438,9 +3126,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_ints;
+        parse: typeof $giper_baza_vary_cast_link;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3448,137 +3136,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_ints extends $hyoo_crus_atom_ints_base {
+    export class $giper_baza_atom_link extends $giper_baza_atom_link_base_1 {
     }
-    const $hyoo_crus_atom_reals_base: (abstract new () => {
-        val(next?: Float64Array<ArrayBufferLike> | null | undefined): Float64Array<ArrayBufferLike> | null;
-        val_of(peer: string | null, next?: Float64Array<ArrayBufferLike> | null | undefined): Float64Array<ArrayBufferLike> | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-        [Symbol.dispose](): void;
-    }) & {
-        parse: typeof $hyoo_crus_vary_cast_reals;
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class $hyoo_crus_atom_reals extends $hyoo_crus_atom_reals_base {
-    }
-    const $hyoo_crus_atom_ref_base_1: (abstract new () => {
-        val(next?: (symbol & {
-            $hyoo_crus_ref: symbol;
-        }) | null | undefined): (symbol & {
-            $hyoo_crus_ref: symbol;
-        }) | null;
-        val_of(peer: string | null, next?: (symbol & {
-            $hyoo_crus_ref: symbol;
-        }) | null | undefined): (symbol & {
-            $hyoo_crus_ref: symbol;
-        }) | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
-        filled(): boolean;
-        can_change(): boolean;
-        last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
-        get $(): $;
-        set $(next: $);
-        destructor(): void;
-        toString(): string;
-        [Symbol.toStringTag]: string;
-        [$mol_ambient_ref]: $;
-        [Symbol.dispose](): void;
-    }) & {
-        parse: typeof $hyoo_crus_vary_cast_ref;
-        toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
-        make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
-        $: $;
-        create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
-        toJSON(): any;
-        destructor(): void;
-        [Symbol.toPrimitive](): any;
-    };
-    export class $hyoo_crus_atom_ref extends $hyoo_crus_atom_ref_base_1 {
-    }
-    const $hyoo_crus_atom_str_base: (abstract new () => {
+    const $giper_baza_atom_text_base: (abstract new () => {
         val(next?: string | null | undefined): string | null;
-        val_of(peer: string | null, next?: string | null | undefined): string | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: string | null | undefined): string | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3587,9 +3166,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_str;
+        parse: typeof $giper_baza_vary_cast_text;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3597,35 +3176,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_str extends $hyoo_crus_atom_str_base {
+    export class $giper_baza_atom_text extends $giper_baza_atom_text_base {
     }
-    const $hyoo_crus_atom_time_base: (abstract new () => {
+    const $giper_baza_atom_time_base: (abstract new () => {
         val(next?: $mol_time_moment | null | undefined): $mol_time_moment | null;
-        val_of(peer: string | null, next?: $mol_time_moment | null | undefined): $mol_time_moment | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: $mol_time_moment | null | undefined): $mol_time_moment | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3634,9 +3206,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_time;
+        parse: typeof $giper_baza_vary_cast_time;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3644,35 +3216,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_time extends $hyoo_crus_atom_time_base {
+    export class $giper_baza_atom_time extends $giper_baza_atom_time_base {
     }
-    const $hyoo_crus_atom_dur_base: (abstract new () => {
+    const $giper_baza_atom_dura_base: (abstract new () => {
         val(next?: $mol_time_duration | null | undefined): $mol_time_duration | null;
-        val_of(peer: string | null, next?: $mol_time_duration | null | undefined): $mol_time_duration | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: $mol_time_duration | null | undefined): $mol_time_duration | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3681,9 +3246,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_dur;
+        parse: typeof $giper_baza_vary_cast_dura;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3691,35 +3256,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_dur extends $hyoo_crus_atom_dur_base {
+    export class $giper_baza_atom_dura extends $giper_baza_atom_dura_base {
     }
-    const $hyoo_crus_atom_range_base: (abstract new () => {
+    const $giper_baza_atom_span_base: (abstract new () => {
         val(next?: $mol_time_interval | null | undefined): $mol_time_interval | null;
-        val_of(peer: string | null, next?: $mol_time_interval | null | undefined): $mol_time_interval | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: $mol_time_interval | null | undefined): $mol_time_interval | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3728,9 +3286,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_range;
+        parse: typeof $giper_baza_vary_cast_span;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3738,35 +3296,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_range extends $hyoo_crus_atom_range_base {
+    export class $giper_baza_atom_span extends $giper_baza_atom_span_base {
     }
-    const $hyoo_crus_atom_json_base: (abstract new () => {
+    const $giper_baza_atom_dict_base: (abstract new () => {
         val(next?: {} | null | undefined): {} | null;
-        val_of(peer: string | null, next?: {} | null | undefined): {} | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: {} | null | undefined): {} | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3775,9 +3326,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_json;
+        parse: typeof $giper_baza_vary_cast_dict;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3785,35 +3336,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_json extends $hyoo_crus_atom_json_base {
+    export class $giper_baza_atom_dict extends $giper_baza_atom_dict_base {
     }
-    const $hyoo_crus_atom_jsan_base: (abstract new () => {
+    const $giper_baza_atom_list_base: (abstract new () => {
         val(next?: any[] | null | undefined): any[] | null;
-        val_of(peer: string | null, next?: any[] | null | undefined): any[] | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: any[] | null | undefined): any[] | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3822,9 +3366,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_jsan;
+        parse: typeof $giper_baza_vary_cast_list;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3832,35 +3376,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_jsan extends $hyoo_crus_atom_jsan_base {
+    export class $giper_baza_atom_list extends $giper_baza_atom_list_base {
     }
-    const $hyoo_crus_atom_dom_base: (abstract new () => {
+    const $giper_baza_atom_elem_base: (abstract new () => {
         val(next?: Element | null | undefined): Element | null;
-        val_of(peer: string | null, next?: Element | null | undefined): Element | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: Element | null | undefined): Element | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3869,9 +3406,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_dom;
+        parse: typeof $giper_baza_vary_cast_elem;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3879,35 +3416,28 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_dom extends $hyoo_crus_atom_dom_base {
+    export class $giper_baza_atom_elem extends $giper_baza_atom_elem_base {
     }
-    const $hyoo_crus_atom_tree_base: (abstract new () => {
+    const $giper_baza_atom_tree_base: (abstract new () => {
         val(next?: $mol_tree2 | null | undefined): $mol_tree2 | null;
-        val_of(peer: string | null, next?: $mol_tree2 | null | undefined): $mol_tree2 | null;
-        pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-        vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-        vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+        val_of(peer: $giper_baza_link | null, next?: $mol_tree2 | null | undefined): $mol_tree2 | null;
+        pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+        vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+        vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
         [$mol_dev_format_head](): any[];
-        land(): $hyoo_crus_land;
-        head(): string;
-        land_ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        ref(): symbol & {
-            $hyoo_crus_ref: symbol;
-        };
-        toJSON(): string | undefined;
-        cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-        nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-        units(): $hyoo_crus_sand[];
-        units_of(peer: string | null): $hyoo_crus_sand[];
+        land(): $giper_baza_land;
+        head(): $giper_baza_link;
+        land_link(): $giper_baza_link;
+        link(): $giper_baza_link;
+        toJSON(): string;
+        cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+        nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+        units(): $giper_baza_unit_sand[];
+        units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
-        author_peers(): string[];
-        author_lords(): (symbol & {
-            $hyoo_crus_ref: symbol;
-        })[];
+        authors(): $giper_baza_auth_pass[];
         get $(): $;
         set $(next: $);
         destructor(): void;
@@ -3916,9 +3446,9 @@ declare namespace $ {
         [$mol_ambient_ref]: $;
         [Symbol.dispose](): void;
     }) & {
-        parse: typeof $hyoo_crus_vary_cast_tree;
+        parse: typeof $giper_baza_vary_cast_tree;
         toString(): any;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -3926,57 +3456,42 @@ declare namespace $ {
         destructor(): void;
         [Symbol.toPrimitive](): any;
     };
-    export class $hyoo_crus_atom_tree extends $hyoo_crus_atom_tree_base {
+    export class $giper_baza_atom_tree extends $giper_baza_atom_tree_base {
     }
-    export class $hyoo_crus_atom_ref_base extends $hyoo_crus_atom_ref {
-        static Value: typeof $hyoo_crus_dict;
+    export class $giper_baza_atom_link_base extends $giper_baza_atom_link {
+        static Value: typeof $giper_baza_dict;
     }
-    export function $hyoo_crus_atom_ref_to<const Value extends any>(Value: Value): {
+    export function $giper_baza_atom_link_to<const Value extends any>(Value: Value): {
         new (): {
             Value: Value;
             remote(next?: $mol_type_result<$mol_type_result<Value>> | null | undefined): $mol_type_result<$mol_type_result<Value>> | null;
-            remote_of(peer: string | null, next?: $mol_type_result<$mol_type_result<Value>> | null | undefined): $mol_type_result<$mol_type_result<Value>> | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $mol_type_result<$mol_type_result<Value>> | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $mol_type_result<$mol_type_result<Value>> | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $mol_type_result<$mol_type_result<Value>> | null;
+            remote_of(peer: $giper_baza_link | null, next?: $mol_type_result<$mol_type_result<Value>> | null | undefined): $mol_type_result<$mol_type_result<Value>> | null;
+            ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $mol_type_result<$mol_type_result<Value>> | null;
+            ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $mol_type_result<$mol_type_result<Value>> | null;
+            ensure_here(peer: $giper_baza_link | null): void;
+            ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+            ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+            remote_ensure(preset?: $giper_baza_rank_preset): $mol_type_result<$mol_type_result<Value>> | null;
             local_ensure(): $mol_type_result<$mol_type_result<Value>> | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+            vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+            vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -3986,9 +3501,9 @@ declare namespace $ {
             [Symbol.dispose](): void;
         };
         toString(): any;
-        Value: typeof $hyoo_crus_dict;
-        parse: typeof $hyoo_crus_vary_cast_ref;
-        tag: keyof typeof $hyoo_crus_sand_tag;
+        Value: typeof $giper_baza_dict;
+        parse: typeof $giper_baza_vary_cast_link;
+        tag: keyof typeof $giper_baza_unit_sand_tag;
         make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
         $: $;
         create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -4000,16 +3515,16 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const $hyoo_crus_entity_base: Omit<typeof $hyoo_crus_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_dict, {
-        readonly Title: (auto?: any) => $hyoo_crus_atom_str | null;
+    const $giper_baza_entity_base: Omit<typeof $giper_baza_dict, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_dict, {
+        readonly Title: (auto?: any) => $giper_baza_atom_text | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
-            readonly Title: typeof $hyoo_crus_atom_str;
+            readonly Title: typeof $giper_baza_atom_text;
         };
     };
-    export class $hyoo_crus_entity extends $hyoo_crus_entity_base {
+    export class $giper_baza_entity extends $giper_baza_entity_base {
         title(next?: string): string;
     }
     export {};
@@ -4117,7 +3632,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    let $hyoo_crus_text_tokens: $mol_regexp<{
+    let $giper_baza_text_tokens: $mol_regexp<{
         [x: string]: string;
         readonly token: string;
         readonly link: string;
@@ -4135,53 +3650,38 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const $hyoo_crus_home_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
-        readonly Selection: (auto?: any) => $hyoo_crus_atom_str | null;
+    const $giper_baza_home_base: Omit<typeof $giper_baza_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_entity, {
+        readonly Selection: (auto?: any) => $giper_baza_atom_text | null;
         readonly Hall: (auto?: any) => {
             Value: Value;
-            remote(next?: $hyoo_crus_dict | null | undefined): $hyoo_crus_dict | null;
-            remote_of(peer: string | null, next?: $hyoo_crus_dict | null | undefined): $hyoo_crus_dict | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $hyoo_crus_dict | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $hyoo_crus_dict | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $hyoo_crus_dict | null;
-            local_ensure(): $hyoo_crus_dict | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            remote(next?: $giper_baza_dict | null | undefined): $giper_baza_dict | null;
+            remote_of(peer: $giper_baza_link | null, next?: $giper_baza_dict | null | undefined): $giper_baza_dict | null;
+            ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $giper_baza_dict | null;
+            ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $giper_baza_dict | null;
+            ensure_here(peer: $giper_baza_link | null): void;
+            ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+            ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+            remote_ensure(preset?: $giper_baza_rank_preset): $giper_baza_dict | null;
+            local_ensure(): $giper_baza_dict | null;
+            val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+            vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+            vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -4192,55 +3692,40 @@ declare namespace $ {
         } | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
-            readonly Selection: typeof $hyoo_crus_atom_str;
+            readonly Selection: typeof $giper_baza_atom_text;
             readonly Hall: {
                 new (): {
-                    Value: () => typeof $hyoo_crus_dict;
-                    remote(next?: $hyoo_crus_dict | null | undefined): $hyoo_crus_dict | null;
-                    remote_of(peer: string | null, next?: $hyoo_crus_dict | null | undefined): $hyoo_crus_dict | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $hyoo_crus_dict | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $hyoo_crus_dict | null;
-                    ensure_here(peer: string | null): void;
-                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $hyoo_crus_dict | null;
-                    local_ensure(): $hyoo_crus_dict | null;
-                    val(next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    val_of(peer: string | null, next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    Value: () => typeof $giper_baza_dict;
+                    remote(next?: $giper_baza_dict | null | undefined): $giper_baza_dict | null;
+                    remote_of(peer: $giper_baza_link | null, next?: $giper_baza_dict | null | undefined): $giper_baza_dict | null;
+                    ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $giper_baza_dict | null;
+                    ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $giper_baza_dict | null;
+                    ensure_here(peer: $giper_baza_link | null): void;
+                    ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+                    ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+                    remote_ensure(preset?: $giper_baza_rank_preset): $giper_baza_dict | null;
+                    local_ensure(): $giper_baza_dict | null;
+                    val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+                    vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+                    vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -4250,9 +3735,9 @@ declare namespace $ {
                     [Symbol.dispose](): void;
                 };
                 toString(): any;
-                Value: typeof $hyoo_crus_dict;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                Value: typeof $giper_baza_dict;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -4262,72 +3747,53 @@ declare namespace $ {
             };
         };
     };
-    export class $hyoo_crus_home extends $hyoo_crus_home_base {
-        hall_by<Node extends typeof $hyoo_crus_dict>(Node: Node, preset?: $hyoo_crus_rank_preset): InstanceType<Node> | null;
+    export class $giper_baza_home extends $giper_baza_home_base {
+        hall_by<Node extends typeof $giper_baza_dict>(Node: Node, auto?: null): InstanceType<Node> | null;
     }
     export {};
 }
 
 declare namespace $ {
-    class $hyoo_crus_glob extends $mol_object {
-        static lands_touched: $mol_wire_set<symbol & {
-            $hyoo_crus_ref: symbol;
-        }>;
-        lands_touched: $mol_wire_set<symbol & {
-            $hyoo_crus_ref: symbol;
-        }>;
-        static yard(): $hyoo_crus_yard;
-        yard(): $hyoo_crus_yard;
-        static home<Node extends typeof $hyoo_crus_home = typeof $hyoo_crus_home>(Node?: Node): InstanceType<Node>;
-        home(): $hyoo_crus_home;
-        static king_grab(preset?: $hyoo_crus_rank_preset): $hyoo_crus_auth;
-        king_grab(preset?: $hyoo_crus_rank_preset): $hyoo_crus_auth;
-        static land_grab(preset?: $hyoo_crus_rank_preset): $hyoo_crus_land;
-        land_grab(preset?: $hyoo_crus_rank_preset): $hyoo_crus_land;
-        static Land(ref: $hyoo_crus_ref): $hyoo_crus_land;
-        Land(ref: $hyoo_crus_ref): $hyoo_crus_land;
-        static Node<Node extends typeof $hyoo_crus_node>(ref: $hyoo_crus_ref, Node: Node): InstanceType<Node>;
-        Node<Node extends typeof $hyoo_crus_node>(ref: $hyoo_crus_ref, Node: Node): InstanceType<Node>;
-        static apply_pack(pack: $hyoo_crus_pack): void;
-        apply_pack(pack: $hyoo_crus_pack): void;
-        static apply_parts(lands: Record<$hyoo_crus_ref, {
-            faces: $hyoo_crus_face_map;
-            units: $hyoo_crus_unit[];
-        }>, rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer> | null][]): void;
-        apply_parts(lands: Record<$hyoo_crus_ref, {
-            faces: $hyoo_crus_face_map;
-            units: $hyoo_crus_unit[];
-        }>, rocks: [Uint8Array<ArrayBuffer>, Uint8Array<ArrayBuffer> | null][]): void;
+    class $giper_baza_glob extends $mol_object {
+        static lands_touched: $mol_wire_set<string>;
+        static yard(): $giper_baza_yard;
+        static home<Node extends typeof $giper_baza_home = typeof $giper_baza_home>(Node?: Node): InstanceType<Node>;
+        static king_grab(preset?: $giper_baza_rank_preset): $giper_baza_auth;
+        static land_grab(preset?: $giper_baza_rank_preset): $giper_baza_land;
+        static Land(link: $giper_baza_link): $giper_baza_land;
+        static Node<Node extends typeof $giper_baza_node>(link: $giper_baza_link, Node: Node): InstanceType<Node>;
+        static apply_pack(pack: $giper_baza_pack): void;
+        static apply_parts(parts: $giper_baza_pack_parts): void;
     }
 }
 
 declare namespace $ {
-    class $hyoo_crus_text extends $hyoo_crus_node {
-        static tag: keyof typeof $hyoo_crus_sand_tag;
+    class $giper_baza_text extends $giper_baza_node {
+        static tag: keyof typeof $giper_baza_unit_sand_tag;
         value(next?: string): string;
         text(next?: string): string;
         str(next?: string): string;
         write(next: string, str_from?: number, str_to?: number): this;
-        point_by_offset(offset: number): readonly [string, number];
-        offset_by_point([self, offset]: readonly [string, number]): readonly [string, number];
-        selection(lord: $hyoo_crus_ref, next?: readonly [begin: number, end: number]): number[] | readonly [begin: number, end: number];
+        point_by_offset(offset: number): readonly [$giper_baza_link, number];
+        offset_by_point([self, offset]: readonly [$giper_baza_link, number]): readonly [$giper_baza_link, number];
+        selection(lord: $giper_baza_link, next?: readonly [begin: number, end: number]): number[] | readonly [begin: number, end: number];
     }
 }
 
 declare namespace $ {
-    const $bog_quiz_participant_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
-        readonly UserId: (auto?: any) => $hyoo_crus_atom_str | null;
-        readonly DisplayName: (auto?: any) => $hyoo_crus_text | null;
-        readonly JoinedAt: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly LastSeenAt: (auto?: any) => $hyoo_crus_atom_int | null;
+    const $bog_quiz_participant_base: Omit<typeof $giper_baza_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_entity, {
+        readonly UserId: (auto?: any) => $giper_baza_atom_text | null;
+        readonly DisplayName: (auto?: any) => $giper_baza_text | null;
+        readonly JoinedAt: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly LastSeenAt: (auto?: any) => $giper_baza_atom_bint | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
-            readonly UserId: typeof $hyoo_crus_atom_str;
-            readonly DisplayName: typeof $hyoo_crus_text;
-            readonly JoinedAt: typeof $hyoo_crus_atom_int;
-            readonly LastSeenAt: typeof $hyoo_crus_atom_int;
+            readonly UserId: typeof $giper_baza_atom_text;
+            readonly DisplayName: typeof $giper_baza_text;
+            readonly JoinedAt: typeof $giper_baza_atom_bint;
+            readonly LastSeenAt: typeof $giper_baza_atom_bint;
         };
     };
     export class $bog_quiz_participant extends $bog_quiz_participant_base {
@@ -4338,17 +3804,17 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const $bog_quiz_option_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
-        readonly Text: (auto?: any) => $hyoo_crus_text | null;
-        readonly IsCorrect: (auto?: any) => $hyoo_crus_atom_bool | null;
-        readonly Order: (auto?: any) => $hyoo_crus_atom_int | null;
+    const $bog_quiz_option_base: Omit<typeof $giper_baza_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_entity, {
+        readonly Text: (auto?: any) => $giper_baza_text | null;
+        readonly IsCorrect: (auto?: any) => $giper_baza_atom_bool | null;
+        readonly Order: (auto?: any) => $giper_baza_atom_bint | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
-            readonly Text: typeof $hyoo_crus_text;
-            readonly IsCorrect: typeof $hyoo_crus_atom_bool;
-            readonly Order: typeof $hyoo_crus_atom_int;
+            readonly Text: typeof $giper_baza_text;
+            readonly IsCorrect: typeof $giper_baza_atom_bool;
+            readonly Order: typeof $giper_baza_atom_bint;
         };
     };
     export class $bog_quiz_option extends $bog_quiz_option_base {
@@ -4357,51 +3823,40 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const $bog_quiz_question_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
-        readonly Text: (auto?: any) => $hyoo_crus_text | null;
-        readonly Type: (auto?: any) => $hyoo_crus_atom_str | null;
-        readonly Order: (auto?: any) => $hyoo_crus_atom_int | null;
+    const $bog_quiz_question_base: Omit<typeof $giper_baza_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_entity, {
+        readonly Text: (auto?: any) => $giper_baza_text | null;
+        readonly Type: (auto?: any) => $giper_baza_atom_text | null;
+        readonly Order: (auto?: any) => $giper_baza_atom_bint | null;
         readonly Options: (auto?: any) => {
             remote_list(next?: readonly $bog_quiz_option[] | undefined): readonly $bog_quiz_option[];
             remote_add(item: $bog_quiz_option): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_option;
-            remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_option;
+            make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_option;
+            remote_make(config: $giper_baza_rank_preset): $bog_quiz_option;
             local_make(idea?: number): $bog_quiz_option;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -4410,59 +3865,48 @@ declare namespace $ {
             [$mol_ambient_ref]: $;
             [Symbol.dispose](): void;
         } | null;
-        readonly BasePoints: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly WrongPenaltySingle: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly WrongPenaltyMultiPerOption: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly SpeedEnabled: (auto?: any) => $hyoo_crus_atom_bool | null;
+        readonly BasePoints: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly WrongPenaltySingle: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly WrongPenaltyMultiPerOption: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly SpeedEnabled: (auto?: any) => $giper_baza_atom_bool | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
-            readonly Text: typeof $hyoo_crus_text;
-            readonly Type: typeof $hyoo_crus_atom_str;
-            readonly Order: typeof $hyoo_crus_atom_int;
+            readonly Text: typeof $giper_baza_text;
+            readonly Type: typeof $giper_baza_atom_text;
+            readonly Order: typeof $giper_baza_atom_bint;
             readonly Options: {
                 new (): {
                     remote_list(next?: readonly $bog_quiz_option[] | undefined): readonly $bog_quiz_option[];
                     remote_add(item: $bog_quiz_option): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_option;
-                    remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_option;
+                    make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_option;
+                    remote_make(config: $giper_baza_rank_preset): $bog_quiz_option;
                     local_make(idea?: number): $bog_quiz_option;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
+                    items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+                    items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+                    splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+                    has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+                    add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    cut(vary: $giper_baza_vary_type): void;
                     move(from: number, to: number): void;
                     wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -4473,8 +3917,8 @@ declare namespace $ {
                 };
                 Value: Value;
                 toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -4482,10 +3926,10 @@ declare namespace $ {
                 destructor(): void;
                 [Symbol.toPrimitive](): any;
             };
-            readonly BasePoints: typeof $hyoo_crus_atom_int;
-            readonly WrongPenaltySingle: typeof $hyoo_crus_atom_int;
-            readonly WrongPenaltyMultiPerOption: typeof $hyoo_crus_atom_int;
-            readonly SpeedEnabled: typeof $hyoo_crus_atom_bool;
+            readonly BasePoints: typeof $giper_baza_atom_bint;
+            readonly WrongPenaltySingle: typeof $giper_baza_atom_bint;
+            readonly WrongPenaltyMultiPerOption: typeof $giper_baza_atom_bint;
+            readonly SpeedEnabled: typeof $giper_baza_atom_bool;
         };
     };
     export class $bog_quiz_question extends $bog_quiz_question_base {
@@ -4498,52 +3942,37 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const $bog_quiz_answer_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
+    const $bog_quiz_answer_base: Omit<typeof $giper_baza_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_entity, {
         readonly Session: (auto?: any) => {
             Value: Value;
             remote(next?: $bog_quiz_session | null | undefined): $bog_quiz_session | null;
-            remote_of(peer: string | null, next?: $bog_quiz_session | null | undefined): $bog_quiz_session | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_session | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_session | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_session | null;
+            remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_session | null | undefined): $bog_quiz_session | null;
+            ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_session | null;
+            ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_session | null;
+            ensure_here(peer: $giper_baza_link | null): void;
+            ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+            ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+            remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_session | null;
             local_ensure(): $bog_quiz_session | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+            vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+            vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -4555,48 +3984,33 @@ declare namespace $ {
         readonly Question: (auto?: any) => {
             Value: Value;
             remote(next?: $bog_quiz_question | null | undefined): $bog_quiz_question | null;
-            remote_of(peer: string | null, next?: $bog_quiz_question | null | undefined): $bog_quiz_question | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_question | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_question | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_question | null;
+            remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_question | null | undefined): $bog_quiz_question | null;
+            ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_question | null;
+            ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_question | null;
+            ensure_here(peer: $giper_baza_link | null): void;
+            ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+            ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+            remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_question | null;
             local_ensure(): $bog_quiz_question | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+            vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+            vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -4608,48 +4022,33 @@ declare namespace $ {
         readonly Participant: (auto?: any) => {
             Value: Value;
             remote(next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
-            remote_of(peer: string | null, next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_participant | null;
+            remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
+            ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant | null;
+            ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant | null;
+            ensure_here(peer: $giper_baza_link | null): void;
+            ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+            ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+            remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_participant | null;
             local_ensure(): $bog_quiz_participant | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+            vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+            vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -4661,44 +4060,33 @@ declare namespace $ {
         readonly SelectedOptions: (auto?: any) => {
             remote_list(next?: readonly $bog_quiz_option[] | undefined): readonly $bog_quiz_option[];
             remote_add(item: $bog_quiz_option): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_option;
-            remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_option;
+            make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_option;
+            remote_make(config: $giper_baza_rank_preset): $bog_quiz_option;
             local_make(idea?: number): $bog_quiz_option;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -4707,58 +4095,43 @@ declare namespace $ {
             [$mol_ambient_ref]: $;
             [Symbol.dispose](): void;
         } | null;
-        readonly UpdatedAt: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly FinalAt: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly UpdatedAt: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly FinalAt: (auto?: any) => $giper_baza_atom_bint | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
             readonly Session: {
                 new (): {
                     Value: () => typeof $bog_quiz_session;
                     remote(next?: $bog_quiz_session | null | undefined): $bog_quiz_session | null;
-                    remote_of(peer: string | null, next?: $bog_quiz_session | null | undefined): $bog_quiz_session | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_session | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_session | null;
-                    ensure_here(peer: string | null): void;
-                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_session | null;
+                    remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_session | null | undefined): $bog_quiz_session | null;
+                    ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_session | null;
+                    ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_session | null;
+                    ensure_here(peer: $giper_baza_link | null): void;
+                    ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+                    ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+                    remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_session | null;
                     local_ensure(): $bog_quiz_session | null;
-                    val(next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    val_of(peer: string | null, next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+                    vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+                    vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -4768,9 +4141,9 @@ declare namespace $ {
                     [Symbol.dispose](): void;
                 };
                 toString(): any;
-                Value: typeof $hyoo_crus_dict;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                Value: typeof $giper_baza_dict;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -4782,48 +4155,33 @@ declare namespace $ {
                 new (): {
                     Value: () => typeof $bog_quiz_question;
                     remote(next?: $bog_quiz_question | null | undefined): $bog_quiz_question | null;
-                    remote_of(peer: string | null, next?: $bog_quiz_question | null | undefined): $bog_quiz_question | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_question | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_question | null;
-                    ensure_here(peer: string | null): void;
-                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_question | null;
+                    remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_question | null | undefined): $bog_quiz_question | null;
+                    ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_question | null;
+                    ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_question | null;
+                    ensure_here(peer: $giper_baza_link | null): void;
+                    ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+                    ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+                    remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_question | null;
                     local_ensure(): $bog_quiz_question | null;
-                    val(next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    val_of(peer: string | null, next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+                    vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+                    vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -4833,9 +4191,9 @@ declare namespace $ {
                     [Symbol.dispose](): void;
                 };
                 toString(): any;
-                Value: typeof $hyoo_crus_dict;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                Value: typeof $giper_baza_dict;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -4847,48 +4205,33 @@ declare namespace $ {
                 new (): {
                     Value: () => typeof $bog_quiz_participant;
                     remote(next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
-                    remote_of(peer: string | null, next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant | null;
-                    ensure_here(peer: string | null): void;
-                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_participant | null;
+                    remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
+                    ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant | null;
+                    ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant | null;
+                    ensure_here(peer: $giper_baza_link | null): void;
+                    ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+                    ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+                    remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_participant | null;
                     local_ensure(): $bog_quiz_participant | null;
-                    val(next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    val_of(peer: string | null, next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+                    vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+                    vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -4898,9 +4241,9 @@ declare namespace $ {
                     [Symbol.dispose](): void;
                 };
                 toString(): any;
-                Value: typeof $hyoo_crus_dict;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                Value: typeof $giper_baza_dict;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -4912,44 +4255,33 @@ declare namespace $ {
                 new (): {
                     remote_list(next?: readonly $bog_quiz_option[] | undefined): readonly $bog_quiz_option[];
                     remote_add(item: $bog_quiz_option): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_option;
-                    remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_option;
+                    make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_option;
+                    remote_make(config: $giper_baza_rank_preset): $bog_quiz_option;
                     local_make(idea?: number): $bog_quiz_option;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
+                    items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+                    items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+                    splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+                    has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+                    add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    cut(vary: $giper_baza_vary_type): void;
                     move(from: number, to: number): void;
                     wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -4960,8 +4292,8 @@ declare namespace $ {
                 };
                 Value: Value;
                 toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -4969,8 +4301,8 @@ declare namespace $ {
                 destructor(): void;
                 [Symbol.toPrimitive](): any;
             };
-            readonly UpdatedAt: typeof $hyoo_crus_atom_int;
-            readonly FinalAt: typeof $hyoo_crus_atom_int;
+            readonly UpdatedAt: typeof $giper_baza_atom_bint;
+            readonly FinalAt: typeof $giper_baza_atom_bint;
         };
     };
     export class $bog_quiz_answer extends $bog_quiz_answer_base {
@@ -4983,52 +4315,37 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const $bog_quiz_reaction_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
+    const $bog_quiz_reaction_base: Omit<typeof $giper_baza_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_entity, {
         readonly Participant: (auto?: any) => {
             Value: Value;
             remote(next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
-            remote_of(peer: string | null, next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_participant | null;
+            remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
+            ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant | null;
+            ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant | null;
+            ensure_here(peer: $giper_baza_link | null): void;
+            ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+            ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+            remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_participant | null;
             local_ensure(): $bog_quiz_participant | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+            vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+            vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -5037,58 +4354,43 @@ declare namespace $ {
             [$mol_ambient_ref]: $;
             [Symbol.dispose](): void;
         } | null;
-        readonly Emoji: (auto?: any) => $hyoo_crus_atom_str | null;
-        readonly CreatedAt: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly Emoji: (auto?: any) => $giper_baza_atom_text | null;
+        readonly CreatedAt: (auto?: any) => $giper_baza_atom_bint | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
             readonly Participant: {
                 new (): {
                     Value: () => typeof $bog_quiz_participant;
                     remote(next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
-                    remote_of(peer: string | null, next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant | null;
-                    ensure_here(peer: string | null): void;
-                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_participant | null;
+                    remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_participant | null | undefined): $bog_quiz_participant | null;
+                    ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant | null;
+                    ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant | null;
+                    ensure_here(peer: $giper_baza_link | null): void;
+                    ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+                    ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+                    remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_participant | null;
                     local_ensure(): $bog_quiz_participant | null;
-                    val(next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    val_of(peer: string | null, next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+                    vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+                    vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -5098,9 +4400,9 @@ declare namespace $ {
                     [Symbol.dispose](): void;
                 };
                 toString(): any;
-                Value: typeof $hyoo_crus_dict;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                Value: typeof $giper_baza_dict;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -5108,8 +4410,8 @@ declare namespace $ {
                 destructor(): void;
                 [Symbol.toPrimitive](): any;
             };
-            readonly Emoji: typeof $hyoo_crus_atom_str;
-            readonly CreatedAt: typeof $hyoo_crus_atom_int;
+            readonly Emoji: typeof $giper_baza_atom_text;
+            readonly CreatedAt: typeof $giper_baza_atom_bint;
         };
     };
     export class $bog_quiz_reaction extends $bog_quiz_reaction_base {
@@ -5119,62 +4421,37 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $bog_quiz_scoring extends $mol_object {
-        static speed_multiplier(question_started_at: bigint, answer_final_at: bigint, question_timer_sec: bigint, speed_k_max: number, speed_k_min: number, speed_skip_sec: bigint): number;
-        static score_single(is_correct: boolean, base_points: bigint, wrong_penalty: bigint, multiplier: number, speed_enabled: boolean): number;
-        static score_multi(selected_refs: string[], correct_refs: string[], base_points: bigint, wrong_penalty_per_option: bigint, multiplier: number, speed_enabled: boolean): number;
-        static calculate_answer_score(answer: $bog_quiz_answer, session: $bog_quiz_session): number;
-        static calculate_participant_total_score(participant: $bog_quiz_participant, session: $bog_quiz_session): number;
-    }
-}
-
-declare namespace $ {
-    const $bog_quiz_session_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
+    const $bog_quiz_session_base: Omit<typeof $giper_baza_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_entity, {
         readonly Quiz: (auto?: any) => {
             Value: Value;
             remote(next?: $bog_quiz_quiz | null | undefined): $bog_quiz_quiz | null;
-            remote_of(peer: string | null, next?: $bog_quiz_quiz | null | undefined): $bog_quiz_quiz | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_quiz | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_quiz | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_quiz | null;
+            remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_quiz | null | undefined): $bog_quiz_quiz | null;
+            ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_quiz | null;
+            ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_quiz | null;
+            ensure_here(peer: $giper_baza_link | null): void;
+            ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+            ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+            remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_quiz | null;
             local_ensure(): $bog_quiz_quiz | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+            vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+            vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -5186,48 +4463,33 @@ declare namespace $ {
         readonly Host: (auto?: any) => {
             Value: Value;
             remote(next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
-            remote_of(peer: string | null, next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_owner | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_owner | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_owner | null;
+            remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
+            ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_owner | null;
+            ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_owner | null;
+            ensure_here(peer: $giper_baza_link | null): void;
+            ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+            ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+            remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_owner | null;
             local_ensure(): $bog_quiz_owner | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+            vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+            vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -5236,51 +4498,40 @@ declare namespace $ {
             [$mol_ambient_ref]: $;
             [Symbol.dispose](): void;
         } | null;
-        readonly State: (auto?: any) => $hyoo_crus_atom_str | null;
-        readonly QuestionIndex: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly QuestionStartedAt: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly ReviewStartedAt: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly State: (auto?: any) => $giper_baza_atom_text | null;
+        readonly QuestionIndex: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly QuestionStartedAt: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly ReviewStartedAt: (auto?: any) => $giper_baza_atom_bint | null;
         readonly Participants: (auto?: any) => {
             remote_list(next?: readonly $bog_quiz_participant[] | undefined): readonly $bog_quiz_participant[];
             remote_add(item: $bog_quiz_participant): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant;
-            remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_participant;
+            make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant;
+            remote_make(config: $giper_baza_rank_preset): $bog_quiz_participant;
             local_make(idea?: number): $bog_quiz_participant;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -5292,44 +4543,33 @@ declare namespace $ {
         readonly Answers: (auto?: any) => {
             remote_list(next?: readonly $bog_quiz_answer[] | undefined): readonly $bog_quiz_answer[];
             remote_add(item: $bog_quiz_answer): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_answer;
-            remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_answer;
+            make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_answer;
+            remote_make(config: $giper_baza_rank_preset): $bog_quiz_answer;
             local_make(idea?: number): $bog_quiz_answer;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -5341,44 +4581,33 @@ declare namespace $ {
         readonly ReactionEvents: (auto?: any) => {
             remote_list(next?: readonly $bog_quiz_reaction[] | undefined): readonly $bog_quiz_reaction[];
             remote_add(item: $bog_quiz_reaction): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_reaction;
-            remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_reaction;
+            make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_reaction;
+            remote_make(config: $giper_baza_rank_preset): $bog_quiz_reaction;
             local_make(idea?: number): $bog_quiz_reaction;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -5387,64 +4616,49 @@ declare namespace $ {
             [$mol_ambient_ref]: $;
             [Symbol.dispose](): void;
         } | null;
-        readonly QuestionTimerSec: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly ReviewTimerSec: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly ShowStats: (auto?: any) => $hyoo_crus_atom_bool | null;
-        readonly ReactionsEnabled: (auto?: any) => $hyoo_crus_atom_bool | null;
-        readonly LeaderboardEnabled: (auto?: any) => $hyoo_crus_atom_bool | null;
-        readonly SpeedKMax: (auto?: any) => $hyoo_crus_atom_real | null;
-        readonly SpeedKMin: (auto?: any) => $hyoo_crus_atom_real | null;
-        readonly SpeedSkipSec: (auto?: any) => $hyoo_crus_atom_int | null;
+        readonly QuestionTimerSec: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly ReviewTimerSec: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly ShowStats: (auto?: any) => $giper_baza_atom_bool | null;
+        readonly ReactionsEnabled: (auto?: any) => $giper_baza_atom_bool | null;
+        readonly LeaderboardEnabled: (auto?: any) => $giper_baza_atom_bool | null;
+        readonly SpeedKMax: (auto?: any) => $giper_baza_atom_real | null;
+        readonly SpeedKMin: (auto?: any) => $giper_baza_atom_real | null;
+        readonly SpeedSkipSec: (auto?: any) => $giper_baza_atom_bint | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
             readonly Quiz: {
                 new (): {
                     Value: () => typeof $bog_quiz_quiz;
                     remote(next?: $bog_quiz_quiz | null | undefined): $bog_quiz_quiz | null;
-                    remote_of(peer: string | null, next?: $bog_quiz_quiz | null | undefined): $bog_quiz_quiz | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_quiz | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_quiz | null;
-                    ensure_here(peer: string | null): void;
-                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_quiz | null;
+                    remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_quiz | null | undefined): $bog_quiz_quiz | null;
+                    ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_quiz | null;
+                    ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_quiz | null;
+                    ensure_here(peer: $giper_baza_link | null): void;
+                    ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+                    ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+                    remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_quiz | null;
                     local_ensure(): $bog_quiz_quiz | null;
-                    val(next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    val_of(peer: string | null, next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+                    vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+                    vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -5454,9 +4668,9 @@ declare namespace $ {
                     [Symbol.dispose](): void;
                 };
                 toString(): any;
-                Value: typeof $hyoo_crus_dict;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                Value: typeof $giper_baza_dict;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -5468,48 +4682,33 @@ declare namespace $ {
                 new (): {
                     Value: () => typeof $bog_quiz_owner;
                     remote(next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
-                    remote_of(peer: string | null, next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_owner | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_owner | null;
-                    ensure_here(peer: string | null): void;
-                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_owner | null;
+                    remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
+                    ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_owner | null;
+                    ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_owner | null;
+                    ensure_here(peer: $giper_baza_link | null): void;
+                    ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+                    ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+                    remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_owner | null;
                     local_ensure(): $bog_quiz_owner | null;
-                    val(next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    val_of(peer: string | null, next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+                    vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+                    vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -5519,9 +4718,9 @@ declare namespace $ {
                     [Symbol.dispose](): void;
                 };
                 toString(): any;
-                Value: typeof $hyoo_crus_dict;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                Value: typeof $giper_baza_dict;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -5529,52 +4728,41 @@ declare namespace $ {
                 destructor(): void;
                 [Symbol.toPrimitive](): any;
             };
-            readonly State: typeof $hyoo_crus_atom_str;
-            readonly QuestionIndex: typeof $hyoo_crus_atom_int;
-            readonly QuestionStartedAt: typeof $hyoo_crus_atom_int;
-            readonly ReviewStartedAt: typeof $hyoo_crus_atom_int;
+            readonly State: typeof $giper_baza_atom_text;
+            readonly QuestionIndex: typeof $giper_baza_atom_bint;
+            readonly QuestionStartedAt: typeof $giper_baza_atom_bint;
+            readonly ReviewStartedAt: typeof $giper_baza_atom_bint;
             readonly Participants: {
                 new (): {
                     remote_list(next?: readonly $bog_quiz_participant[] | undefined): readonly $bog_quiz_participant[];
                     remote_add(item: $bog_quiz_participant): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_participant;
-                    remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_participant;
+                    make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_participant;
+                    remote_make(config: $giper_baza_rank_preset): $bog_quiz_participant;
                     local_make(idea?: number): $bog_quiz_participant;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
+                    items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+                    items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+                    splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+                    has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+                    add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    cut(vary: $giper_baza_vary_type): void;
                     move(from: number, to: number): void;
                     wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -5585,8 +4773,8 @@ declare namespace $ {
                 };
                 Value: Value;
                 toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -5598,44 +4786,33 @@ declare namespace $ {
                 new (): {
                     remote_list(next?: readonly $bog_quiz_answer[] | undefined): readonly $bog_quiz_answer[];
                     remote_add(item: $bog_quiz_answer): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_answer;
-                    remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_answer;
+                    make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_answer;
+                    remote_make(config: $giper_baza_rank_preset): $bog_quiz_answer;
                     local_make(idea?: number): $bog_quiz_answer;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
+                    items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+                    items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+                    splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+                    has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+                    add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    cut(vary: $giper_baza_vary_type): void;
                     move(from: number, to: number): void;
                     wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -5646,8 +4823,8 @@ declare namespace $ {
                 };
                 Value: Value;
                 toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -5659,44 +4836,33 @@ declare namespace $ {
                 new (): {
                     remote_list(next?: readonly $bog_quiz_reaction[] | undefined): readonly $bog_quiz_reaction[];
                     remote_add(item: $bog_quiz_reaction): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_reaction;
-                    remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_reaction;
+                    make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_reaction;
+                    remote_make(config: $giper_baza_rank_preset): $bog_quiz_reaction;
                     local_make(idea?: number): $bog_quiz_reaction;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
+                    items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+                    items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+                    splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+                    has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+                    add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    cut(vary: $giper_baza_vary_type): void;
                     move(from: number, to: number): void;
                     wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -5707,8 +4873,8 @@ declare namespace $ {
                 };
                 Value: Value;
                 toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -5716,14 +4882,14 @@ declare namespace $ {
                 destructor(): void;
                 [Symbol.toPrimitive](): any;
             };
-            readonly QuestionTimerSec: typeof $hyoo_crus_atom_int;
-            readonly ReviewTimerSec: typeof $hyoo_crus_atom_int;
-            readonly ShowStats: typeof $hyoo_crus_atom_bool;
-            readonly ReactionsEnabled: typeof $hyoo_crus_atom_bool;
-            readonly LeaderboardEnabled: typeof $hyoo_crus_atom_bool;
-            readonly SpeedKMax: typeof $hyoo_crus_atom_real;
-            readonly SpeedKMin: typeof $hyoo_crus_atom_real;
-            readonly SpeedSkipSec: typeof $hyoo_crus_atom_int;
+            readonly QuestionTimerSec: typeof $giper_baza_atom_bint;
+            readonly ReviewTimerSec: typeof $giper_baza_atom_bint;
+            readonly ShowStats: typeof $giper_baza_atom_bool;
+            readonly ReactionsEnabled: typeof $giper_baza_atom_bool;
+            readonly LeaderboardEnabled: typeof $giper_baza_atom_bool;
+            readonly SpeedKMax: typeof $giper_baza_atom_real;
+            readonly SpeedKMin: typeof $giper_baza_atom_real;
+            readonly SpeedSkipSec: typeof $giper_baza_atom_bint;
         };
     };
     export class $bog_quiz_session extends $bog_quiz_session_base {
@@ -5745,48 +4911,47 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const $bog_quiz_owner_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
+    class $bog_quiz_scoring extends $mol_object {
+        static speed_multiplier(question_started_at: bigint, answer_final_at: bigint, question_timer_sec: bigint, speed_k_max: number, speed_k_min: number, speed_skip_sec: bigint): number;
+        static score_single(is_correct: boolean, base_points: bigint, wrong_penalty: bigint, multiplier: number, speed_enabled: boolean): number;
+        static score_multi(selected_refs: string[], correct_refs: string[], base_points: bigint, wrong_penalty_per_option: bigint, multiplier: number, speed_enabled: boolean): number;
+        static calculate_answer_score(answer: $bog_quiz_answer, session: $bog_quiz_session): number;
+        static calculate_participant_total_score(participant: $bog_quiz_participant, session: $bog_quiz_session): number;
+    }
+}
+
+declare namespace $ {
+    const $bog_quiz_owner_base: Omit<typeof $giper_baza_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_entity, {
         readonly Quizzes: (auto?: any) => {
             remote_list(next?: readonly $bog_quiz_quiz[] | undefined): readonly $bog_quiz_quiz[];
             remote_add(item: $bog_quiz_quiz): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_quiz;
-            remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_quiz;
+            make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_quiz;
+            remote_make(config: $giper_baza_rank_preset): $bog_quiz_quiz;
             local_make(idea?: number): $bog_quiz_quiz;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -5798,44 +4963,33 @@ declare namespace $ {
         readonly Sessions: (auto?: any) => {
             remote_list(next?: readonly $bog_quiz_session[] | undefined): readonly $bog_quiz_session[];
             remote_add(item: $bog_quiz_session): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_session;
-            remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_session;
+            make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_session;
+            remote_make(config: $giper_baza_rank_preset): $bog_quiz_session;
             local_make(idea?: number): $bog_quiz_session;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -5846,50 +5000,39 @@ declare namespace $ {
         } | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
             readonly Quizzes: {
                 new (): {
                     remote_list(next?: readonly $bog_quiz_quiz[] | undefined): readonly $bog_quiz_quiz[];
                     remote_add(item: $bog_quiz_quiz): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_quiz;
-                    remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_quiz;
+                    make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_quiz;
+                    remote_make(config: $giper_baza_rank_preset): $bog_quiz_quiz;
                     local_make(idea?: number): $bog_quiz_quiz;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
+                    items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+                    items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+                    splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+                    has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+                    add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    cut(vary: $giper_baza_vary_type): void;
                     move(from: number, to: number): void;
                     wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -5900,8 +5043,8 @@ declare namespace $ {
                 };
                 Value: Value;
                 toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -5913,44 +5056,33 @@ declare namespace $ {
                 new (): {
                     remote_list(next?: readonly $bog_quiz_session[] | undefined): readonly $bog_quiz_session[];
                     remote_add(item: $bog_quiz_session): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_session;
-                    remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_session;
+                    make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_session;
+                    remote_make(config: $giper_baza_rank_preset): $bog_quiz_session;
                     local_make(idea?: number): $bog_quiz_session;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
+                    items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+                    items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+                    splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+                    has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+                    add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    cut(vary: $giper_baza_vary_type): void;
                     move(from: number, to: number): void;
                     wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -5961,8 +5093,8 @@ declare namespace $ {
                 };
                 Value: Value;
                 toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -5981,53 +5113,38 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    const $bog_quiz_quiz_base: Omit<typeof $hyoo_crus_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$hyoo_crus_entity, {
-        readonly Title: (auto?: any) => $hyoo_crus_text | null;
+    const $bog_quiz_quiz_base: Omit<typeof $giper_baza_entity, "prototype"> & (new (...args: any[]) => $mol_type_override<$giper_baza_entity, {
+        readonly Title: (auto?: any) => $giper_baza_text | null;
         readonly Owner: (auto?: any) => {
             Value: Value;
             remote(next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
-            remote_of(peer: string | null, next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
-            ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_owner | null;
-            ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_owner | null;
-            ensure_here(peer: string | null): void;
-            ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-            ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-            remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_owner | null;
+            remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
+            ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_owner | null;
+            ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_owner | null;
+            ensure_here(peer: $giper_baza_link | null): void;
+            ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+            ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+            remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_owner | null;
             local_ensure(): $bog_quiz_owner | null;
-            val(next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            val_of(peer: string | null, next?: (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null | undefined): (symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null;
-            pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-            vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-            vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+            val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+            pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+            vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+            vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -6039,44 +5156,33 @@ declare namespace $ {
         readonly Questions: (auto?: any) => {
             remote_list(next?: readonly $bog_quiz_question[] | undefined): readonly $bog_quiz_question[];
             remote_add(item: $bog_quiz_question): void;
-            make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_question;
-            remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_question;
+            make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_question;
+            remote_make(config: $giper_baza_rank_preset): $bog_quiz_question;
             local_make(idea?: number): $bog_quiz_question;
-            items(next?: readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[] | undefined): readonly ((symbol & {
-                $hyoo_crus_ref: symbol;
-            }) | null)[];
-            items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-            splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-            has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-            add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-            cut(vary: $hyoo_crus_vary_type): void;
+            items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+            items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+            splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+            has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+            add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+            cut(vary: $giper_baza_vary_type): void;
             move(from: number, to: number): void;
             wipe(seat: number): void;
-            node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+            node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
             [$mol_dev_format_head](): any[];
-            land(): $hyoo_crus_land;
-            head(): string;
-            land_ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            ref(): symbol & {
-                $hyoo_crus_ref: symbol;
-            };
-            toJSON(): string | undefined;
-            cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-            nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-            units(): $hyoo_crus_sand[];
-            units_of(peer: string | null): $hyoo_crus_sand[];
+            land(): $giper_baza_land;
+            head(): $giper_baza_link;
+            land_link(): $giper_baza_link;
+            link(): $giper_baza_link;
+            toJSON(): string;
+            cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+            nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+            units(): $giper_baza_unit_sand[];
+            units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
-            author_peers(): string[];
-            author_lords(): (symbol & {
-                $hyoo_crus_ref: symbol;
-            })[];
+            authors(): $giper_baza_auth_pass[];
             get $(): $;
             set $(next: $);
             destructor(): void;
@@ -6085,63 +5191,48 @@ declare namespace $ {
             [$mol_ambient_ref]: $;
             [Symbol.dispose](): void;
         } | null;
-        readonly DefaultQuestionTimer: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly DefaultReviewTimer: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly DefaultBasePoints: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly DefaultWrongPenaltySingle: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly DefaultWrongPenaltyMultiPerOption: (auto?: any) => $hyoo_crus_atom_int | null;
-        readonly DefaultSpeedEnabled: (auto?: any) => $hyoo_crus_atom_bool | null;
+        readonly DefaultQuestionTimer: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly DefaultReviewTimer: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly DefaultBasePoints: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly DefaultWrongPenaltySingle: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly DefaultWrongPenaltyMultiPerOption: (auto?: any) => $giper_baza_atom_bint | null;
+        readonly DefaultSpeedEnabled: (auto?: any) => $giper_baza_atom_bool | null;
     }>) & {
         schema: {
-            [x: string]: typeof $hyoo_crus_node;
+            [x: string]: typeof $giper_baza_node;
         } & {
-            readonly Title: typeof $hyoo_crus_text;
+            readonly Title: typeof $giper_baza_text;
             readonly Owner: {
                 new (): {
                     Value: () => typeof $bog_quiz_owner;
                     remote(next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
-                    remote_of(peer: string | null, next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
-                    ensure(config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_owner | null;
-                    ensure_of(peer: string | null, config?: null | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_owner | null;
-                    ensure_here(peer: string | null): void;
-                    ensure_area(peer: string | null, land: $hyoo_crus_land): void;
-                    ensure_lord(peer: string | null, preset: $hyoo_crus_rank_preset): void;
-                    remote_ensure(preset?: $hyoo_crus_rank_preset): $bog_quiz_owner | null;
+                    remote_of(peer: $giper_baza_link | null, next?: $bog_quiz_owner | null | undefined): $bog_quiz_owner | null;
+                    ensure(config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_owner | null;
+                    ensure_of(peer: $giper_baza_link | null, config?: null | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_owner | null;
+                    ensure_here(peer: $giper_baza_link | null): void;
+                    ensure_area(peer: $giper_baza_link | null, land: $giper_baza_land): void;
+                    ensure_lord(peer: $giper_baza_link | null, preset: $giper_baza_rank_preset): void;
+                    remote_ensure(preset?: $giper_baza_rank_preset): $bog_quiz_owner | null;
                     local_ensure(): $bog_quiz_owner | null;
-                    val(next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    val_of(peer: string | null, next?: (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null | undefined): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null;
-                    pick_unit(peer: string | null): $hyoo_crus_sand | undefined;
-                    vary(next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
-                    vary_of(peer: string | null, next?: $hyoo_crus_vary_type): $hyoo_crus_vary_type;
+                    val(next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    val_of(peer: $giper_baza_link | null, next?: $giper_baza_link | null | undefined): $giper_baza_link | null;
+                    pick_unit(peer: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
+                    vary(next?: $giper_baza_vary_type): $giper_baza_vary_type;
+                    vary_of(peer: $giper_baza_link | null, next?: $giper_baza_vary_type): $giper_baza_vary_type;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -6151,9 +5242,9 @@ declare namespace $ {
                     [Symbol.dispose](): void;
                 };
                 toString(): any;
-                Value: typeof $hyoo_crus_dict;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                Value: typeof $giper_baza_dict;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -6165,44 +5256,33 @@ declare namespace $ {
                 new (): {
                     remote_list(next?: readonly $bog_quiz_question[] | undefined): readonly $bog_quiz_question[];
                     remote_add(item: $bog_quiz_question): void;
-                    make(config: null | number | $hyoo_crus_rank_preset | $hyoo_crus_land): $bog_quiz_question;
-                    remote_make(config: $hyoo_crus_rank_preset): $bog_quiz_question;
+                    make(config: null | number | $giper_baza_rank_preset | $giper_baza_land): $bog_quiz_question;
+                    remote_make(config: $giper_baza_rank_preset): $bog_quiz_question;
                     local_make(idea?: number): $bog_quiz_question;
-                    items(next?: readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[] | undefined): readonly ((symbol & {
-                        $hyoo_crus_ref: symbol;
-                    }) | null)[];
-                    items_vary(next?: readonly $hyoo_crus_vary_type[], tag?: keyof typeof $hyoo_crus_sand_tag): readonly $hyoo_crus_vary_type[];
-                    splice(next: readonly $hyoo_crus_vary_type[], from?: number, to?: number, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    find(vary: $hyoo_crus_vary_type): $hyoo_crus_sand | null;
-                    has(vary: $hyoo_crus_vary_type, next?: boolean, tag?: keyof typeof $hyoo_crus_sand_tag): boolean;
-                    add(vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): void;
-                    cut(vary: $hyoo_crus_vary_type): void;
+                    items(next?: readonly ($giper_baza_link | null)[] | undefined): readonly ($giper_baza_link | null)[];
+                    items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
+                    splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
+                    has(vary: $giper_baza_vary_type, next?: boolean, tag?: keyof typeof $giper_baza_unit_sand_tag): boolean;
+                    add(vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
+                    cut(vary: $giper_baza_vary_type): void;
                     move(from: number, to: number): void;
                     wipe(seat: number): void;
-                    node_make<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1, vary: $hyoo_crus_vary_type, tag?: keyof typeof $hyoo_crus_sand_tag): InstanceType<Node_1>;
+                    node_make<Node_1 extends typeof $giper_baza_node>(Node: Node_1, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): InstanceType<Node_1>;
                     [$mol_dev_format_head](): any[];
-                    land(): $hyoo_crus_land;
-                    head(): string;
-                    land_ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    ref(): symbol & {
-                        $hyoo_crus_ref: symbol;
-                    };
-                    toJSON(): string | undefined;
-                    cast<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1): InstanceType<Node_1>;
-                    nodes<Node_1 extends typeof $hyoo_crus_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
-                    units(): $hyoo_crus_sand[];
-                    units_of(peer: string | null): $hyoo_crus_sand[];
+                    land(): $giper_baza_land;
+                    head(): $giper_baza_link;
+                    land_link(): $giper_baza_link;
+                    link(): $giper_baza_link;
+                    toJSON(): string;
+                    cast<Node_1 extends typeof $giper_baza_node>(Node: Node_1): InstanceType<Node_1>;
+                    nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
+                    units(): $giper_baza_unit_sand[];
+                    units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
-                    author_peers(): string[];
-                    author_lords(): (symbol & {
-                        $hyoo_crus_ref: symbol;
-                    })[];
+                    authors(): $giper_baza_auth_pass[];
                     get $(): $;
                     set $(next: $);
                     destructor(): void;
@@ -6213,8 +5293,8 @@ declare namespace $ {
                 };
                 Value: Value;
                 toString(): any;
-                parse: typeof $hyoo_crus_vary_cast_ref;
-                tag: keyof typeof $hyoo_crus_sand_tag;
+                parse: typeof $giper_baza_vary_cast_link;
+                tag: keyof typeof $giper_baza_unit_sand_tag;
                 make<This extends typeof $mol_object>(this: This, config: Partial<InstanceType<This>>): InstanceType<This>;
                 $: $;
                 create<Instance>(this: new (init?: (instance: any) => void) => Instance, init?: (instance: $mol_type_writable<Instance>) => void): Instance;
@@ -6222,12 +5302,12 @@ declare namespace $ {
                 destructor(): void;
                 [Symbol.toPrimitive](): any;
             };
-            readonly DefaultQuestionTimer: typeof $hyoo_crus_atom_int;
-            readonly DefaultReviewTimer: typeof $hyoo_crus_atom_int;
-            readonly DefaultBasePoints: typeof $hyoo_crus_atom_int;
-            readonly DefaultWrongPenaltySingle: typeof $hyoo_crus_atom_int;
-            readonly DefaultWrongPenaltyMultiPerOption: typeof $hyoo_crus_atom_int;
-            readonly DefaultSpeedEnabled: typeof $hyoo_crus_atom_bool;
+            readonly DefaultQuestionTimer: typeof $giper_baza_atom_bint;
+            readonly DefaultReviewTimer: typeof $giper_baza_atom_bint;
+            readonly DefaultBasePoints: typeof $giper_baza_atom_bint;
+            readonly DefaultWrongPenaltySingle: typeof $giper_baza_atom_bint;
+            readonly DefaultWrongPenaltyMultiPerOption: typeof $giper_baza_atom_bint;
+            readonly DefaultSpeedEnabled: typeof $giper_baza_atom_bool;
         };
     };
     export class $bog_quiz_quiz extends $bog_quiz_quiz_base {
@@ -11058,7 +10138,7 @@ declare namespace $ {
 		option_delete( id: any, next?: any ): any
 		Option_delete_button( id: any): $mol_button_minor
 		quiz_id( ): string
-		realm( ): $hyoo_crus_glob
+		realm( ): $giper_baza_glob
 		title( ): ReturnType< $bog_quiz_editor['quiz_title'] >
 		body( ): readonly(any)[]
 		Question_card( id: any): $mol_card
@@ -11108,7 +10188,7 @@ declare namespace $ {
 		ReturnType< $mol_button_minor['sub'] >
 	>
 	export class $bog_quiz extends $mol_book2_catalog {
-		Realm( ): $hyoo_crus_glob
+		Realm( ): $giper_baza_glob
 		quiz_add( next?: any ): any
 		Quiz_add_icon( ): $mol_icon_plus
 		Quiz_add( ): $mol_button_minor
@@ -11133,9 +10213,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $bog_quiz extends $.$bog_quiz {
         profile(): $bog_quiz_owner | null;
-        quiz_id(next?: $hyoo_crus_ref): (symbol & {
-            $hyoo_crus_ref: symbol;
-        }) | null;
+        quiz_id(next?: string): string | null;
         spread_ids(): string[];
         spread_key(id: string): string;
         quiz(id: string): $bog_quiz_quiz;
