@@ -21,8 +21,6 @@ jobs:
             target: desktop
           - platform: windows-latest
             target: desktop
-          - platform: macos-latest
-            target: ios
           - platform: ubuntu-latest
             target: android
 
