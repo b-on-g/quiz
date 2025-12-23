@@ -2,16 +2,16 @@ namespace $ {
 	/**
 	 * Question - вопрос в квизе
 	 */
-	export class $bog_quiz_question extends $hyoo_crus_entity.with({
-		Text: $hyoo_crus_text,
-		Type: $hyoo_crus_atom_str, // 'single' или 'multi'
-		Order: $hyoo_crus_atom_int,
-		Options: $hyoo_crus_list_ref_to(() => $bog_quiz_option),
+	export class $bog_quiz_question extends $giper_baza_entity.with({
+		Text: $giper_baza_text,
+		Type: $giper_baza_atom_text, // 'single' или 'multi'
+		Order: $giper_baza_atom_bint,
+		Options: $giper_baza_list_link_to(() => $bog_quiz_option),
 		// Параметры начисления очков (переопределяют дефолтные из Quiz)
-		BasePoints: $hyoo_crus_atom_int,
-		WrongPenaltySingle: $hyoo_crus_atom_int,
-		WrongPenaltyMultiPerOption: $hyoo_crus_atom_int,
-		SpeedEnabled: $hyoo_crus_atom_bool,
+		BasePoints: $giper_baza_atom_bint,
+		WrongPenaltySingle: $giper_baza_atom_bint,
+		WrongPenaltyMultiPerOption: $giper_baza_atom_bint,
+		SpeedEnabled: $giper_baza_atom_bool,
 	}) {
 		/**
 		 * Создать новый вариант ответа
@@ -26,7 +26,7 @@ namespace $ {
 				throw new Error('Maximum 50 options per question')
 			}
 
-			const option = options.remote_make({ '': $hyoo_crus_rank_read })!
+			const option = options.make([[null, $giper_baza_rank_read]])!
 
 			// Установить порядковый номер
 			const order = count

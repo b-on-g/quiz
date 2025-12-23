@@ -2,7 +2,7 @@ namespace $.$$ {
 	export class $bog_quiz_list extends $.$bog_quiz_list {
 		@$mol_mem
 		owner() {
-			return this.$.$hyoo_crus_glob.home().hall_by($bog_quiz_owner, {})
+			return this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, [])
 		}
 
 		create(event?: Event) {
@@ -48,7 +48,7 @@ namespace $.$$ {
 		@$mol_mem_key
 		quiz_link(index: number) {
 			const quiz = this.quiz_entity(index)
-			return quiz.land().ref().description!
+			return quiz.link().toString()
 		}
 
 		@$mol_mem_key

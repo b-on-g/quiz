@@ -3,9 +3,9 @@ namespace $ {
 	 * Owner/Profile - владелец квизов
 	 * Хранит список созданных квизов
 	 */
-	export class $bog_quiz_owner extends $hyoo_crus_entity.with({
-		Quizzes: $hyoo_crus_list_ref_to(() => $bog_quiz_quiz),
-		Sessions: $hyoo_crus_list_ref_to(() => $bog_quiz_session),
+	export class $bog_quiz_owner extends $giper_baza_entity.with({
+		Quizzes: $giper_baza_list_link_to(() => $bog_quiz_quiz),
+		Sessions: $giper_baza_list_link_to(() => $bog_quiz_session),
 	}) {
 		/**
 		 * Создать новый квиз
@@ -20,8 +20,8 @@ namespace $ {
 				throw new Error('Maximum 10 quizzes per owner')
 			}
 
-			const quiz = quizzes.remote_make({ '': $hyoo_crus_rank_read })!
-			quiz.Owner(null)!.val(this.land().auth().lord())
+			const quiz = quizzes.make([[null, $giper_baza_rank_read]])!
+			quiz.Owner(null)!.remote(this)
 			return quiz
 		}
 
@@ -31,13 +31,13 @@ namespace $ {
 		@$mol_action
 		session_make(quiz: $bog_quiz_quiz) {
 			const sessions = this.Sessions(null)!
-			const session = sessions.remote_make({ '': $hyoo_crus_rank_read })!
+			const session = sessions.make([[null, $giper_baza_rank_read]])!
 
 			// Установить ссылку на квиз
-			session.Quiz(null)!.val(quiz.ref())
+			session.Quiz(null)!.remote(quiz)
 
 			// Установить хоста
-			session.Host(null)!.val(this.ref())
+			session.Host(null)!.remote(this)
 
 			// Установить начальное состояние
 			session.State(null)!.val('waiting')

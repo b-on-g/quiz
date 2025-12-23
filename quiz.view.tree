@@ -1,6 +1,6 @@
 $bog_quiz $mol_book2_catalog
 	param \quiz
-	realm <= Realm $hyoo_crus_glob
+	realm <= Realm $giper_baza_glob
 	menu_title @ \Quiz App
 	menu_tools /
 		<= Quiz_add $mol_button_minor

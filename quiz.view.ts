@@ -1,8 +1,8 @@
 namespace $.$$ {
-	// Инициализация GiperBase и настройка синхронизации
+	// Инициализация Giper Baza и настройка синхронизации
 	new $mol_after_frame(() => {
-		$hyoo_crus_yard.masters = ['https://crus.hd4.ru/']
-		$hyoo_crus_glob.yard().sync()
+		$giper_baza_yard.masters = ['https://crus.hd4.ru/']
+		$giper_baza_glob.yard().sync()
 	})
 
 	export class $bog_quiz extends $.$bog_quiz {
@@ -11,14 +11,13 @@ namespace $.$$ {
 		 */
 		@$mol_mem
 		profile() {
-			return this.$.$hyoo_crus_glob.home().hall_by($bog_quiz_owner, {})
+			return this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, [])
 		}
 
 		@$mol_mem
-		quiz_id(next?: $hyoo_crus_ref) {
-			const id = this.$.$mol_state_arg.value('quiz', next?.description)
-			if (!id) return null
-			return $hyoo_crus_ref(id)
+		quiz_id(next?: string) {
+			const id = this.$.$mol_state_arg.value('quiz', next)
+			return id || null
 		}
 
 		@$mol_mem
@@ -29,7 +28,7 @@ namespace $.$$ {
 				owner
 					.Quizzes()
 					?.remote_list()
-					.map(quiz => quiz.ref().description!) ?? []
+					.map(quiz => quiz.link().toString()) ?? []
 			)
 		}
 
@@ -40,14 +39,14 @@ namespace $.$$ {
 
 		@$mol_mem_key
 		quiz(id: string) {
-			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $bog_quiz_quiz)
+			return this.$.$giper_baza_glob.Node($giper_baza_link.from(id), $bog_quiz_quiz)
 		}
 
 		@$mol_action
 		quiz_add(event?: Event) {
 			const owner = this.profile()!
 			const quiz = owner.quiz_make()
-			this.quiz_id(quiz.ref())
+			this.quiz_id(quiz.link().toString())
 			return event
 		}
 

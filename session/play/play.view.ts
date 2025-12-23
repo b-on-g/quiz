@@ -4,7 +4,7 @@ namespace $.$$ {
 		session() {
 			const id = this.session_id()
 			if (!id) return null
-			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $bog_quiz_session) as $bog_quiz_session
+			return this.$.$giper_baza_glob.Node($giper_baza_link.from(id), $bog_quiz_session) as $bog_quiz_session
 		}
 
 		/**
@@ -35,7 +35,7 @@ namespace $.$$ {
 			if (!participants_list) return null
 
 			const participants = participants_list.remote_list() ?? []
-			const found = participants.find(p => p.ref().description === stored_id)
+			const found = participants.find(p => p.link().toString() === stored_id)
 
 			return (found as $bog_quiz_participant) || null
 		}

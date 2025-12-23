@@ -2,17 +2,17 @@ namespace $ {
 	/**
 	 * Quiz - квиз с вопросами
 	 */
-	export class $bog_quiz_quiz extends $hyoo_crus_entity.with({
-		Title: $hyoo_crus_text,
-		Owner: $hyoo_crus_atom_ref_to(() => $bog_quiz_owner),
-		Questions: $hyoo_crus_list_ref_to(() => $bog_quiz_question),
+	export class $bog_quiz_quiz extends $giper_baza_entity.with({
+		Title: $giper_baza_text,
+		Owner: $giper_baza_atom_link_to(() => $bog_quiz_owner),
+		Questions: $giper_baza_list_link_to(() => $bog_quiz_question),
 		// Дефолтные настройки для всех вопросов
-		DefaultQuestionTimer: $hyoo_crus_atom_int,
-		DefaultReviewTimer: $hyoo_crus_atom_int,
-		DefaultBasePoints: $hyoo_crus_atom_int,
-		DefaultWrongPenaltySingle: $hyoo_crus_atom_int,
-		DefaultWrongPenaltyMultiPerOption: $hyoo_crus_atom_int,
-		DefaultSpeedEnabled: $hyoo_crus_atom_bool,
+		DefaultQuestionTimer: $giper_baza_atom_bint,
+		DefaultReviewTimer: $giper_baza_atom_bint,
+		DefaultBasePoints: $giper_baza_atom_bint,
+		DefaultWrongPenaltySingle: $giper_baza_atom_bint,
+		DefaultWrongPenaltyMultiPerOption: $giper_baza_atom_bint,
+		DefaultSpeedEnabled: $giper_baza_atom_bool,
 	}) {
 		/**
 		 * Создать новый вопрос
@@ -26,7 +26,7 @@ namespace $ {
 			}
 
 			const questions = this.Questions(null)!
-			const question = questions.remote_make({ '': $hyoo_crus_rank_read })!
+			const question = questions.make([[null, $giper_baza_rank_read]])!
 
 			// Установить порядковый номер
 			const order = questions.remote_list().length - 1

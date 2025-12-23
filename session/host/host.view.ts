@@ -4,7 +4,7 @@ namespace $.$$ {
 		session() {
 			const id = this.session_id()
 			if (!id) return null
-			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $bog_quiz_session) as $bog_quiz_session
+			return this.$.$giper_baza_glob.Node($giper_baza_link.from(id), $bog_quiz_session) as $bog_quiz_session
 		}
 
 		@$mol_mem
@@ -38,7 +38,7 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return ''
 
-			const session_id = session.land().ref().description!
+			const session_id = session.link().toString()
 			return `${window.location.origin}${window.location.pathname}?session=${session_id}&join`
 		}
 

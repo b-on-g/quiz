@@ -4,7 +4,7 @@ namespace $.$$ {
 		session() {
 			const id = this.session_id()
 			if (!id) return null
-			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $bog_quiz_session) as $bog_quiz_session
+			return this.$.$giper_baza_glob.Node($giper_baza_link.from(id), $bog_quiz_session) as $bog_quiz_session
 		}
 
 		@$mol_mem
@@ -40,11 +40,11 @@ namespace $.$$ {
 
 			const participant = session.participant_make()
 			participant.DisplayName(null)!.str(name)
-			participant.UserId(null)!.val(this.$.$hyoo_crus_glob.home().land().auth().lord().description!)
+			participant.UserId(null)!.val(this.$.$giper_baza_glob.home().land().auth().pass().lord().toString())
 
 			// Сохранить ID участника в localStorage
-			const session_id = session.land().ref().description!
-			const participant_id = participant.land().ref().description!
+			const session_id = session.link().toString()
+			const participant_id = participant.link().toString()
 			const key = `quiz_participant_${session_id}`
 			localStorage.setItem(key, participant_id)
 

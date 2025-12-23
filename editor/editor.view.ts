@@ -4,7 +4,7 @@ namespace $.$$ {
 		quiz() {
 			const id = this.quiz_id()
 			if (!id) return null
-			return this.$.$hyoo_crus_glob.Node($hyoo_crus_ref(id), $bog_quiz_quiz) as $bog_quiz_quiz
+			return this.$.$giper_baza_glob.Node($giper_baza_link.from(id), $bog_quiz_quiz) as $bog_quiz_quiz
 		}
 
 		@$mol_mem
@@ -95,7 +95,7 @@ namespace $.$$ {
 			const questions = quiz.Questions(null)
 			if (!questions) return event
 
-			questions.cut(question.ref())
+			questions.cut(question.link())
 			return event
 		}
 
@@ -158,7 +158,7 @@ namespace $.$$ {
 				if (is_single && next === true) {
 					const options = question?.Options(null)?.remote_list() ?? []
 					options.forEach((opt: $bog_quiz_option) => {
-						if (opt.ref().description !== option.ref().description) {
+						if (opt.link().toString() !== option.link().toString()) {
 							opt.IsCorrect(null)!.val(false)
 						}
 					})
@@ -181,7 +181,7 @@ namespace $.$$ {
 			const options = question.Options(null)
 			if (!options) return event
 
-			options.cut(option.ref())
+			options.cut(option.link())
 			return event
 		}
 
@@ -204,13 +204,13 @@ namespace $.$$ {
 			}
 
 			// Получить owner и создать сессию
-			const owner = this.$.$hyoo_crus_glob.home().hall_by($bog_quiz_owner, {})!
+			const owner = this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, [])!
 			console.log('owner:', owner)
 			const session = owner.session_make(quiz)
 			console.log('session создана:', session)
 
 			// Навигация на host-экран с префиксом 'host:'
-			const session_id = session.land().ref().description!
+			const session_id = session.link().toString()
 			console.log('session_id:', session_id)
 			this.$.$mol_state_arg.value('quiz', 'host:' + session_id)
 			console.log('Навигация на host:', 'host:' + session_id)

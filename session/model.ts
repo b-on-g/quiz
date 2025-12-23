@@ -2,25 +2,25 @@ namespace $ {
 	/**
 	 * Session - игровая сессия квиза
 	 */
-	export class $bog_quiz_session extends $hyoo_crus_entity.with({
-		Quiz: $hyoo_crus_atom_ref_to(() => $bog_quiz_quiz),
-		Host: $hyoo_crus_atom_ref_to(() => $bog_quiz_owner),
-		State: $hyoo_crus_atom_str, // 'waiting' | 'question' | 'review' | 'finished'
-		QuestionIndex: $hyoo_crus_atom_int,
-		QuestionStartedAt: $hyoo_crus_atom_int, // timestamp
-		ReviewStartedAt: $hyoo_crus_atom_int, // timestamp
-		Participants: $hyoo_crus_list_ref_to(() => $bog_quiz_participant),
-		Answers: $hyoo_crus_list_ref_to(() => $bog_quiz_answer),
-		ReactionEvents: $hyoo_crus_list_ref_to(() => $bog_quiz_reaction),
+	export class $bog_quiz_session extends $giper_baza_entity.with({
+		Quiz: $giper_baza_atom_link_to(() => $bog_quiz_quiz),
+		Host: $giper_baza_atom_link_to(() => $bog_quiz_owner),
+		State: $giper_baza_atom_text, // 'waiting' | 'question' | 'review' | 'finished'
+		QuestionIndex: $giper_baza_atom_bint,
+		QuestionStartedAt: $giper_baza_atom_bint, // timestamp
+		ReviewStartedAt: $giper_baza_atom_bint, // timestamp
+		Participants: $giper_baza_list_link_to(() => $bog_quiz_participant),
+		Answers: $giper_baza_list_link_to(() => $bog_quiz_answer),
+		ReactionEvents: $giper_baza_list_link_to(() => $bog_quiz_reaction),
 		// Настройки сессии
-		QuestionTimerSec: $hyoo_crus_atom_int,
-		ReviewTimerSec: $hyoo_crus_atom_int,
-		ShowStats: $hyoo_crus_atom_bool,
-		ReactionsEnabled: $hyoo_crus_atom_bool,
-		LeaderboardEnabled: $hyoo_crus_atom_bool,
-		SpeedKMax: $hyoo_crus_atom_real,
-		SpeedKMin: $hyoo_crus_atom_real,
-		SpeedSkipSec: $hyoo_crus_atom_int,
+		QuestionTimerSec: $giper_baza_atom_bint,
+		ReviewTimerSec: $giper_baza_atom_bint,
+		ShowStats: $giper_baza_atom_bool,
+		ReactionsEnabled: $giper_baza_atom_bool,
+		LeaderboardEnabled: $giper_baza_atom_bool,
+		SpeedKMax: $giper_baza_atom_real,
+		SpeedKMin: $giper_baza_atom_real,
+		SpeedSkipSec: $giper_baza_atom_bint,
 	}) {
 		/**
 		 * Получить текущий вопрос
@@ -99,7 +99,7 @@ namespace $ {
 
 			answers.forEach(answer => {
 				const answerQuestion = answer.Question()?.remote()
-				if (answerQuestion?.ref().description === question.ref().description) {
+				if (answerQuestion?.link().toString() === question.link().toString()) {
 					// Если FinalAt еще не установлен, устанавливаем
 					if (!answer.FinalAt()?.val()) {
 						answer.FinalAt(null)!.val(now)
@@ -122,7 +122,7 @@ namespace $ {
 		@$mol_action
 		participant_make() {
 			const participants = this.Participants(null)!
-			const participant = participants.remote_make({ '': $hyoo_crus_rank_read })!
+			const participant = participants.make([[null, $giper_baza_rank_read]])!
 
 			participant.update_last_seen()
 
@@ -142,21 +142,21 @@ namespace $ {
 
 			// Найти существующий ответ
 			const existing = existing_answers.find(ans => {
-				const ans_question = ans.Question()?.val()
-				const ans_participant = ans.Participant()?.val()
+				const ans_question = ans.Question()?.remote()
+				const ans_participant = ans.Participant()?.remote()
 				return (
-					ans_question?.description === question.ref().description &&
-					ans_participant?.description === participant.ref().description
+					ans_question?.link().toString() === question.link().toString() &&
+					ans_participant?.link().toString() === participant.link().toString()
 				)
 			})
 
 			if (existing) return existing as $bog_quiz_answer
 
 			// Создать новый ответ
-			const answer = answers_list.remote_make({ '': $hyoo_crus_rank_read })!
-			answer.Session(null)!.val(this.ref())
-			answer.Question(null)!.val(question.ref())
-			answer.Participant(null)!.val(participant.ref())
+			const answer = answers_list.make([[null, $giper_baza_rank_read]])!
+			answer.Session(null)!.remote(this)
+			answer.Question(null)!.remote(question)
+			answer.Participant(null)!.remote(participant)
 			answer.UpdatedAt(null)!.val(BigInt(Date.now()))
 
 			return answer
