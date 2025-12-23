@@ -63,10 +63,22 @@ jobs:
         working-directory: bog/quiz
         run: npx tauri ${{ matrix.target == 'desktop' && 'build' || format('{0} build', matrix.target) }}
 
+      - name: Prepare artifacts
+        if: matrix.target == 'desktop'
+        run: |
+          mkdir -p artifacts
+          find bog/quiz/src-tauri/target/release/bundle -type f \( -name "*.exe" -o -name "*.msi" -o -name "*.deb" -o -name "*.rpm" -o -name "*.dmg" -o -name "*.app.tar.gz" \) -exec cp {} artifacts/ \;
+
+      - name: Prepare Android artifacts
+        if: matrix.target == 'android'
+        run: |
+          mkdir -p artifacts
+          find bog/quiz/src-tauri/gen/android/build -type f \( -name "*.apk" -o -name "*.aab" \) -exec cp {} artifacts/ \;
+
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.platform }}-${{ matrix.target }}
-          path: bog/quiz/src-tauri/${{ matrix.target == 'desktop' && 'target/release/bundle/' || format('gen/{0}/build/', matrix.target) }}
+          path: artifacts/
 
   release:
     needs: build
