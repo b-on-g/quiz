@@ -63,11 +63,18 @@ jobs:
         working-directory: bog/quiz
         run: npx tauri ${{ matrix.target == 'desktop' && 'build' || format('{0} build', matrix.target) }}
 
-      - name: Prepare artifacts
-        if: matrix.target == 'desktop'
+      - name: Prepare artifacts (Unix)
+        if: matrix.target == 'desktop' && matrix.platform != 'windows-latest'
         run: |
           mkdir -p artifacts
           find bog/quiz/src-tauri/target/release/bundle -type f \( -name "*.exe" -o -name "*.msi" -o -name "*.deb" -o -name "*.rpm" -o -name "*.dmg" -o -name "*.app.tar.gz" \) -exec cp {} artifacts/ \;
+
+      - name: Prepare artifacts (Windows)
+        if: matrix.target == 'desktop' && matrix.platform == 'windows-latest'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path artifacts
+          Get-ChildItem -Path bog/quiz/src-tauri/target/release/bundle -Recurse -Include *.exe,*.msi | Copy-Item -Destination artifacts/
 
       - name: Prepare Android artifacts
         if: matrix.target == 'android'
