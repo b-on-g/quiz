@@ -19,10 +19,6 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          repository: hyoo-ru/mam
-          
       - uses: hyoo-ru/mam_build@master2
         with:
           package: 'bog/quiz'
