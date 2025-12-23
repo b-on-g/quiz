@@ -63,7 +63,7 @@ jobs:
 
       - name: Build
         working-directory: bog/quiz
-        run: npx tauri ${{ matrix.target }} build
+        run: npx tauri ${{ matrix.target == 'desktop' && 'build' || format('{0} build', matrix.target) }}
 
       - uses: actions/upload-artifact@v4
         with:
