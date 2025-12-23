@@ -5,8 +5,8 @@ permissions: write-all
 on:
   workflow_dispatch:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*'
   pull_request:
 
 jobs:
@@ -14,7 +14,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-latest, windows-latest]
+        include:
+          - platform: macos-latest
+            target: desktop
+          - platform: ubuntu-latest
+            target: desktop
+          - platform: windows-latest
+            target: desktop
+          - platform: macos-latest
+            target: ios
+          - platform: ubuntu-latest
+            target: android
 
     runs-on: ${{ matrix.platform }}
 
@@ -23,30 +33,55 @@ jobs:
         with:
           package: 'bog/quiz'
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@stable
 
-      - name: Install dependencies (Ubuntu)
-        if: matrix.platform == 'ubuntu-latest'
+      - name: Install Linux dependencies
+        if: matrix.platform == 'ubuntu-latest' && matrix.target == 'desktop'
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
+      - name: Setup Android
+        if: matrix.target == 'android'
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Android NDK
+        if: matrix.target == 'android'
+        run: sdkmanager "ndk;27.0.12077973"
+
       - name: Install Tauri CLI
         run: npm install --save-dev @tauri-apps/cli
 
-      - name: Build Tauri App
+      - name: Init mobile
+        if: matrix.target != 'desktop'
         working-directory: bog/quiz
-        run: npx tauri build
+        run: npx tauri ${{ matrix.target }} init
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Build
+        working-directory: bog/quiz
+        run: npx tauri ${{ matrix.target }} build
+
+      - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.platform }}-app
-          path: |
-            bog/quiz/src-tauri/target/release/bundle/
+          name: ${{ matrix.platform }}-${{ matrix.target }}
+          path: bog/quiz/src-tauri/${{ matrix.target == 'desktop' && 'target/release/bundle/' || format('gen/{0}/build/', matrix.target) }}
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/**/*
+          generate_release_notes: true
