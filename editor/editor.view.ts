@@ -4,7 +4,7 @@ namespace $.$$ {
 		quiz() {
 			const id = this.quiz_id()
 			if (!id) return null
-			return this.$.$giper_baza_glob.Node($giper_baza_link.from(id), $bog_quiz_quiz) as $bog_quiz_quiz
+			return this.$.$giper_baza_glob.Node(new $giper_baza_link(id), $bog_quiz_quiz) as $bog_quiz_quiz
 		}
 
 		@$mol_mem
@@ -204,7 +204,7 @@ namespace $.$$ {
 			}
 
 			// Получить owner и создать сессию
-			const owner = this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, [])!
+			const owner = this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, null)!
 			console.log('owner:', owner)
 			const session = owner.session_make(quiz)
 			console.log('session создана:', session)

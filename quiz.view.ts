@@ -11,7 +11,7 @@ namespace $.$$ {
 		 */
 		@$mol_mem
 		profile() {
-			return this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, [])
+			return this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, null)
 		}
 
 		@$mol_mem
@@ -39,7 +39,7 @@ namespace $.$$ {
 
 		@$mol_mem_key
 		quiz(id: string) {
-			return this.$.$giper_baza_glob.Node($giper_baza_link.from(id), $bog_quiz_quiz)
+			return this.$.$giper_baza_glob.Node(new $giper_baza_link(id), $bog_quiz_quiz)
 		}
 
 		@$mol_action

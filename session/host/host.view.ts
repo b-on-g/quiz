@@ -4,7 +4,7 @@ namespace $.$$ {
 		session() {
 			const id = this.session_id()
 			if (!id) return null
-			return this.$.$giper_baza_glob.Node($giper_baza_link.from(id), $bog_quiz_session) as $bog_quiz_session
+			return this.$.$giper_baza_glob.Node(new $giper_baza_link(id), $bog_quiz_session) as $bog_quiz_session
 		}
 
 		@$mol_mem
