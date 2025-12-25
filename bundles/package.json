@@ -1,0 +1,16 @@
+{
+	"name": "bog-quiz-bundles",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Предсборка NPM пакетов для bog/quiz проекта",
+	"scripts": {
+		"build:lodash": "node build-lodash.js",
+		"build:all": "npm run build:lodash"
+	},
+	"devDependencies": {
+		"esbuild": "^0.24.0"
+	},
+	"dependencies": {
+		"lodash": "^4.17.21"
+	}
+}

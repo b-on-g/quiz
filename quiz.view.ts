@@ -11,7 +11,22 @@ namespace $.$$ {
 		 */
 		@$mol_mem
 		profile() {
+			this.lodash_example()
 			return this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, null)
+		}
+
+		/**
+		 * Пример использования lodash
+		 */
+		@$mol_mem
+		lodash_example() {
+			const _ = this.$.$bog_quiz_lib_lodash.lib()
+
+			console.log('Lodash shuffle example:', _.shuffle([1, 2, 3, 4, 5]))
+			console.log('Lodash uniq example:', _.uniq([1, 2, 2, 3, 3]))
+			console.log('Lodash chunk example:', _.chunk([1, 2, 3, 4, 5], 2))
+
+			return true
 		}
 
 		@$mol_mem
