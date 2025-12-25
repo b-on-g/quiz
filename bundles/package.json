@@ -1,0 +1,16 @@
+{
+  "name": "quiz-bundles",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Предсборка NPM пакетов для MAM проекта",
+  "scripts": {
+    "build:moment": "node build-moment.js",
+    "build:all": "npm run build:moment"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  },
+  "dependencies": {
+    "moment": "^2.30.1"
+  }
+}

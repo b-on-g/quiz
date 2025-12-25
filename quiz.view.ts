@@ -11,6 +11,9 @@ namespace $.$$ {
 		 */
 		@$mol_mem
 		profile() {
+			// Используем предсобранный бандл moment.js
+			const moment = this.$.$bog_quiz_lib_moment.lib()
+			console.log('Текущая дата из бандла:', moment().format('DD.MM.YYYY HH:mm:ss'))
 			return this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, null)
 		}
 
