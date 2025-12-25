@@ -1,3 +1,2 @@
 include \/mol/offline/install
 deploy \/bog/quiz/assets
-require \/bog/quiz/lib/moment.bundle.js
