@@ -351,6 +351,8 @@
     "$mol_array_shuffle",
     "$mol_offline_install",
     "$mol_offline",
+    "$bog_quiz_lib",
+    "$mol_import",
     "$bog_quiz_session_host",
     "$mol_button_major",
     "$mol_section",

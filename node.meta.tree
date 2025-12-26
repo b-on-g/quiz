@@ -52,3 +52,4 @@
 \/bog/quiz
 	include \/mol/offline/install
 	deploy \/bog/quiz/assets
+	deploy \/bog/quiz/lib

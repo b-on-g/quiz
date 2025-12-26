@@ -9563,6 +9563,28 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_import extends $mol_object2 {
+        static module(uri: string): any;
+        static module_async(uri: string): Promise<any>;
+        static script(uri: string): any;
+        static script_async(uri: string): Promise<any>;
+        static style(uri: string): any;
+        static style_async(uri: string): any;
+    }
+}
+
+declare namespace $ {
+    class $bog_quiz_lib extends $mol_object2 {
+        static lodash(): any;
+        static moment(): any;
+        static get libraries(): {
+            readonly lodash: "Утилиты для работы с массивами, объектами и строками";
+            readonly moment: "Работа с датами и временем";
+        };
+    }
+}
+
+declare namespace $ {
 }
 
 declare namespace $ {
@@ -10221,6 +10243,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $bog_quiz extends $.$bog_quiz {
         profile(): $bog_quiz_owner | null;
+        npm_libs_example(): boolean;
         quiz_id(next?: string): string | null;
         spread_ids(): string[];
         spread_key(id: string): string;
