@@ -21,6 +21,7 @@ namespace $.$$ {
 		@$mol_mem
 		npm_libs_example() {
 			const _ = this.$.$bog_quiz_lib.lodash()
+
 			console.log('\n🔧 Lodash (утилиты):')
 			console.log('  • shuffle([1,2,3,4,5]):', _.shuffle([1, 2, 3, 4, 5]))
 			console.log('  • uniq([1,2,2,3,3]):', _.uniq([1, 2, 2, 3, 3]))

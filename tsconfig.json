@@ -1,0 +1,7 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"typeRoots": ["bundles/node_modules/@types", "bundles/node_modules"],
+	},
+	"exclude": ["bundles/node_modules", "**/.*/", "**/-/*", "src-tauri"],
+}
