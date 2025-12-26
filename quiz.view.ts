@@ -2,7 +2,7 @@ namespace $.$$ {
 	// Инициализация Giper Baza и настройка синхронизации
 	new $mol_after_frame(() => {
 		$giper_baza_yard.masters = ['https://crus.hd4.ru/']
-		$giper_baza_glob.yard().sync()
+		// $giper_baza_glob.yard().sync()
 	})
 
 	export class $bog_quiz extends $.$bog_quiz {
@@ -16,44 +16,37 @@ namespace $.$$ {
 		}
 
 		/**
-		 * Пример использования NPM библиотек через универсальный $bog_quiz_lib
+		 * Пример использования NPM библиотек
 		 */
 		@$mol_mem
 		npm_libs_example() {
+			// Lodash - утилиты для работы с массивами и объектами
 			const _ = this.$.$bog_quiz_lib.lodash()
-
-			console.log('\n🔧 Lodash (утилиты):')
-			console.log('  • shuffle([1,2,3,4,5]):', _.shuffle([1, 2, 3, 4, 5]))
-			console.log('  • uniq([1,2,2,3,3]):', _.uniq([1, 2, 2, 3, 3]))
-			console.log('  • chunk([1,2,3,4,5], 2):', _.chunk([1, 2, 3, 4, 5], 2))
-			console.log('  • sum([1,2,3,4,5]):', _.sum([1, 2, 3, 4, 5]))
+			console.log('\n🔧 Lodash:')
+			console.log('  shuffle([1,2,3,4,5]):', _.shuffle([1, 2, 3, 4, 5]))
+			console.log('  uniq([1,2,2,3,3]):', _.uniq([1, 2, 2, 3, 3]))
+			console.log('  chunk([1,2,3,4,5], 2):', _.chunk([1, 2, 3, 4, 5], 2))
 
 			// Moment.js - работа с датами
 			const moment = this.$.$bog_quiz_lib.moment()
 			const now = moment()
-			console.log('\n📅 Moment.js (даты):')
-			console.log('  • format("DD.MM.YYYY HH:mm:ss"):', now.format('DD.MM.YYYY HH:mm:ss'))
-			console.log('  • format("LLLL"):', now.format('LLLL'))
-			console.log('  • fromNow() -1 день:', moment().subtract(1, 'day').fromNow())
-			console.log('  • fromNow() +3 часа:', moment().add(3, 'hours').fromNow())
-			console.log('  • diff в днях (сегодня-вчера):', now.diff(moment().subtract(1, 'day'), 'days'))
+			console.log('\n📅 Moment.js:')
+			console.log('  format("DD.MM.YYYY HH:mm"):', now.format('DD.MM.YYYY HH:mm'))
+			console.log('  fromNow() -1 день:', moment().subtract(1, 'day').fromNow())
+			console.log('  fromNow() +3 часа:', moment().add(3, 'hours').fromNow())
 
 			// Axios - HTTP клиент
 			const axios = this.$.$bog_quiz_lib.axios()
-			console.log('\n🌐 Axios (HTTP клиент):')
-			console.log('  • axios.get:', typeof axios.get)
-			console.log('  • axios.post:', typeof axios.post)
-			console.log('  • axios.defaults.baseURL:', axios.defaults.baseURL || 'не установлен')
+			console.log('\n🌐 Axios:')
+			console.log('  axios.get:', typeof axios.get)
+			console.log('  axios.post:', typeof axios.post)
 
-			// Пример реального запроса (закомментирован)
-			axios
-				.get('https://api.github.com/users/github')
-				.then(response => console.log('  • GitHub API response:', response.data))
-				.catch(error => console.log('  • Ошибка запроса:', error.message))
+			// Пример реального запроса (раскомментируйте при необходимости)
+			// axios.get('https://api.github.com/users/github')
+			// 	.then(response => console.log('GitHub API:', response.data))
+			// 	.catch(error => console.log('Ошибка:', error.message))
 
-			console.log('\n' + '='.repeat(60))
-			console.log('✨ Все библиотеки загружены и работают!')
-			console.log('='.repeat(60) + '\n')
+			console.log('\n✨ Все библиотеки загружены и работают!\n')
 
 			return true
 		}
