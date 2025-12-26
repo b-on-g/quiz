@@ -9,6 +9,7 @@ const libraries = [
 		entryPoint: 'node_modules/axios/dist/axios.min.js',
 		globalName: 'axios',
 		description: 'HTTP клиент для запросов',
+		skipBuild: true,
 	},
 	{
 		name: 'lodash',
@@ -53,21 +54,7 @@ async function buildLibrary(lib) {
 			minify: true,
 			platform: 'browser',
 			target: 'es2020',
-			footer: {
-				js: `; if (typeof ${lib.globalName} !== 'undefined') { globalThis.${lib.globalName} = ${lib.globalName}; }`,
-			},
 			external: ['*.d.ts'],
-			plugins: [
-				{
-					name: 'ignore-dts',
-					setup(build) {
-						// Игнорируем все .d.ts файлы
-						build.onResolve({ filter: /\.d\.ts$/ }, args => {
-							return { path: args.path, external: true }
-						})
-					},
-				},
-			],
 		})
 
 		const stats = fs.statSync(outfile)

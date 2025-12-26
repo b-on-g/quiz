@@ -20,6 +20,7 @@ namespace $ {
 
 		static get libraries() {
 			return {
+				axios: 'HTTP клиент для запросов к API',
 				lodash: 'Утилиты для работы с массивами, объектами и строками',
 				moment: 'Работа с датами и временем',
 			} as const
