@@ -9567,11 +9567,15 @@ declare namespace $ {
 
 declare namespace $ {
     class $bog_quiz_lib extends $mol_object2 {
+        static axios(): any;
         static lodash(): any;
         static moment(): any;
+        static react(): any;
         static get libraries(): {
-            readonly lodash: "Утилиты для работы с массивами, объектами и строками";
-            readonly moment: "Работа с датами и временем";
+            readonly axios: "axios";
+            readonly lodash: "lodash";
+            readonly moment: "moment";
+            readonly react: "react";
         };
     }
 }
@@ -10232,6 +10236,9 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=quiz.view.tree.d.ts.map
+declare namespace $ {
+}
+
 declare namespace $.$$ {
     class $bog_quiz extends $.$bog_quiz {
         profile(): $bog_quiz_owner | null;
