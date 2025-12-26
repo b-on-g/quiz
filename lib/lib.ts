@@ -1,15 +1,16 @@
 namespace $ {
 	export class $bog_quiz_lib extends $mol_object2 {
+
 		@$mol_mem
-		static lodash(): import('lodash').LoDashStatic {
-			$mol_import.script('bog/quiz/lib/lodash.bundle.js')
-			return (globalThis as any)._
+		static axios() {
+			$mol_import.script('bog/quiz/lib/axios.bundle.js')
+			return (globalThis as any).axios as import('axios').AxiosStatic
 		}
 
 		@$mol_mem
-		static axios(): import('axios').AxiosStatic {
-			$mol_import.script('bog/quiz/lib/axios.bundle.js')
-			return (globalThis as any).axios
+		static lodash() {
+			$mol_import.script('bog/quiz/lib/lodash.bundle.js')
+			return (globalThis as any)._ as _.LoDashStatic
 		}
 
 		@$mol_mem
@@ -20,9 +21,9 @@ namespace $ {
 
 		static get libraries() {
 			return {
-				axios: 'HTTP клиент для запросов к API',
-				lodash: 'Утилиты для работы с массивами, объектами и строками',
-				moment: 'Работа с датами и временем',
+				axios: 'axios',
+				lodash: 'lodash',
+				moment: 'moment',
 			} as const
 		}
 	}
