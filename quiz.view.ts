@@ -11,20 +11,47 @@ namespace $.$$ {
 		 */
 		@$mol_mem
 		profile() {
-			this.lodash_example()
+			this.npm_libs_example()
 			return this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, null)
 		}
 
 		/**
-		 * Пример использования lodash
+		 * Пример использования NPM библиотек через универсальный $bog_quiz_lib
 		 */
 		@$mol_mem
-		lodash_example() {
-			const _ = this.$.$bog_quiz_lib_lodash.lib()
+		npm_libs_example() {
+			console.log('='.repeat(60))
+			console.log('📚 Примеры использования NPM библиотек через $bog_quiz_lib')
+			console.log('='.repeat(60))
 
-			console.log('Lodash shuffle example:', _.shuffle([1, 2, 3, 4, 5]))
-			console.log('Lodash uniq example:', _.uniq([1, 2, 2, 3, 3]))
-			console.log('Lodash chunk example:', _.chunk([1, 2, 3, 4, 5], 2))
+			// Axios - HTTP клиент
+			const axios = this.$.$bog_quiz_lib.axios()
+			console.log('\n🌐 Axios (HTTP клиент):')
+			console.log('  • axios.get:', axios.get)
+			console.log('  • axios.post:', axios.post)
+			console.log('  • Пример: await axios.get("https://api.github.com")')
+
+			// Lodash - утилиты для массивов и объектов
+			const _ = this.$.$bog_quiz_lib.lodash()
+			console.log('\n🔧 Lodash (утилиты):')
+			console.log('  • shuffle([1,2,3,4,5]):', _.shuffle([1, 2, 3, 4, 5]))
+			console.log('  • uniq([1,2,2,3,3]):', _.uniq([1, 2, 2, 3, 3]))
+			console.log('  • chunk([1,2,3,4,5], 2):', _.chunk([1, 2, 3, 4, 5], 2))
+			console.log('  • sum([1,2,3,4,5]):', _.sum([1, 2, 3, 4, 5]))
+
+			// Moment.js - работа с датами
+			// const moment = this.$.$bog_quiz_lib.moment()
+			// const now = moment()
+			// console.log('\n📅 Moment.js (даты):')
+			// console.log('  • format("DD.MM.YYYY HH:mm:ss"):', now.format('DD.MM.YYYY HH:mm:ss'))
+			// console.log('  • format("LLLL"):', now.format('LLLL'))
+			// console.log('  • fromNow() -1 день:', moment().subtract(1, 'day').fromNow())
+			// console.log('  • fromNow() +3 часа:', moment().add(3, 'hours').fromNow())
+			// console.log('  • diff в днях (сегодня-вчера):', now.diff(moment().subtract(1, 'day'), 'days'))
+
+			console.log('\n' + '='.repeat(60))
+			console.log('✨ Все библиотеки загружены и работают!')
+			console.log('='.repeat(60) + '\n')
 
 			return true
 		}

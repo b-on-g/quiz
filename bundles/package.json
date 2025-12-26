@@ -4,13 +4,17 @@
 	"private": true,
 	"description": "Предсборка NPM пакетов для bog/quiz проекта",
 	"scripts": {
+		"build": "node build-all.js",
 		"build:lodash": "node build-lodash.js",
-		"build:all": "npm run build:lodash"
+		"build:moment": "node build-moment.js",
+		"build:all": "node build-all.js"
 	},
 	"devDependencies": {
 		"esbuild": "^0.24.0"
 	},
 	"dependencies": {
-		"lodash": "^4.17.21"
+		"axios": "^1.7.9",
+		"lodash": "^4.17.21",
+		"moment": "^2.30.1"
 	}
 }
