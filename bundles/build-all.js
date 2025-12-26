@@ -9,7 +9,6 @@ const libraries = [
 		entryPoint: 'node_modules/axios/dist/axios.min.js',
 		globalName: 'axios',
 		description: 'HTTP клиент для запросов',
-		skipBuild: true, // Уже минифицирован в UMD формате
 	},
 	{
 		name: 'lodash',
@@ -19,10 +18,9 @@ const libraries = [
 	},
 	{
 		name: 'moment',
-		entryPoint: 'node_modules/moment/min/moment.min.js',
+		entryPoint: 'node_modules/moment/src/moment.js',
 		globalName: 'moment',
 		description: 'Работа с датами и временем',
-		skipBuild: true, // Уже минифицирован в UMD формате
 	},
 ]
 
@@ -45,7 +43,6 @@ async function buildLibrary(lib) {
 			return { success: true, name: lib.name, size: sizeKB }
 		}
 
-		// Иначе собираем через esbuild
 		await esbuild.build({
 			entryPoints: [lib.entryPoint],
 			bundle: true,
@@ -55,6 +52,18 @@ async function buildLibrary(lib) {
 			minify: true,
 			platform: 'browser',
 			target: 'es2020',
+			external: ['*.d.ts'],
+			plugins: [
+				{
+					name: 'ignore-dts',
+					setup(build) {
+						// Игнорируем все .d.ts файлы
+						build.onResolve({ filter: /\.d\.ts$/ }, args => {
+							return { path: args.path, external: true }
+						})
+					},
+				},
+			],
 		})
 
 		const stats = fs.statSync(outfile)
