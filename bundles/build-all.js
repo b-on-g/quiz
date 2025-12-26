@@ -18,9 +18,10 @@ const libraries = [
 	},
 	{
 		name: 'moment',
-		entryPoint: 'node_modules/moment/src/moment.js',
+		entryPoint: 'node_modules/moment/min/moment.min.js',
 		globalName: 'moment',
 		description: 'Работа с датами и временем',
+		skipBuild: true,
 	},
 ]
 
@@ -52,6 +53,9 @@ async function buildLibrary(lib) {
 			minify: true,
 			platform: 'browser',
 			target: 'es2020',
+			footer: {
+				js: `; if (typeof ${lib.globalName} !== 'undefined') { globalThis.${lib.globalName} = ${lib.globalName}; }`,
+			},
 			external: ['*.d.ts'],
 			plugins: [
 				{
