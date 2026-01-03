@@ -96,6 +96,7 @@
     "$mol_crypto_hash",
     "$mol_charset_encode",
     "$mol_charset",
+    "$mol_charset_buffer",
     "$mol_mem",
     "$mol_wire_solo",
     "$mol_wire_atom",
