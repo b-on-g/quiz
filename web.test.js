@@ -3342,6 +3342,26 @@ var $;
     var $$;
     (function ($$) {
         $mol_test({
+            "Complex UCF encoding"($) {
+                $mol_assert_equal($mol_charset_ucf_encode('hi мир, 美しい 世界 🏴‍☠\t\n'), new Uint8Array([
+                    0x68, 0x69, 0x20,
+                    0xA4, 0x3C, 0x38, 0x40, 0x8B, 0x95,
+                    0x98, 0x0E, 0xBF, 0xFC, 0x57, 0x44, 0x95,
+                    0x98, 0x16, 0x5C, 0x4C, 0xAA, 0x95,
+                    0x9B, 0x74, 0xA7, 0xDC, 0x0D, 0xE8, 0x20, 0x9C, 0x09, 0x0A,
+                ]));
+            },
+        });
+    })($$ = $_1.$$ || ($_1.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($_1) {
+    var $$;
+    (function ($$) {
+        $mol_test({
             "1 byte int"($) {
                 $mol_assert_equal($mol_bigint_decode(new Uint8Array), 0n);
                 $mol_assert_equal($mol_bigint_decode(new Uint8Array(new Int8Array([1]).buffer)), 1n);
@@ -3378,19 +3398,21 @@ var $;
 ;
 "use strict";
 var $;
-(function ($) {
-    $mol_test({
-        'decode utf8 string'() {
-            const str = 'Hello, ΧΨΩЫ';
-            const encoded = new Uint8Array([72, 101, 108, 108, 111, 44, 32, 206, 167, 206, 168, 206, 169, 208, 171]);
-            $mol_assert_equal($mol_charset_decode(encoded), str);
-            $mol_assert_equal($mol_charset_decode(encoded, 'utf8'), str);
-        },
-        'decode empty string'() {
-            const encoded = new Uint8Array([]);
-            $mol_assert_equal($mol_charset_decode(encoded), '');
-        },
-    });
+(function ($_1) {
+    var $$;
+    (function ($$) {
+        $mol_test({
+            "Complex UCF eecoding"($) {
+                $mol_assert_equal('hi мир, 美しい 世界 🏴‍☠\t\n', $mol_charset_ucf_decode(new Uint8Array([
+                    0x68, 0x69, 0x20,
+                    0xA4, 0x3C, 0x38, 0x40, 0x8B, 0x95,
+                    0x98, 0x0E, 0xBF, 0xFC, 0x57, 0x44, 0x95,
+                    0x98, 0x16, 0x5C, 0x4C, 0xAA, 0x95,
+                    0x9B, 0x74, 0xA7, 0xDC, 0x0D, 0xE8, 0x20, 0x9C, 0x09, 0x0A,
+                ])));
+            },
+        });
+    })($$ = $_1.$$ || ($_1.$$ = {}));
 })($ || ($ = {}));
 
 ;
@@ -3422,7 +3444,7 @@ var $;
         const { uint, link, spec, blob, text, list, tupl, sint } = $mol_vary_tip;
         const { none, both, fp16, fp32, fp64 } = $mol_vary_spec;
         const { L1, L2, L4, L8, LA } = $mol_vary_len;
-        const str = $mol_charset_encode;
+        const str = $mol_charset_ucf_encode;
         function check(vary, ideal, Vary = $mol_vary) {
             const pack = Vary.pack(vary);
             $mol_assert_equal(Vary.take(pack), vary);
@@ -3511,11 +3533,11 @@ var $;
             },
             "vary pack text"($) {
                 check(['foo'], [text | 3, ...str('foo')]);
-                check(['абв'], [text | 6, ...str('абв')]);
+                check(['абв'], [text | 4, ...str('абв')]);
                 const long_lat = 'abcdefghijklmnopqrst';
                 check([long_lat], [text | L1, 20, ...str(long_lat)]);
                 const long_cyr = 'абвгдеёжзийклмнопрст';
-                check([long_cyr], [text | L1, 40, ...str(long_cyr)]);
+                check([long_cyr], [text | L1, 21, ...str(long_cyr)]);
             },
             "vary pack dedup text"($) {
                 check([["f", "f"]], [list | 2, text | 1, ...str('f'), link | 0]);
@@ -5968,6 +5990,24 @@ var $;
         },
         'Uint8Array vs subclassed array'() {
             $mol_assert_not($mol_compare_array(new Uint8Array, new TestClass));
+        },
+    });
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'decode utf8 string'() {
+            const str = 'Hello, ΧΨΩЫ';
+            const encoded = new Uint8Array([72, 101, 108, 108, 111, 44, 32, 206, 167, 206, 168, 206, 169, 208, 171]);
+            $mol_assert_equal($mol_charset_decode(encoded), str);
+            $mol_assert_equal($mol_charset_decode(encoded, 'utf8'), str);
+        },
+        'decode empty string'() {
+            const encoded = new Uint8Array([]);
+            $mol_assert_equal($mol_charset_decode(encoded), '');
         },
     });
 })($ || ($ = {}));
