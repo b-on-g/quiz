@@ -1370,6 +1370,22 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    type Block = {
+        from: number;
+        size: number;
+        next: Block;
+    };
+    export class $mol_memory_pool extends Object {
+        _free: Block;
+        constructor(size?: number);
+        acquire(size: number): number;
+        release(from: number, size: number): void;
+        acquired(): void;
+    }
+    export {};
+}
+
+declare namespace $ {
     const $giper_baza_pack_four_code: Uint8Array<ArrayBuffer>;
     const $giper_baza_pack_head_size: number;
     type $giper_baza_pack_parts = [string, $giper_baza_pack_part][];
@@ -1385,7 +1401,7 @@ declare namespace $ {
     }
     class $giper_baza_pack extends $mol_buffer {
         toBlob(): Blob;
-        parts(offsets?: WeakMap<$giper_baza_unit, number>): [string, $giper_baza_pack_part][];
+        parts(offsets?: WeakMap<ArrayBuffer, number>, pool?: $mol_memory_pool): [string, $giper_baza_pack_part][];
         static length(parts: $giper_baza_pack_parts): number;
         static make(parts: $giper_baza_pack_parts): $giper_baza_pack;
     }
@@ -1977,28 +1993,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    type $giper_baza_mine_diff = {
-        ins: $giper_baza_unit[];
-        del: $giper_baza_unit[];
-    };
-    class $giper_baza_mine extends $mol_object {
-        static land(land: $giper_baza_link): $giper_baza_mine;
-        land(): $giper_baza_link;
-        unit_deletes: number;
-        unit_inserts: number;
-        ball_inserts: number;
-        ball_deletes: number;
-        units_persisted: WeakSet<$giper_baza_unit>;
-        units_save(diff: $giper_baza_mine_diff): void;
-        units_load(): readonly $giper_baza_unit[];
-        ball_load(path: string): Uint8Array<ArrayBuffer>;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
     enum $giper_baza_unit_sand_tag {
         term = 0,
         solo = 64,
@@ -2044,6 +2038,28 @@ declare namespace $ {
         tier_min(): $giper_baza_rank_tier.post | $giper_baza_rank_tier.pull;
         [$mol_dev_format_head](): any[];
     }
+}
+
+declare namespace $ {
+    type $giper_baza_mine_diff = {
+        ins: $giper_baza_unit[];
+        del: $giper_baza_unit[];
+    };
+    class $giper_baza_mine extends $mol_object {
+        static land(land: $giper_baza_link): $giper_baza_mine;
+        land(): $giper_baza_link;
+        unit_deletes: number;
+        unit_inserts: number;
+        ball_inserts: number;
+        ball_deletes: number;
+        units_persisted: WeakSet<$giper_baza_unit>;
+        units_save(diff: $giper_baza_mine_diff): void;
+        units_load(): readonly $giper_baza_unit[];
+        ball_load(sand: $giper_baza_unit_sand): Uint8Array<ArrayBuffer>;
+    }
+}
+
+declare namespace $ {
 }
 
 declare namespace $ {

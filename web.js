@@ -2159,6 +2159,7 @@ var $;
             return handler();
         }
         catch (error) {
+            console.error(error);
             return error;
         }
     }
@@ -4261,6 +4262,85 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_memory_pool extends Object {
+        _free;
+        constructor(size = Number.POSITIVE_INFINITY) {
+            super();
+            this._free = {
+                from: -1,
+                size: 0,
+                next: {
+                    from: 0,
+                    size,
+                    next: null,
+                }
+            };
+        }
+        acquire(size) {
+            let prev = this._free;
+            let next = prev.next;
+            let max = 0;
+            while (next.size < size) {
+                if (next.size > max)
+                    max = next.size;
+                prev = next;
+                next = next.next;
+                if (!next)
+                    $mol_fail(new Error(`No free space\nneed: ${size}\nhave: ${max}`));
+            }
+            const from = next.from;
+            if (next.size === size) {
+                prev.next = next.next;
+            }
+            else {
+                next.from += size;
+                next.size -= size;
+            }
+            return from;
+        }
+        release(from, size) {
+            let prev = this._free;
+            let next = prev.next;
+            while (next.from < from) {
+                prev = next;
+                next = next.next;
+                if (!next)
+                    $mol_fail(new Error('Double release'));
+            }
+            if ((from + size > next.from) || (prev.from + prev.size > from)) {
+                $mol_fail(new Error('Double release'));
+            }
+            const begin = prev.from + prev.size === from;
+            const end = from + size === next.from;
+            if (begin) {
+                if (end) {
+                    prev.size += size + next.size;
+                    prev.next = next.next;
+                }
+                else {
+                    prev.size += size;
+                }
+            }
+            else {
+                if (end) {
+                    next.from -= size;
+                    next.size += size;
+                }
+                else {
+                    prev.next = { from, size, next };
+                }
+            }
+        }
+        acquired() {
+        }
+    }
+    $.$mol_memory_pool = $mol_memory_pool;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     $.$giper_baza_pack_four_code = $mol_charset_encode('LAND');
     $.$giper_baza_pack_head_size = 4 + 12 + 6 + 2;
     class $giper_baza_pack_part extends Object {
@@ -4286,7 +4366,7 @@ var $;
         toBlob() {
             return new Blob([this], { type: 'application/vnd.giper_baza_pack.v1' });
         }
-        parts(offsets) {
+        parts(offsets, pool) {
             const parts = new Map;
             let part = null;
             const buf = this.asArray();
@@ -4295,6 +4375,7 @@ var $;
                 switch ($giper_baza_slot_kind[kind]) {
                     case 'free': {
                         offset += 8;
+                        pool?.release(offset, 8);
                         continue;
                     }
                     case 'land': {
@@ -4318,7 +4399,7 @@ var $;
                         if (!part)
                             $mol_fail(new Error('Land is undefined'));
                         const pass = $giper_baza_auth_pass.from(buf.slice(offset, offset + 64));
-                        offsets?.set(pass, offset);
+                        offsets?.set(pass.buffer, offset);
                         part.units.push(pass);
                         offset += pass.byteLength;
                         continue;
@@ -4329,7 +4410,7 @@ var $;
                         const size = new $giper_baza_unit_seal(this.buffer, this.byteOffset + offset, this.byteLength - offset).size();
                         const length = $giper_baza_unit_seal.length(size);
                         const seal = $giper_baza_unit_seal.from(buf.slice(offset, offset + length));
-                        offsets?.set(seal, offset);
+                        offsets?.set(seal.buffer, offset);
                         part.units.push(seal);
                         offset += seal.byteLength;
                         continue;
@@ -4341,7 +4422,7 @@ var $;
                         const length_sand = $giper_baza_unit_sand.length(size);
                         const length_ball = $giper_baza_unit_sand.length_ball(size);
                         const sand = $giper_baza_unit_sand.from(buf.slice(offset, offset + length_sand));
-                        offsets?.set(sand, offset);
+                        offsets?.set(sand.buffer, offset);
                         offset += sand.byteLength;
                         if (length_ball) {
                             sand._ball = buf.slice(offset, offset += length_ball);
@@ -4354,7 +4435,7 @@ var $;
                             $mol_fail(new Error('Land is undefined'));
                         const length = $giper_baza_unit_gift.length();
                         const gift = $giper_baza_unit_gift.from(buf.slice(offset, offset + length));
-                        offsets?.set(gift, offset);
+                        offsets?.set(gift.buffer, offset);
                         part.units.push(gift);
                         offset += gift.byteLength;
                         continue;
@@ -7330,7 +7411,7 @@ var $;
                 return sand._vary;
             if (sand._open !== null)
                 return sand._vary = $giper_baza_vary.take(sand._open)[0] ?? null;
-            sand._ball = sand._open = sand.size() > $giper_baza_unit_sand.size_equator ? $mol_wire_sync(this.mine()).ball_load(sand.path()) : sand.data();
+            sand._ball = sand._open = sand.size() > $giper_baza_unit_sand.size_equator ? $mol_wire_sync(this.mine()).ball_load(sand) : sand.data();
             if (secret && sand._ball && sand.size()) {
                 try {
                     sand._open = $mol_wire_sync(secret).decrypt(sand._ball, sand.salt());
@@ -8423,7 +8504,166 @@ var $;
             return $mol_dev_format_span({}, $mol_dev_format_native(this), ' 👾', $mol_dev_format_auto(this.lord()), ' ✍ ', $mol_dev_format_shade(this.moment().toString('YYYY-MM-DD hh:mm:ss'), ' &', this.tick()), ' #', $mol_dev_format_auto(this.hash()), ' ', $mol_dev_format_auto(this.hash_list()));
         }
     }
+    __decorate([
+        $mol_action
+    ], $giper_baza_unit_seal, "make", null);
     $.$giper_baza_unit_seal = $giper_baza_unit_seal;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    let $giper_baza_unit_sand_tag;
+    (function ($giper_baza_unit_sand_tag) {
+        $giper_baza_unit_sand_tag[$giper_baza_unit_sand_tag["term"] = 0] = "term";
+        $giper_baza_unit_sand_tag[$giper_baza_unit_sand_tag["solo"] = 64] = "solo";
+        $giper_baza_unit_sand_tag[$giper_baza_unit_sand_tag["vals"] = 128] = "vals";
+        $giper_baza_unit_sand_tag[$giper_baza_unit_sand_tag["keys"] = 192] = "keys";
+    })($giper_baza_unit_sand_tag = $.$giper_baza_unit_sand_tag || ($.$giper_baza_unit_sand_tag = {}));
+    class $giper_baza_unit_sand extends $giper_baza_unit_base {
+        static size_equator = 217;
+        static size_max = 2 ** 16;
+        _vary = undefined;
+        _open = null;
+        static length(size) {
+            if (size >= 2 ** 16)
+                throw new Error(`Size too large (${size})`);
+            return size > $giper_baza_unit_sand.size_equator ? 56 : Math.ceil((39 + size) / 8) * 8;
+        }
+        static length_ball(size) {
+            if (size >= 2 ** 16)
+                throw new Error(`Size too large (${size})`);
+            return size > $giper_baza_unit_sand.size_equator ? Math.ceil((size - 2) / 8) * 8 + 2 : 0;
+        }
+        static make(size) {
+            const sand = this.from(this.length(size));
+            sand.kind('sand');
+            sand.size(size);
+            return sand;
+        }
+        hint(tag = 'term') {
+            this.uint8(1, $giper_baza_unit_sand_tag[tag]);
+        }
+        tag() {
+            return $giper_baza_unit_sand_tag[this.uint8(1) & 0b11_00_0000];
+        }
+        big() {
+            return this.size() > $giper_baza_unit_sand.size_equator;
+        }
+        size(next) {
+            if (next === undefined) {
+                let byte = this.uint8(38);
+                return byte === 255 ? (this.uint32(38) >>> 8) : byte;
+            }
+            else {
+                if (next > $giper_baza_unit_sand.size_equator)
+                    this.uint32(38, 255 | (next << 8));
+                else
+                    this.uint8(38, next);
+                return next;
+            }
+        }
+        _head;
+        head(next) {
+            if (next === undefined && this._head !== undefined)
+                return this._head;
+            else
+                return this._head = this.id6(20, next);
+        }
+        _self;
+        self(next) {
+            if (next === undefined && this._self !== undefined)
+                return this._self;
+            else
+                return this._self = this.id6(26, next);
+        }
+        _lead;
+        lead(next) {
+            if (next === undefined && this._lead !== undefined)
+                return this._lead;
+            else
+                return this._lead = this.id6(32, next);
+        }
+        path() {
+            return `sand:${this.head()}/${this.lord()}/${this.self()}`;
+        }
+        _shot;
+        shot(next) {
+            if (this.size() <= $giper_baza_unit_sand.size_equator)
+                throw new Error('Access to Shot of small Sand is unavailable');
+            if (next)
+                return this._shot = this.id12(42, next);
+            else
+                return this._shot = this._shot ?? this.id12(42);
+        }
+        _data;
+        data(next) {
+            const size = this.size();
+            if (size > $giper_baza_unit_sand.size_equator)
+                throw new Error('Access to Data of large Sand is unavailable');
+            const data = this._data ?? new Uint8Array(this.buffer, this.byteOffset + 39, size);
+            if (next)
+                data.set(next);
+            return data;
+        }
+        _ball;
+        ball(next) {
+            if (next === undefined) {
+                if (this._ball)
+                    return this._ball;
+                const size = this.size();
+                if (size > $giper_baza_unit_sand.size_equator)
+                    return this._ball;
+                return this._ball = this.data();
+            }
+            else {
+                this.size(next.byteLength);
+                if (next.byteLength > $giper_baza_unit_sand.size_equator) {
+                    this.shot($giper_baza_link.hash_bin(next));
+                    return this._ball = next;
+                }
+                else {
+                    return this._ball = this.data(next);
+                }
+            }
+        }
+        idea() {
+            const size = this.size();
+            const length = 6 + 6 + (size > $giper_baza_unit_sand.size_equator ? 4 + 12 : 1 + size);
+            const bin = new Uint8Array(this.buffer, this.byteOffset + 26, length);
+            return $mol_hash_numbers(bin);
+        }
+        dump() {
+            return {
+                kind: this.kind(),
+                lord: this.lord(),
+                lead: this.lead(),
+                head: this.head(),
+                self: this.self(),
+                tag: this.tag(),
+                size: this.size(),
+                time: this.moment().toString('YYYY-MM-DD hh:mm:ss'),
+            };
+        }
+        tier_min() {
+            return (this.head().str === $giper_baza_land_root.tine.str)
+                ? $giper_baza_rank_tier.pull
+                : $giper_baza_rank_tier.post;
+        }
+        [$mol_dev_format_head]() {
+            return $mol_dev_format_span({}, $mol_dev_format_native(this), ' 👾', $mol_dev_format_auto(this.lord()), ' 📦 ', $mol_dev_format_shade(this.moment().toString('YYYY-MM-DD hh:mm:ss'), ' &', this.tick()), ' #', $mol_dev_format_auto(this.hash()), ' ', this.lead().str || '__knot__', $mol_dev_format_shade('\\'), $mol_dev_format_accent(this.head().str || '__root__'), $mol_dev_format_shade('/'), this.self().str || '__spec__', ' ', {
+                term: '💼',
+                solo: '1️⃣',
+                vals: '🎹',
+                keys: '🔑',
+            }[this.tag()], ' ', $mol_dev_format_auto(this._vary));
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $giper_baza_unit_sand, "make", null);
+    $.$giper_baza_unit_sand = $giper_baza_unit_sand;
 })($ || ($ = {}));
 
 ;
@@ -8448,7 +8688,7 @@ var $;
         units_load() {
             return [];
         }
-        ball_load(path) {
+        ball_load(sand) {
             return null;
         }
     }
@@ -8743,12 +8983,12 @@ var $;
                 return units;
             });
         }
-        ball_load(path) {
+        ball_load(sand) {
             return Sync(async () => {
                 const db = await this.$.$giper_baza_mine_idb.db();
                 const { Ball } = db.read('Ball');
                 const land = this.land().str;
-                const res = await Ball.get([land, path]);
+                const res = await Ball.get([land, sand.path()]);
                 return new Uint8Array(res[0]);
             });
         }
@@ -8776,162 +9016,6 @@ var $;
 var $;
 (function ($) {
     $.$giper_baza_mine = $giper_baza_mine_idb;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    let $giper_baza_unit_sand_tag;
-    (function ($giper_baza_unit_sand_tag) {
-        $giper_baza_unit_sand_tag[$giper_baza_unit_sand_tag["term"] = 0] = "term";
-        $giper_baza_unit_sand_tag[$giper_baza_unit_sand_tag["solo"] = 64] = "solo";
-        $giper_baza_unit_sand_tag[$giper_baza_unit_sand_tag["vals"] = 128] = "vals";
-        $giper_baza_unit_sand_tag[$giper_baza_unit_sand_tag["keys"] = 192] = "keys";
-    })($giper_baza_unit_sand_tag = $.$giper_baza_unit_sand_tag || ($.$giper_baza_unit_sand_tag = {}));
-    class $giper_baza_unit_sand extends $giper_baza_unit_base {
-        static size_equator = 217;
-        static size_max = 2 ** 16;
-        _vary = undefined;
-        _open = null;
-        static length(size) {
-            if (size >= 2 ** 16)
-                throw new Error(`Size too large (${size})`);
-            return size > $giper_baza_unit_sand.size_equator ? 56 : Math.ceil((39 + size) / 8) * 8;
-        }
-        static length_ball(size) {
-            if (size >= 2 ** 16)
-                throw new Error(`Size too large (${size})`);
-            return size > $giper_baza_unit_sand.size_equator ? Math.ceil((size - 2) / 8) * 8 + 2 : 0;
-        }
-        static make(size) {
-            const sand = this.from(this.length(size));
-            sand.kind('sand');
-            sand.size(size);
-            return sand;
-        }
-        hint(tag = 'term') {
-            this.uint8(1, $giper_baza_unit_sand_tag[tag]);
-        }
-        tag() {
-            return $giper_baza_unit_sand_tag[this.uint8(1) & 0b11_00_0000];
-        }
-        big() {
-            return this.size() > $giper_baza_unit_sand.size_equator;
-        }
-        size(next) {
-            if (next === undefined) {
-                let byte = this.uint8(38);
-                return byte === 255 ? (this.uint32(38) >>> 8) : byte;
-            }
-            else {
-                if (next > $giper_baza_unit_sand.size_equator)
-                    this.uint32(38, 255 | (next << 8));
-                else
-                    this.uint8(38, next);
-                return next;
-            }
-        }
-        _head;
-        head(next) {
-            if (next === undefined && this._head !== undefined)
-                return this._head;
-            else
-                return this._head = this.id6(20, next);
-        }
-        _self;
-        self(next) {
-            if (next === undefined && this._self !== undefined)
-                return this._self;
-            else
-                return this._self = this.id6(26, next);
-        }
-        _lead;
-        lead(next) {
-            if (next === undefined && this._lead !== undefined)
-                return this._lead;
-            else
-                return this._lead = this.id6(32, next);
-        }
-        path() {
-            return `sand:${this.head()}/${this.lord()}/${this.self()}`;
-        }
-        _shot;
-        shot(next) {
-            if (this.size() <= $giper_baza_unit_sand.size_equator)
-                throw new Error('Access to Shot of small Sand is unavailable');
-            if (next)
-                return this._shot = this.id12(42, next);
-            else
-                return this._shot = this._shot ?? this.id12(42);
-        }
-        _data;
-        data(next) {
-            const size = this.size();
-            if (size > $giper_baza_unit_sand.size_equator)
-                throw new Error('Access to Data of large Sand is unavailable');
-            const data = this._data ?? new Uint8Array(this.buffer, this.byteOffset + 39, size);
-            if (next)
-                data.set(next);
-            return data;
-        }
-        _ball;
-        ball(next) {
-            if (next === undefined) {
-                if (this._ball)
-                    return this._ball;
-                const size = this.size();
-                if (size > $giper_baza_unit_sand.size_equator)
-                    return this._ball;
-                return this._ball = this.data();
-            }
-            else {
-                this.size(next.byteLength);
-                if (next.byteLength > $giper_baza_unit_sand.size_equator) {
-                    this.shot($giper_baza_link.hash_bin(next));
-                    return this._ball = next;
-                }
-                else {
-                    return this._ball = this.data(next);
-                }
-            }
-        }
-        idea() {
-            const size = this.size();
-            const length = 6 + 6 + (size > $giper_baza_unit_sand.size_equator ? 4 + 12 : 1 + size);
-            const bin = new Uint8Array(this.buffer, this.byteOffset + 26, length);
-            return $mol_hash_numbers(bin);
-        }
-        dump() {
-            return {
-                kind: this.kind(),
-                lord: this.lord(),
-                lead: this.lead(),
-                head: this.head(),
-                self: this.self(),
-                tag: this.tag(),
-                size: this.size(),
-                time: this.moment().toString('YYYY-MM-DD hh:mm:ss'),
-            };
-        }
-        tier_min() {
-            return (this.head().str === $giper_baza_land_root.tine.str)
-                ? $giper_baza_rank_tier.pull
-                : $giper_baza_rank_tier.post;
-        }
-        [$mol_dev_format_head]() {
-            return $mol_dev_format_span({}, $mol_dev_format_native(this), ' 👾', $mol_dev_format_auto(this.lord()), ' 📦 ', $mol_dev_format_shade(this.moment().toString('YYYY-MM-DD hh:mm:ss'), ' &', this.tick()), ' #', $mol_dev_format_auto(this.hash()), ' ', this.lead().str || '__knot__', $mol_dev_format_shade('\\'), $mol_dev_format_accent(this.head().str || '__root__'), $mol_dev_format_shade('/'), this.self().str || '__spec__', ' ', {
-                term: '💼',
-                solo: '1️⃣',
-                vals: '🎹',
-                keys: '🔑',
-            }[this.tag()], ' ', $mol_dev_format_auto(this._vary));
-        }
-    }
-    __decorate([
-        $mol_action
-    ], $giper_baza_unit_sand, "make", null);
-    $.$giper_baza_unit_sand = $giper_baza_unit_sand;
 })($ || ($ = {}));
 
 ;

@@ -188,6 +188,8 @@
     "$mol_websocket",
     "$mol_guard",
     "$giper_baza_pack",
+    "$mol_memory_pool",
+    "$mol_memory",
     "$giper_baza_log",
     "$mol_state_arg",
     "$mol_hash_string",
