@@ -2035,6 +2035,30 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_array_chunks(array, rule) {
+        const br = typeof rule === 'number' ? (_, i) => i % rule === 0 : rule;
+        let chunk = [];
+        const chunks = [];
+        for (let i = 0; i < array.length; ++i) {
+            const item = array[i];
+            if (br(item, i)) {
+                if (chunk.length)
+                    chunks.push(chunk);
+                chunk = [];
+            }
+            chunk.push(item);
+        }
+        if (chunk.length)
+            chunks.push(chunk);
+        return chunks;
+    }
+    $.$mol_array_chunks = $mol_array_chunks;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     function $mol_tree2_from_json(json, span = $mol_span.unknown) {
         if (typeof json === 'boolean' || typeof json === 'number' || json === null) {
             return new $mol_tree2(String(json), '', [], span);
@@ -2051,7 +2075,9 @@ var $;
         }
         if (ArrayBuffer.isView(json)) {
             const buf = new Uint8Array(json.buffer, json.byteOffset, json.byteLength);
-            return $mol_tree2.data(String.fromCharCode(...buf), [], span);
+            const codes = [...buf].map(b => b.toString(16).toUpperCase().padStart(2, '0'));
+            const str = $mol_array_chunks(codes, 8).map(c => c.join(' ')).join('\n');
+            return $mol_tree2.data(str, [], span);
         }
         if (json instanceof Date) {
             return new $mol_tree2('', json.toISOString(), [], span);
@@ -5470,140 +5496,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $giper_baza_fund extends $mol_object {
-        item_make;
-        constructor(item_make) {
-            super();
-            this.item_make = item_make;
-        }
-        Item(head) {
-            return this.item_make(head);
-        }
-        Data() {
-            return this.Item($giper_baza_land_root.data);
-        }
-        Tine() {
-            return this.Item($giper_baza_land_root.tine);
-        }
-    }
-    __decorate([
-        $mol_mem_key
-    ], $giper_baza_fund.prototype, "Item", null);
-    $.$giper_baza_fund = $giper_baza_fund;
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_state_arg extends $mol_object {
-        prefix;
-        static prolog = '';
-        static separator = ' ';
-        static href(next) {
-            return next || process.argv.slice(2).join(' ');
-        }
-        static href_normal() {
-            return this.link({});
-        }
-        static dict(next) {
-            if (next !== void 0)
-                this.href(this.make_link(next));
-            var href = this.href();
-            var chunks = href.split(' ');
-            var params = {};
-            chunks.forEach(chunk => {
-                if (!chunk)
-                    return;
-                var vals = chunk.split('=').map(decodeURIComponent);
-                params[vals.shift()] = vals.join('=');
-            });
-            return params;
-        }
-        static value(key, next) {
-            if (next === void 0)
-                return this.dict()[key] ?? null;
-            this.href(this.link({ [key]: next }));
-            return next;
-        }
-        static link(next) {
-            const params = {};
-            var prev = this.dict();
-            for (var key in prev) {
-                params[key] = prev[key];
-            }
-            for (var key in next) {
-                params[key] = next[key];
-            }
-            return this.make_link(params);
-        }
-        static make_link(next) {
-            const chunks = [];
-            for (const key in next) {
-                if (next[key] !== null) {
-                    chunks.push([key, next[key]].map(encodeURIComponent).join('='));
-                }
-            }
-            return chunks.join(' ');
-        }
-        static go(next) {
-            this.href(this.link(next));
-        }
-        static commit() { }
-        constructor(prefix = '') {
-            super();
-            this.prefix = prefix;
-        }
-        value(key, next) {
-            return this.constructor.value(this.prefix + key, next);
-        }
-        sub(postfix) {
-            return new this.constructor(this.prefix + postfix + '.');
-        }
-        link(next) {
-            const prefix = this.prefix;
-            const dict = {};
-            for (var key in next) {
-                dict[prefix + key] = next[key];
-            }
-            return this.constructor.link(dict);
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "href", null);
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "href_normal", null);
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "dict", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_arg, "value", null);
-    __decorate([
-        $mol_action
-    ], $mol_state_arg, "go", null);
-    $.$mol_state_arg = $mol_state_arg;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    function $giper_baza_log() {
-        return this.$mol_state_arg.value('giper_baza_log') !== null;
-    }
-    $.$giper_baza_log = $giper_baza_log;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
     class $mol_memory_pool extends Object {
         _free;
         constructor(size = Number.POSITIVE_INFINITY) {
@@ -5647,10 +5539,10 @@ var $;
                 prev = next;
                 next = next.next;
                 if (!next)
-                    $mol_fail(new Error('Double release'));
+                    $mol_fail(new Error('Release out of allocated', { cause: { last: prev, from, size } }));
             }
             if ((from + size > next.from) || (prev.from + prev.size > from)) {
-                $mol_fail(new Error('Double release'));
+                $mol_fail(new Error('Double release', { cause: { prev, next, from, size } }));
             }
             const begin = prev.from + prev.size === from;
             const end = from + size === next.from;
@@ -5703,6 +5595,9 @@ var $;
             };
         }
     }
+    __decorate([
+        $mol_action
+    ], $giper_baza_pack_part, "from", null);
     $.$giper_baza_pack_part = $giper_baza_pack_part;
     class $giper_baza_pack extends $mol_buffer {
         toBlob() {
@@ -5716,8 +5611,8 @@ var $;
                 const kind = this.uint8(offset);
                 switch ($giper_baza_slot_kind[kind]) {
                     case 'free': {
-                        offset += 8;
                         pool?.release(offset, 8);
+                        offset += 8;
                         continue;
                     }
                     case 'land': {
@@ -5852,7 +5747,147 @@ var $;
             return pack;
         }
     }
+    __decorate([
+        $mol_action
+    ], $giper_baza_pack.prototype, "parts", null);
+    __decorate([
+        $mol_action
+    ], $giper_baza_pack, "make", null);
     $.$giper_baza_pack = $giper_baza_pack;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $giper_baza_fund extends $mol_object {
+        item_make;
+        constructor(item_make) {
+            super();
+            this.item_make = item_make;
+        }
+        Item(head) {
+            return this.item_make(head);
+        }
+        Data() {
+            return this.Item($giper_baza_land_root.data);
+        }
+        Tine() {
+            return this.Item($giper_baza_land_root.tine);
+        }
+    }
+    __decorate([
+        $mol_mem_key
+    ], $giper_baza_fund.prototype, "Item", null);
+    $.$giper_baza_fund = $giper_baza_fund;
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_state_arg extends $mol_object {
+        prefix;
+        static prolog = '';
+        static separator = ' ';
+        static href(next) {
+            return next || process.argv.slice(2).join(' ');
+        }
+        static href_normal() {
+            return this.link({});
+        }
+        static dict(next) {
+            if (next !== void 0)
+                this.href(this.make_link(next));
+            var href = this.href();
+            var chunks = href.split(' ');
+            var params = {};
+            chunks.forEach(chunk => {
+                if (!chunk)
+                    return;
+                var vals = chunk.split('=').map(decodeURIComponent);
+                params[vals.shift()] = vals.join('=');
+            });
+            return params;
+        }
+        static value(key, next) {
+            if (next === void 0)
+                return this.dict()[key] ?? null;
+            this.href(this.link({ [key]: next }));
+            return next;
+        }
+        static link(next) {
+            const params = {};
+            var prev = this.dict();
+            for (var key in prev) {
+                params[key] = prev[key];
+            }
+            for (var key in next) {
+                params[key] = next[key];
+            }
+            return this.make_link(params);
+        }
+        static make_link(next) {
+            const chunks = [];
+            for (const key in next) {
+                if (next[key] !== null) {
+                    chunks.push([key, next[key]].map(encodeURIComponent).join('='));
+                }
+            }
+            return chunks.join(' ');
+        }
+        static go(next) {
+            this.href(this.link(next));
+        }
+        static commit() { }
+        constructor(prefix = '') {
+            super();
+            this.prefix = prefix;
+        }
+        value(key, next) {
+            return this.constructor.value(this.prefix + key, next);
+        }
+        sub(postfix) {
+            return new this.constructor(this.prefix + postfix + '.');
+        }
+        link(next) {
+            const prefix = this.prefix;
+            const dict = {};
+            for (var key in next) {
+                dict[prefix + key] = next[key];
+            }
+            return this.constructor.link(dict);
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "href", null);
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "href_normal", null);
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "dict", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_arg, "value", null);
+    __decorate([
+        $mol_action
+    ], $mol_state_arg, "go", null);
+    $.$mol_state_arg = $mol_state_arg;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $giper_baza_log() {
+        return this.$mol_state_arg.value('giper_baza_log') !== null;
+    }
+    $.$giper_baza_log = $giper_baza_log;
 })($ || ($ = {}));
 
 ;
@@ -7417,30 +7452,6 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    function $mol_array_chunks(array, rule) {
-        const br = typeof rule === 'number' ? (_, i) => i % rule === 0 : rule;
-        let chunk = [];
-        const chunks = [];
-        for (let i = 0; i < array.length; ++i) {
-            const item = array[i];
-            if (br(item, i)) {
-                if (chunk.length)
-                    chunks.push(chunk);
-                chunk = [];
-            }
-            chunk.push(item);
-        }
-        if (chunk.length)
-            chunks.push(chunk);
-        return chunks;
-    }
-    $.$mol_array_chunks = $mol_array_chunks;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
     $.$giper_baza_land_root = {
         data: new $giper_baza_link(''),
         tine: new $giper_baza_link('AQAAAAAA'),
@@ -7471,6 +7482,11 @@ var $;
                 const prev = this._seal_item.get(hash.str);
                 if ($giper_baza_unit_seal.compare(prev, seal) <= 0)
                     continue;
+                if (prev) {
+                    prev.alive_items.delete(hash.str);
+                    if (!prev.alive_items.size)
+                        this.seal_del(prev);
+                }
                 this._seal_item.set(hash.str, seal);
             }
             const peer = seal.lord().peer();
@@ -7621,6 +7637,9 @@ var $;
             area.sync_yard();
             return area;
         }
+        sync_rights() {
+            return new $mol_wire_atom('', () => this.inherit()).fresh();
+        }
         inherit() {
             const area = this.link();
             const lord = this.link().lord();
@@ -7630,6 +7649,9 @@ var $;
             Lord.saving();
             const units = new Set();
             for (const gift of Lord._gift.values()) {
+                const prev = $mol_wire_sync(this._gift).get(gift.mate().str);
+                if ($giper_baza_unit_gift.compare(prev, gift) <= 0)
+                    continue;
                 const seal = Lord.unit_seal(gift);
                 if (!seal)
                     continue;
@@ -7640,7 +7662,10 @@ var $;
                 if (mate.str)
                     units.add(Lord.lord_pass(mate));
             }
-            this.diff_apply([...units], 'skip_load');
+            let part = $giper_baza_pack_part.from([...units]);
+            const pack = $giper_baza_pack.make([[this.link().str, part]]);
+            part = pack.parts()[0][1];
+            this.diff_apply(part.units, 'skip_load');
         }
         Data(Node) {
             return this.Node(Node).Item($.$giper_baza_land_root.data);
@@ -7651,7 +7676,7 @@ var $;
         Node(Node) {
             return new $giper_baza_fund((head) => {
                 return Node.make({
-                    land: () => this,
+                    land: $mol_const(this),
                     head: $mol_const(head),
                 });
             });
@@ -7669,7 +7694,7 @@ var $;
             return this.lord_pass(this.link().lord());
         }
         pass_rank(pass, next) {
-            const prev = this.lord_rank(pass.lord());
+            const prev = this.lord_rank(pass?.lord() ?? null);
             if (next === undefined)
                 return prev;
             if (next === prev)
@@ -7684,20 +7709,18 @@ var $;
             return $giper_baza_rank_rate_of(this.lord_rank(lord));
         }
         lord_rank(lord, next) {
-            if (lord.str === this.link().lord().str)
+            if (lord?.str === this.link().lord().str)
                 return $giper_baza_rank_rule;
             if (next === undefined) {
-                return this._gift.get(lord.str)?.rank()
+                return this._gift.get(lord?.str ?? '')?.rank()
                     ?? this._gift.get($giper_baza_link.hole.str)?.rank()
                     ?? (this.encrypted() ? $giper_baza_rank_deny : $giper_baza_rank_read);
             }
-            const pass = this.lord_pass(lord);
-            if (!pass)
-                $mol_fail(new Error(`No Pass for ${lord}`));
+            const pass = lord ? this.lord_pass(lord) : null;
             return this.pass_rank(pass, next);
         }
         diff_units(skip_faces = new $giper_baza_face_map) {
-            this.loading();
+            this.unit_signing();
             const skipped = new Map();
             const delta = new Set();
             const passes = new Set();
@@ -7759,6 +7782,10 @@ var $;
                 passes.add(pass);
             }
             return [...passes, ...delta];
+        }
+        diff_parts(skip_faces = new $giper_baza_face_map) {
+            const units = this.diff_units(skip_faces);
+            return [[this.link().str, new $giper_baza_pack_part(units)]];
         }
         face_pack() {
             return $giper_baza_pack.make([[
@@ -7850,6 +7877,9 @@ var $;
                 this.pass_add(lord_pass);
             }
             return units;
+        }
+        units_steal(donor) {
+            this.diff_apply(donor.diff_units(), 'skip_load');
         }
         rank_audit() {
             start: while (true) {
@@ -8066,7 +8096,7 @@ var $;
         }
         sync() {
             this.loading();
-            this.inherit();
+            this.sync_rights();
             this.bus();
             this.sync_mine();
             this.sync_yard();
@@ -8377,6 +8407,9 @@ var $;
     ], $giper_baza_land.prototype, "area_make", null);
     __decorate([
         $mol_mem
+    ], $giper_baza_land.prototype, "sync_rights", null);
+    __decorate([
+        $mol_mem
     ], $giper_baza_land.prototype, "inherit", null);
     __decorate([
         $mol_mem_key
@@ -8402,6 +8435,9 @@ var $;
     __decorate([
         $mol_action
     ], $giper_baza_land.prototype, "diff_apply", null);
+    __decorate([
+        $mol_action
+    ], $giper_baza_land.prototype, "units_steal", null);
     __decorate([
         $mol_action
     ], $giper_baza_land.prototype, "fork", null);
@@ -9480,7 +9516,7 @@ var $;
             return this.tier_min() | this.rate_min();
         }
         path() {
-            return `seal:${this.lord()}/${$giper_baza_time_dump(this.time())} #${this.tick()}`;
+            return `seal:${this.lord()}/${$giper_baza_time_dump(this.time())} &${this.tick()}`;
         }
         [$mol_dev_format_head]() {
             return $mol_dev_format_span({}, $mol_dev_format_native(this), ' 👾', $mol_dev_format_auto(this.lord()), ' ✍ ', $mol_dev_format_shade(this.moment().toString('YYYY-MM-DD hh:mm:ss'), ' &', this.tick()), ' #', $mol_dev_format_auto(this.hash()), ' ', $mol_dev_format_auto(this.hash_list()));
@@ -10728,7 +10764,7 @@ var $;
             colony.give(self, this.$.$giper_baza_rank_rule);
             for (const [key, rank] of mapping)
                 colony.give(key, rank);
-            this.Land(colony.link()).diff_apply(colony.diff_units());
+            this.Land(colony.link()).units_steal(colony);
             return king;
         }
         static land_grab(preset = [[null, this.$.$giper_baza_rank_read]]) {
@@ -16277,13 +16313,13 @@ var $;
         'code-comment-inline': /\/\/.*?(?:$|\/\/)|- \\(?!\\).*|#!? .*/,
         'code-string': /(?:".*?"|'.*?'|`.*?`| ?\\\\.+?\\\\|\/.+?\/[dygimsu]*(?!\p{Letter})|[ \t]*\\[^\n]*)/u,
         'code-number': /[+-]?(?:\d*\.)?\d+\w*/,
-        'code-call': /\.?\w+ *(?=\()/,
+        'code-call': /\.?\w+(?=\()/,
         'code-sexpr': /\((\w+ )/,
-        'code-field': /(?:(?:\.|::|->)\w+|[\w-]+\??\s*:(?!\/\/|:))/,
-        'code-keyword': /\b(throw|readonly|unknown|keyof|typeof|never|from|class|struct|interface|type|function|extends|implements|module|namespace|import|export|include|require|var|val|let|const|for|do|while|until|in|out|of|new|if|then|else|switch|case|this|return|async|await|yield|try|catch|break|continue|get|set|public|private|protected|string|boolean|number|null|undefined|true|false|void|int|float|ref)\b/,
+        'code-field': /(?:(?<=\.|::|->)[a-z][\w-]*|(?<=[, \t] |\t)[\w-]+\??:(?!\/\/|:))/,
+        'code-keyword': /(?<=^|\t|[ )(}{=] )((throw|readonly|unknown|keyof|typeof|never|from|class|struct|interface|type|function|extends|implements|module|namespace|import|export|include|require|var|val|let|const|for|do|while|until|in|out|of|new|if|then|else|switch|case|return|async|await|yield|try|catch|break|continue|get|set|public|private|protected|void|int|float|ref)( |$|;))+/,
         'code-global': /[$]+\w*|\b[A-Z][a-z0-9]+[A-Z]\w*/,
         'code-word': /\w+/,
-        'code-decorator': /@\s*\S+/,
+        'code-decorator': /(?<=^|  |\t)@\s*\S+/,
         'code-tag': /<\/?[\w-]+\/?>?|&\w+;/,
         'code-punctuation': /[\-\[\]\{\}\(\)<=>~!\?@#%&\*_\+\\\/\|;:\.,\^]+?/,
     });
