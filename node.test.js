@@ -3244,6 +3244,30 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $.$mol_dom = $mol_dom_context;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_wait_user_async() {
+        return new Promise(done => $mol_dom.addEventListener('click', function onclick() {
+            $mol_dom.removeEventListener('click', onclick);
+            done(null);
+        }));
+    }
+    $.$mol_wait_user_async = $mol_wait_user_async;
+    function $mol_wait_user() {
+        return this.$mol_wire_sync(this).$mol_wait_user_async();
+    }
+    $.$mol_wait_user = $mol_wait_user;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_storage extends $mol_object2 {
         static native() {
             return this.$.$mol_dom_context.navigator.storage ?? {
@@ -3259,7 +3283,9 @@ var $;
                 return Boolean(next);
             const native = this.native();
             if (next && !$mol_mem_cached(() => this.persisted())) {
-                native.persist().then(actual => {
+                this.$.$mol_wait_user_async()
+                    .then(() => native.persist())
+                    .then(actual => {
                     setTimeout(() => this.persisted(actual, 'cache'), 5000);
                     if (actual)
                         this.$.$mol_log3_done({ place: `$mol_storage`, message: `Persist: Yes` });
@@ -4087,13 +4113,6 @@ var $;
     ], $mol_file_node.prototype, "writable", null);
     $.$mol_file_node = $mol_file_node;
     $.$mol_file = $mol_file_node;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_dom = $mol_dom_context;
 })($ || ($ = {}));
 
 ;
@@ -5672,7 +5691,7 @@ var $;
                     }
                     default:
                         $$.$mol_log3_warn({
-                            place: this,
+                            place: '$giper_baza_pack..parts',
                             message: '💢 Unknown Kind',
                             kind,
                             offset,
@@ -7445,6 +7464,19 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function batch(host, items, task) {
+        items.call(host);
+        const skip = new Set();
+        while (true) {
+            const snap = $mol_wire_sync(items).call(host);
+            const news = snap.filter(item => !skip.has(item));
+            if (!news.length)
+                break;
+            $mol_wire_sync(task).call(host, news);
+            for (const item of news)
+                skip.add(item);
+        }
+    }
     $.$giper_baza_land_root = {
         data: new $giper_baza_link(''),
         tine: new $giper_baza_link('AQAAAAAA'),
@@ -7713,7 +7745,7 @@ var $;
             return this.pass_rank(pass, next);
         }
         diff_units(skip_faces = new $giper_baza_face_map) {
-            this.unit_signing();
+            this.units_signing();
             const skipped = new Map();
             const delta = new Set();
             const passes = new Set();
@@ -7858,7 +7890,7 @@ var $;
                         if (!this.$.$giper_baza_unit_trusted_check(sand)) {
                             const seal = this.unit_seal(sand);
                             if (!seal)
-                                return this.$.$mol_fail(new Error(`No Seal for Sand`));
+                                return this.$.$mol_fail(new Error(`No Seal for Sand`, { cause: sand }));
                         }
                         this.sand_add(sand);
                         break;
@@ -8144,32 +8176,30 @@ var $;
                 }
             }
         }
-        unit_signing() {
-            this.sand_encoding();
-            const sync = $mol_wire_sync(this);
+        units_unsigned() {
             const signing = [];
             for (const gift of this._gift.values()) {
-                if (sync.unit_seal(gift))
+                if (this.unit_seal(gift))
                     continue;
                 signing.push(gift);
             }
             for (const kids of this._sand.values()) {
                 for (const units of kids.values()) {
                     for (const sand of units.values()) {
-                        if (sync.unit_seal(sand))
+                        if (this.unit_seal(sand))
                             continue;
                         signing.push(sand);
                     }
                 }
             }
-            if (!signing.length)
-                return;
-            const seals = sync.units_sign(signing);
-            for (const seal of seals)
-                this.seal_add(seal);
+            return signing;
+        }
+        units_signing() {
+            this.sand_encoding();
+            batch(this, this.units_unsigned, this.units_sign);
         }
         saving() {
-            this.unit_signing();
+            this.units_signing();
             const mine = this.mine();
             const persisting = [];
             const check_lord = (lord) => {
@@ -8225,6 +8255,7 @@ var $;
                 });
         }
         async units_sign(units) {
+            await Promise.resolve();
             const lands = new Map();
             for (const unit of units) {
                 if (!unit._land)
@@ -8241,6 +8272,7 @@ var $;
                     continue;
                 if (seal.lord().str !== me)
                     continue;
+                seal._land ??= this;
                 let us = lands.get(this);
                 if (!us)
                     lands.set(seal._land, us = []);
@@ -8267,7 +8299,10 @@ var $;
                     return seal;
                 });
             });
-            return Promise.all(threads);
+            const seals = await Promise.all(threads);
+            for (const seal of seals)
+                this.seal_add(seal);
+            return seals;
         }
         async sand_encode(sand) {
             if (sand._open === null)
@@ -8473,7 +8508,10 @@ var $;
     ], $giper_baza_land.prototype, "sand_encoding", null);
     __decorate([
         $mol_mem
-    ], $giper_baza_land.prototype, "unit_signing", null);
+    ], $giper_baza_land.prototype, "units_unsigned", null);
+    __decorate([
+        $mol_mem
+    ], $giper_baza_land.prototype, "units_signing", null);
     __decorate([
         $mol_mem
     ], $giper_baza_land.prototype, "saving", null);

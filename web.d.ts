@@ -574,6 +574,11 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_wait_user_async(this: $): Promise<unknown>;
+    function $mol_wait_user(this: $): unknown;
+}
+
+declare namespace $ {
     class $mol_storage extends $mol_object2 {
         static native(): StorageManager;
         static persisted(next?: boolean, cache?: 'cache'): boolean;
@@ -1465,7 +1470,8 @@ declare namespace $ {
         bus(): $mol_bus<ArrayBuffer>;
         loading(): void;
         sand_encoding(): void;
-        unit_signing(): void;
+        units_unsigned(): $giper_baza_unit_base[];
+        units_signing(): void;
         saving(): void;
         units_sign(units: readonly $giper_baza_unit_base[]): Promise<$giper_baza_unit_seal[]>;
         sand_encode(sand: $giper_baza_unit_sand): Promise<$giper_baza_unit_sand>;
