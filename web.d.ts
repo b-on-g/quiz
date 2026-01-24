@@ -1458,7 +1458,7 @@ declare namespace $ {
         }): $giper_baza_unit_sand[];
         join(): void;
         give(mate_pass: $giper_baza_auth_pass | null, rank: typeof $giper_baza_rank.Value): $giper_baza_unit_gift;
-        post(lead: $giper_baza_link, head: $giper_baza_link, self: $giper_baza_link, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): $giper_baza_unit_sand;
+        post(lead: $giper_baza_link, head: $giper_baza_link, self: $giper_baza_link | null, vary: $giper_baza_vary_type, tag?: keyof typeof $giper_baza_unit_sand_tag): $giper_baza_unit_sand;
         sand_move(sand: $giper_baza_unit_sand, head: $giper_baza_link, seat: number, peer?: $giper_baza_link | null): $giper_baza_unit_sand | undefined;
         sand_wipe(sand: $giper_baza_unit_sand, peer?: $giper_baza_link | null): $giper_baza_unit_sand;
         broadcast(): void;
@@ -1475,6 +1475,7 @@ declare namespace $ {
         saving(): void;
         units_sign(units: readonly $giper_baza_unit_base[]): Promise<$giper_baza_unit_seal[]>;
         sand_encode(sand: $giper_baza_unit_sand): Promise<$giper_baza_unit_sand>;
+        sand_load(sand: $giper_baza_unit_sand): void;
         sand_decode(sand: $giper_baza_unit_sand): $giper_baza_vary_type;
         sand_decode_raw(sand: $giper_baza_unit_sand): $giper_baza_vary_type;
         encryptable(): boolean;
@@ -1927,6 +1928,8 @@ declare namespace $ {
         nodes<Node extends typeof $giper_baza_node>(Node: Node | null): readonly InstanceType<Node>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -1984,6 +1987,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2027,6 +2032,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2072,6 +2079,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2117,6 +2126,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2162,6 +2173,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2207,6 +2220,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2252,6 +2267,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2297,6 +2314,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2342,6 +2361,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2387,6 +2408,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2432,6 +2455,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2477,6 +2502,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2522,6 +2549,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2567,6 +2596,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2620,6 +2651,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -2694,6 +2727,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -2757,6 +2792,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2795,6 +2832,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2833,6 +2872,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2873,6 +2914,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2913,6 +2956,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2953,6 +2998,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -2993,6 +3040,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -3033,6 +3082,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -3073,6 +3124,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -3113,6 +3166,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -3153,6 +3208,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -3193,6 +3250,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -3233,6 +3292,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -3273,6 +3334,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -3313,6 +3376,8 @@ declare namespace $ {
         nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
         units(): $giper_baza_unit_sand[];
         units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+        meta(next?: $giper_baza_link): $giper_baza_link | null;
+        meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
         filled(): boolean;
         can_change(): boolean;
         last_change(): $mol_time_moment | null;
@@ -3367,6 +3432,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -3557,6 +3624,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -3601,6 +3670,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -3732,6 +3803,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -3782,6 +3855,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -3848,6 +3923,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -3886,6 +3963,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -3924,6 +4003,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -3962,6 +4043,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -4007,6 +4090,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4057,6 +4142,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4107,6 +4194,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4157,6 +4246,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4221,6 +4312,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -4266,6 +4359,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4327,6 +4422,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -4365,6 +4462,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -4407,6 +4506,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -4445,6 +4546,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -4483,6 +4586,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -4534,6 +4639,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4584,6 +4691,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4638,6 +4747,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4688,6 +4799,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4738,6 +4851,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4827,6 +4942,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -4865,6 +4982,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -4908,6 +5027,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -4958,6 +5079,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -5020,6 +5143,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -5058,6 +5183,8 @@ declare namespace $ {
             nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
             units(): $giper_baza_unit_sand[];
             units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+            meta(next?: $giper_baza_link): $giper_baza_link | null;
+            meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
             filled(): boolean;
             can_change(): boolean;
             last_change(): $mol_time_moment | null;
@@ -5108,6 +5235,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -5158,6 +5287,8 @@ declare namespace $ {
                     nodes<Node_1 extends typeof $giper_baza_node>(Node: Node_1 | null): readonly InstanceType<Node_1>[];
                     units(): $giper_baza_unit_sand[];
                     units_of(peer: $giper_baza_link | null): $giper_baza_unit_sand[];
+                    meta(next?: $giper_baza_link): $giper_baza_link | null;
+                    meta_of(peer: $giper_baza_link | null): $giper_baza_link | null;
                     filled(): boolean;
                     can_change(): boolean;
                     last_change(): $mol_time_moment | null;
@@ -9702,15 +9833,15 @@ declare namespace $ {
 //# sourceMappingURL=major.view.tree.d.ts.map
 declare namespace $ {
 
-	type $mol_paragraph__dom_name_mol_section_1 = $mol_type_enforce<
+	type $mol_view__dom_name_mol_section_1 = $mol_type_enforce<
 		ReturnType< $mol_section['title_dom_name'] >
 		,
-		ReturnType< $mol_paragraph['dom_name'] >
+		ReturnType< $mol_view['dom_name'] >
 	>
-	type $mol_paragraph__title_mol_section_2 = $mol_type_enforce<
-		ReturnType< $mol_section['title'] >
+	type $mol_view__sub_mol_section_2 = $mol_type_enforce<
+		readonly(any)[]
 		,
-		ReturnType< $mol_paragraph['title'] >
+		ReturnType< $mol_view['sub'] >
 	>
 	type $mol_view__sub_mol_section_3 = $mol_type_enforce<
 		ReturnType< $mol_section['tools'] >
@@ -9729,7 +9860,7 @@ declare namespace $ {
 	>
 	export class $mol_section extends $mol_list {
 		title_dom_name( ): string
-		Title( ): $mol_paragraph
+		Title( ): $mol_view
 		tools( ): readonly(any)[]
 		Tools( ): $mol_view
 		head( ): readonly(any)[]

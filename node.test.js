@@ -7775,7 +7775,7 @@ var $;
             for (const kids of this._sand.values()) {
                 for (const peers of kids.values()) {
                     for (const sand of peers.values()) {
-                        this.sand_decode(sand);
+                        this.sand_load(sand);
                         collect(sand);
                     }
                 }
@@ -7976,16 +7976,16 @@ var $;
             queue.sort(compare);
             let entry = {
                 sand: null,
-                next: '',
-                prev: '',
+                next: null,
+                prev: null,
             };
             const key = peer === null ? (sand) => sand.path() : (sand) => sand.self().str;
-            const by_key = new Map([['', entry]]);
-            const by_self = new Map([['', entry]]);
+            const by_key = new Map([[entry.prev, entry]]);
+            const by_self = new Map([[entry.prev, entry]]);
             while (queue.length) {
                 const last = queue.pop();
                 by_key.get(entry.prev).next = key(last);
-                const item = { sand: last, next: '', prev: entry.prev };
+                const item = { sand: last, next: null, prev: entry.prev };
                 by_key.set(key(last), item);
                 const exists = by_self.get(last.self().str);
                 if (!exists || compare(exists.sand, last) < 0) {
@@ -7994,14 +7994,14 @@ var $;
                 entry.prev = key(last);
                 for (let cursor = queue.length - 1; cursor >= 0; --cursor) {
                     const kid = queue[cursor];
-                    let lead = by_self.get(kid.lead().str);
+                    let lead = by_self.get(kid.lead().str || null);
                     if (!lead)
                         continue;
                     while (lead.next && (compare(by_key.get(lead.next).sand, kid) < 0))
                         lead = by_key.get(lead.next);
                     const exists1 = by_key.get(key(kid));
                     if (exists1) {
-                        if ((lead.sand ? key(lead.sand) : '') === exists1.prev) {
+                        if ((lead.sand ? key(lead.sand) : null) === exists1.prev) {
                             exists1.sand = kid;
                             if (cursor === queue.length - 1)
                                 queue.pop();
@@ -8012,7 +8012,7 @@ var $;
                     }
                     const follower = by_key.get(lead.next);
                     follower.prev = key(kid);
-                    const item = { sand: kid, next: lead.next, prev: lead.sand ? key(lead.sand) : '' };
+                    const item = { sand: kid, next: lead.next, prev: lead.sand ? key(lead.sand) : null };
                     by_key.set(key(kid), item);
                     const exists2 = by_self.get(kid.self().str);
                     if (!exists2 || compare(exists2.sand, kid) < 0) {
@@ -8025,7 +8025,7 @@ var $;
                 }
             }
             const res = [];
-            while (entry.next) {
+            while (entry.next !== null) {
                 entry = by_key.get(entry.next);
                 res.push(entry.sand);
             }
@@ -8056,6 +8056,10 @@ var $;
                     }
                 }
             }
+            else {
+                if (!this.encrypted())
+                    $mol_fail(new Error('Unencrypted Land is always public'));
+            }
             $giper_baza_unit_trusted_grant(gift);
             this.diff_apply([lord_pass, ...$mol_maybe(mate_pass), gift]);
             this.broadcast();
@@ -8079,7 +8083,7 @@ var $;
             sand.lead(lead);
             sand.head(head);
             sand._vary = vary;
-            sand.self(self.str ? self : this.self_make(sand.idea()));
+            sand.self(self ?? this.self_make(sand.idea()));
             this.diff_apply([lord_pass, sand]);
             this.broadcast();
             return sand;
@@ -8316,6 +8320,11 @@ var $;
             sand.ball(bin);
             return sand;
         }
+        sand_load(sand) {
+            if (sand._ball)
+                return;
+            sand._ball = sand.big() ? $mol_wire_sync(this.mine()).ball_load(sand) : sand.data();
+        }
         sand_decode(sand) {
             try {
                 let vary = this.sand_decode_raw(sand);
@@ -8344,7 +8353,7 @@ var $;
                 return sand._vary;
             if (sand._open !== null)
                 return sand._vary = $giper_baza_vary.take(sand._open)[0] ?? null;
-            sand._ball = sand._open = sand.size() > $giper_baza_unit_sand.size_equator ? $mol_wire_sync(this.mine()).ball_load(sand) : sand.data();
+            sand._ball = sand.big() ? $mol_wire_sync(this.mine()).ball_load(sand) : sand.data();
             if (secret && sand._ball && sand.size()) {
                 try {
                     sand._open = $mol_wire_sync(secret).decrypt(sand._ball, sand.salt());
@@ -8357,6 +8366,9 @@ var $;
                             $mol_fail_hidden(new Error(`Can't decrypt`, { cause: error }));
                     }
                 }
+            }
+            else {
+                sand._open = sand._ball;
             }
             return sand._vary = (sand._open ? $giper_baza_vary.take(sand._open)[0] ?? null : null);
         }
@@ -8515,6 +8527,9 @@ var $;
     __decorate([
         $mol_mem
     ], $giper_baza_land.prototype, "saving", null);
+    __decorate([
+        $mol_mem_key
+    ], $giper_baza_land.prototype, "sand_load", null);
     __decorate([
         $mol_mem_key
     ], $giper_baza_land.prototype, "sand_decode", null);
@@ -9975,13 +9990,29 @@ var $;
             return this.units_of($giper_baza_link.hole);
         }
         units_of(peer) {
-            return this.land().sand_ordered({ head: this.head(), peer }).filter(unit => unit.size());
+            const head = this.head();
+            return this.land().sand_ordered({ head, peer }).filter(unit => unit.size() && unit.self().str !== head.str);
+        }
+        meta(next) {
+            const prev = this.meta_of($giper_baza_link.hole);
+            if (!next)
+                return prev;
+            if (prev?.str === next?.str)
+                return prev;
+            const head = this.head();
+            this.land().post(head, head, head, next);
+            return next;
+        }
+        meta_of(peer) {
+            const head = this.head();
+            const unit = this.land().sand_ordered({ head, peer }).find(unit => unit.size() && unit.self().str === head.str) ?? null;
+            return unit ? $giper_baza_vary_cast_link(this.land().sand_decode(unit)) : null;
         }
         filled() {
             return this.units().length > 0;
         }
         can_change() {
-            return this.land().pass_rank(this.land().auth().pass()) > $giper_baza_rank_read;
+            return this.land().pass_rank(this.land().auth().pass()) >= $giper_baza_rank_post('late');
         }
         last_change() {
             const land = this.land();
@@ -10025,6 +10056,12 @@ var $;
     __decorate([
         $mol_mem_key
     ], $giper_baza_node.prototype, "units_of", null);
+    __decorate([
+        $mol_mem
+    ], $giper_baza_node.prototype, "meta", null);
+    __decorate([
+        $mol_mem_key
+    ], $giper_baza_node.prototype, "meta_of", null);
     __decorate([
         $mol_mem
     ], $giper_baza_node.prototype, "last_change", null);
@@ -10119,7 +10156,7 @@ var $;
         add(vary, tag = 'term') {
             if (this.has(vary))
                 return;
-            this.land().post($giper_baza_link.hole, this.head(), $giper_baza_link.hole, vary, tag);
+            this.land().post($giper_baza_link.hole, this.head(), null, vary, tag);
         }
         cut(vary) {
             const units = [...this.units()];
@@ -10379,7 +10416,7 @@ var $;
                 return prev;
             if ($mol_compare_deep(prev, next))
                 return next;
-            this.land().post($giper_baza_link.hole, unit_prev?.head() ?? this.head(), unit_prev?.self() ?? $giper_baza_link.hole, next);
+            this.land().post($giper_baza_link.hole, unit_prev?.head() ?? this.head(), unit_prev?.self() ?? null, next);
             return this.vary_of(peer);
         }
         ;
@@ -10985,6 +11022,8 @@ var $;
             return this.Land(this.king_grab(preset).pass().lord());
         }
         static Land(link) {
+            if (!link.str)
+                $mol_fail(new Error('Empty Land Link'));
             this.lands_touched.add(link.str);
             return this.$.$giper_baza_land.make({
                 link: $mol_const(link),
@@ -14504,7 +14543,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor] {\n\tcolor: var(--mol_theme_control);\n}\n\n[mol_button_minor][disabled] {\n\tcolor: var(--mol_theme_shade);\n}\n");
+    $mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor]:not([disabled]) {\n\tcolor: var(--mol_theme_control);\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -20508,9 +20547,9 @@ var $;
 			return "h1";
 		}
 		Title(){
-			const obj = new this.$.$mol_paragraph();
+			const obj = new this.$.$mol_view();
 			(obj.dom_name) = () => ((this.title_dom_name()));
-			(obj.title) = () => ((this.title()));
+			(obj.sub) = () => ([(this.title())]);
 			return obj;
 		}
 		tools(){
@@ -25772,7 +25811,7 @@ var $;
             $mol_assert_equal(await land.encrypted(), false);
             await land.encrypted(true);
             $mol_assert_equal(await land.encrypted(), true);
-            const sand = await land.post($giper_baza_link.hole, $giper_baza_link.hole, $giper_baza_link.hole, new Uint8Array([1, 2, 3]));
+            const sand = await land.post($giper_baza_link.hole, $giper_baza_link.hole, null, new Uint8Array([1, 2, 3]));
             $mol_assert_equal((await land.sand_encode(sand)).data().length, 16);
             $mol_assert_equal(await land.sand_decode(sand), new Uint8Array([1, 2, 3]));
             $mol_assert_equal((await land.sand_ordered({ head: $giper_baza_link.hole, peer: $giper_baza_link.hole })).length, 1);
