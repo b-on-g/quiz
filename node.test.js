@@ -4577,6 +4577,11 @@ var $;
                 }
                 throw new Error(`Can not parse time duration (${config})`);
             }
+            if (config instanceof Array) {
+                ;
+                [this.year, this.month, this.day, this.hour, this.minute, this.second] = config;
+                return;
+            }
             this.year = config.year || 0;
             this.month = config.month || 0;
             this.day = config.day || 0;
@@ -4595,11 +4600,11 @@ var $;
             let minute = this.minute ?? 0;
             let hour = this.hour ?? 0;
             let day = this.day ?? 0;
-            minute += Math.floor(second / 60);
+            minute += Math.trunc(second / 60);
             second = second % 60;
-            hour += Math.floor(minute / 60);
+            hour += Math.trunc(minute / 60);
             minute = minute % 60;
-            day += Math.floor(hour / 24);
+            day += Math.trunc(hour / 24);
             hour = hour % 24;
             return new $mol_time_duration({
                 year: this.year,
@@ -4643,6 +4648,9 @@ var $;
         toJSON() { return this.toString(); }
         toString(pattern = 'P#Y#M#DT#h#m#s') {
             return super.toString(pattern);
+        }
+        toArray() {
+            return [this.year, this.month, this.day, this.hour, this.minute, this.second];
         }
         [Symbol.toPrimitive](mode) {
             return mode === 'number' ? this.valueOf() : this.toString();
@@ -4789,11 +4797,14 @@ var $;
                 this.hour = config.getHours();
                 this.minute = config.getMinutes();
                 this.second = config.getSeconds() + config.getMilliseconds() / 1000;
-                const offset = -config.getTimezoneOffset();
-                this.offset = new $mol_time_duration({
-                    hour: (offset < 0) ? Math.ceil(offset / 60) : Math.floor(offset / 60),
-                    minute: offset % 60
-                });
+                this.offset = new $mol_time_duration({ minute: -config.getTimezoneOffset() });
+                return;
+            }
+            if (config instanceof Array) {
+                ;
+                [this.year, this.month, this.day, this.hour, this.minute, this.second] = config;
+                if (config[6] !== undefined)
+                    this.offset = new $mol_time_duration(config[6] * 60_000);
                 return;
             }
             this.year = config.year;
@@ -4905,6 +4916,9 @@ var $;
         toJSON() { return this.toString(); }
         toString(pattern = 'YYYY-MM-DDThh:mm:ss.sssZ') {
             return super.toString(pattern);
+        }
+        toArray() {
+            return [this.year, this.month, this.day, this.hour, this.minute, this.second, this.offset?.count('PT1m')];
         }
         [Symbol.toPrimitive](mode) {
             return mode === 'number' ? this.valueOf() : this.toString();
@@ -5117,7 +5131,7 @@ var $;
                 return millisecond.slice(2);
             },
             'Z': (moment) => {
-                const offset = moment.offset;
+                const offset = moment.offset?.normal;
                 if (!offset)
                     return '';
                 let hour = offset.hour;
@@ -5126,7 +5140,7 @@ var $;
                     sign = '-';
                     hour = -hour;
                 }
-                return sign + String(100 + hour).slice(1) + ':' + String(100 + offset.minute).slice(1);
+                return sign + hour.toString().padStart(2, '0') + ':' + offset.minute.toString().padStart(2, '0');
             }
         };
     }
@@ -6774,14 +6788,14 @@ var $;
     $.$giper_baza_vary.type({
         type: $mol_time_duration,
         keys: ['dura'],
-        lean: obj => [obj.toString()],
-        rich: ([str]) => new $mol_time_duration(str),
+        lean: obj => obj.toArray(),
+        rich: data => new $mol_time_duration(data),
     });
     $.$giper_baza_vary.type({
         type: $mol_time_moment,
         keys: ['time'],
-        lean: obj => [obj.toString()],
-        rich: ([str]) => new $mol_time_moment(str),
+        lean: obj => obj.toArray(),
+        rich: data => new $mol_time_moment(data),
     });
     $.$giper_baza_vary.type({
         type: $mol_time_interval,
@@ -8083,7 +8097,7 @@ var $;
             sand.lead(lead);
             sand.head(head);
             sand._vary = vary;
-            sand.self(self ?? this.self_make(sand.idea()));
+            sand.self(self ?? this.self_make($mol_hash_numbers(bin, sand.idea_seed())));
             this.diff_apply([lord_pass, sand]);
             this.broadcast();
             return sand;
@@ -9628,19 +9642,19 @@ var $;
                 return next;
             }
         }
-        _head;
-        head(next) {
-            if (next === undefined && this._head !== undefined)
-                return this._head;
-            else
-                return this._head = this.id6(20, next);
-        }
         _self;
         self(next) {
             if (next === undefined && this._self !== undefined)
                 return this._self;
             else
-                return this._self = this.id6(26, next);
+                return this._self = this.id6(20, next);
+        }
+        _head;
+        head(next) {
+            if (next === undefined && this._head !== undefined)
+                return this._head;
+            else
+                return this._head = this.id6(26, next);
         }
         _lead;
         lead(next) {
@@ -9692,11 +9706,8 @@ var $;
                 }
             }
         }
-        idea() {
-            const size = this.size();
-            const length = 6 + 6 + (size > $giper_baza_unit_sand.size_equator ? 4 + 12 : 1 + size);
-            const bin = new Uint8Array(this.buffer, this.byteOffset + 26, length);
-            return $mol_hash_numbers(bin);
+        idea_seed() {
+            return $mol_hash_numbers(new Uint8Array(this.buffer, this.byteOffset + 26, 12));
         }
         dump() {
             return {
@@ -10283,15 +10294,6 @@ var $;
                     return land.Node(Value()).Data();
                 }
             }
-            remote_make(config) {
-                return this.make(config);
-            }
-            local_make(idea) {
-                const self = this.land().self_make(idea);
-                const node = this.land().Node(Value()).Item(self);
-                this.splice([node.link()]);
-                return node;
-            }
         }
         __decorate([
             $mol_mem
@@ -10302,9 +10304,6 @@ var $;
         __decorate([
             $mol_action
         ], $giper_baza_list_link_to.prototype, "make", null);
-        __decorate([
-            $mol_action
-        ], $giper_baza_list_link_to.prototype, "local_make", null);
         return $giper_baza_list_link_to;
     }
     $.$giper_baza_list_link_to = $giper_baza_list_link_to;
@@ -14543,7 +14542,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor]:not([disabled]) {\n\tcolor: var(--mol_theme_control);\n}\n");
+    $mol_style_attach("mol/button/minor/minor.view.css", "[mol_button_minor]:where(:not([disabled])) {\n\tcolor: var(--mol_theme_control);\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -16563,7 +16562,7 @@ var $;
         'code-docs': /\/\/\/.*?$/,
         'code-comment-block': /(?:\/\*[^]*?\*\/|\/\+[^]*?\+\/|<![^]*?>)/,
         'code-link': /(?:\w+:\/\/|#)\S+?(?=\s|\\\\|""|$)/,
-        'code-comment-inline': /\/\/.*?(?:$|\/\/)|- \\(?!\\).*|#!? .*/,
+        'code-comment-inline': /\/\/.*?(?:$|\/\/)|- \\(?!\\).*|(?<=^| )#!? .*/,
         'code-string': /(?:".*?"|'.*?'|`.*?`| ?\\\\.+?\\\\|\/.+?\/[dygimsu]*(?!\p{Letter})|[ \t]*\\[^\n]*)/u,
         'code-number': /[+-]?(?:\d*\.)?\d+\w*/,
         'code-call': /\.?\w+(?=\()/,
@@ -20611,7 +20610,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("mol/section/section.view.css", "[mol_section_head] {\n\tjustify-content: space-between;\n\talign-items: flex-end;\n\tflex-wrap: wrap;\n}\n\n[mol_section_title] {\n\tpadding: var(--mol_gap_text);\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\n[mol_section_title]:where(h1) {\n\tfont-size: 1.5rem;\n}\n\n[mol_section_title]:where(h2) {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\n[mol_section_title]:where(h3) {\n\tfont-size: 1.25rem;\n}\n\n[mol_section_title]:where(h4) {\n\tfont-size: 1.25rem;\n\tfont-style: italic;\n}\n\n[mol_section_title]:where(h5) {\n\tfont-size: 1rem;\n}\n\n[mol_section_title]:where(h6) {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n");
+    $mol_style_attach("mol/section/section.view.css", "[mol_section_head] {\n\tjustify-content: space-between;\n\talign-items: flex-end;\n\tflex-wrap: wrap;\n}\n\n[mol_section_title] {\n\tmargin: 0;\n\tpadding: var(--mol_gap_text);\n\ttext-shadow: 0 0;\n\tfont-weight: normal;\n}\n\n[mol_section_title]:where(h1) {\n\tfont-size: 1.5rem;\n}\n\n[mol_section_title]:where(h2) {\n\tfont-size: 1.5rem;\n\tfont-style: italic;\n}\n\n[mol_section_title]:where(h3) {\n\tfont-size: 1.25rem;\n}\n\n[mol_section_title]:where(h4) {\n\tfont-size: 1.25rem;\n\tfont-style: italic;\n}\n\n[mol_section_title]:where(h5) {\n\tfont-size: 1rem;\n}\n\n[mol_section_title]:where(h6) {\n\tfont-size: 1rem;\n\tfont-style: italic;\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -24603,6 +24602,7 @@ var $;
         },
         'normalization'() {
             $mol_assert_equal(new $mol_time_duration('P1Y2M3DT44h55m66s').normal.toString(), 'P1Y2M4DT20H56M6S');
+            $mol_assert_equal(new $mol_time_duration('P-1Y-2M-3DT-44h-55m-66s').normal.toString(), 'P-1Y-2M-4DT-20H-56M-6S');
         },
         'comparison'() {
             const iso = 'P1Y1M1DT1h1m1s';
@@ -24675,6 +24675,11 @@ var $;
         'comparison'() {
             const iso = '2021-01-02T03:04:05.678+09:10';
             $mol_assert_equal(new $mol_time_moment(iso), new $mol_time_moment(iso));
+        },
+        'array keeps zero offset'() {
+            const moment = new $mol_time_moment('2026-01-25T16:37:36.129+00:00');
+            const restored = new $mol_time_moment(moment.toArray());
+            $mol_assert_equal(restored.offset?.count('PT1m'), 0);
         },
     });
 })($ || ($ = {}));
@@ -25493,6 +25498,12 @@ var $;
             "Time"($) {
                 check(new $mol_time_moment('1984-08-04T09:05:13.666+03:00'));
                 check(new $mol_time_moment);
+            },
+            "Dura"($) {
+                check(new $mol_time_duration('P1Y2M3DT4h5m6.6s'));
+            },
+            "Span"($) {
+                check(new $mol_time_interval('T09:00/PT9h'));
             },
             "JSON"($) {
                 check({ foo: ['bar'] });
