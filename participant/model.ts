@@ -14,10 +14,10 @@ namespace $ {
 		 */
 		@$mol_mem
 		display_name_text() {
-			const name = this.DisplayName()?.str()
+			const name = this.DisplayName(null)?.str()
 			if (name && name.trim()) return name
 
-			const userId = this.UserId()?.val() ?? ''
+			const userId = this.UserId(null)?.val() ?? ''
 			const shortId = userId.substring(0, 8)
 			return `Игрок ${shortId}`
 		}

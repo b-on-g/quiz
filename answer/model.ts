@@ -69,7 +69,7 @@ namespace $ {
 		 */
 		@$mol_mem
 		selected_option_list() {
-			return this.SelectedOptions()?.remote_list() ?? []
+			return this.SelectedOptions(null)?.remote_list() ?? []
 		}
 
 		/**

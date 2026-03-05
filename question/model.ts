@@ -40,9 +40,9 @@ namespace $ {
 		 */
 		@$mol_mem
 		options_ordered() {
-			const options = this.Options()?.remote_list() ?? []
+			const options = this.Options(null)?.remote_list() ?? []
 			return [...options].sort((a: $bog_quiz_option, b: $bog_quiz_option) => {
-				return Number(a.Order()?.val() ?? 0) - Number(b.Order()?.val() ?? 0)
+				return Number(a.Order(null)?.val() ?? 0) - Number(b.Order(null)?.val() ?? 0)
 			})
 		}
 
@@ -51,7 +51,7 @@ namespace $ {
 		 */
 		@$mol_mem
 		correct_options() {
-			return this.options_ordered().filter((opt: $bog_quiz_option) => opt.IsCorrect()?.val() ?? false)
+			return this.options_ordered().filter((opt: $bog_quiz_option) => opt.IsCorrect(null)?.val() ?? false)
 		}
 
 		/**

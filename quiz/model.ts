@@ -13,7 +13,7 @@ namespace $ {
 
 		@$mol_action
 		question_make() {
-			const owner = this.Owner()?.remote()
+			const owner = this.Owner(null)?.remote()
 			if (owner && owner.total_questions() >= 1000) {
 				throw new Error('Maximum 1000 questions per owner')
 			}
@@ -29,9 +29,9 @@ namespace $ {
 
 		@$mol_mem
 		questions_ordered() {
-			const questions = this.Questions()?.remote_list() ?? []
+			const questions = this.Questions(null)?.remote_list() ?? []
 			return [...questions].sort((a: $bog_quiz_question, b: $bog_quiz_question) => {
-				return Number(a.Order()?.val() ?? 0) - Number(b.Order()?.val() ?? 0)
+				return Number(a.Order(null)?.val() ?? 0) - Number(b.Order(null)?.val() ?? 0)
 			})
 		}
 	}

@@ -32,9 +32,9 @@ namespace $ {
 			session.State(null)!.val('waiting')
 			session.QuestionIndex(null)!.val(BigInt(0))
 
-			session.QuestionTimerSec(null)!.val(quiz.DefaultQuestionTimer()?.val() ?? BigInt(30))
-			session.ReviewTimerSec(null)!.val(quiz.DefaultReviewTimer()?.val() ?? BigInt(10))
-			session.ShowStats(null)!.val(quiz.DefaultSpeedEnabled()?.val() ?? false)
+			session.QuestionTimerSec(null)!.val(quiz.DefaultQuestionTimer(null)?.val() ?? BigInt(30))
+			session.ReviewTimerSec(null)!.val(quiz.DefaultReviewTimer(null)?.val() ?? BigInt(10))
+			session.ShowStats(null)!.val(quiz.DefaultSpeedEnabled(null)?.val() ?? false)
 			session.ReactionsEnabled(null)!.val(false)
 			session.LeaderboardEnabled(null)!.val(true)
 
@@ -54,9 +54,9 @@ namespace $ {
 
 		@$mol_mem
 		total_questions() {
-			const quizzes = this.Quizzes()?.remote_list() ?? []
+			const quizzes = this.Quizzes(null)?.remote_list() ?? []
 			return quizzes.reduce((sum, quiz) => {
-				return sum + (quiz.Questions()?.remote_list().length ?? 0)
+				return sum + (quiz.Questions(null)?.remote_list().length ?? 0)
 			}, 0)
 		}
 	}

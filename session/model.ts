@@ -27,10 +27,10 @@ namespace $ {
 		 */
 		@$mol_mem
 		current_question() {
-			const quiz = this.Quiz()?.remote()
+			const quiz = this.Quiz(null)?.remote()
 			if (!quiz) return null
 
-			const index = Number(this.QuestionIndex()?.val() ?? 0)
+			const index = Number(this.QuestionIndex(null)?.val() ?? 0)
 			const questions = quiz.questions_ordered()
 
 			return questions[index] ?? null
@@ -51,7 +51,7 @@ namespace $ {
 		 */
 		@$mol_action
 		next() {
-			const state = this.State()?.val()
+			const state = this.State(null)?.val()
 
 			if (state === 'question') {
 				// Фиксируем ответы и переходим к review
@@ -60,10 +60,10 @@ namespace $ {
 				this.ReviewStartedAt(null)!.val(BigInt(Date.now()))
 			} else if (state === 'review') {
 				// Переходим к следующему вопросу
-				const quiz = this.Quiz()?.remote()
+				const quiz = this.Quiz(null)?.remote()
 				if (!quiz) return
 
-				const currentIndex = Number(this.QuestionIndex()?.val() ?? 0)
+				const currentIndex = Number(this.QuestionIndex(null)?.val() ?? 0)
 				const totalQuestions = quiz.questions_ordered().length
 
 				if (currentIndex + 1 < totalQuestions) {
@@ -95,13 +95,13 @@ namespace $ {
 			if (!question) return
 
 			const now = BigInt(Date.now())
-			const answers = this.Answers()?.remote_list() ?? []
+			const answers = this.Answers(null)?.remote_list() ?? []
 
 			answers.forEach(answer => {
-				const answerQuestion = answer.Question()?.remote()
+				const answerQuestion = answer.Question(null)?.remote()
 				if (answerQuestion?.link().toString() === question.link().toString()) {
 					// Если FinalAt еще не установлен, устанавливаем
-					if (!answer.FinalAt()?.val()) {
+					if (!answer.FinalAt(null)?.val()) {
 						answer.FinalAt(null)!.val(now)
 					}
 				}
@@ -113,7 +113,7 @@ namespace $ {
 		 */
 		@$mol_mem
 		participant_list() {
-			return this.Participants()?.remote_list() ?? []
+			return this.Participants(null)?.remote_list() ?? []
 		}
 
 		@$mol_action
@@ -141,8 +141,8 @@ namespace $ {
 
 			const existing = existing_answers.find(ans => {
 				return (
-					ans.Question()?.remote()?.link().toString() === q_link &&
-					ans.Participant()?.remote()?.link().toString() === p_link
+					ans.Question(null)?.remote()?.link().toString() === q_link &&
+					ans.Participant(null)?.remote()?.link().toString() === p_link
 				)
 			})
 

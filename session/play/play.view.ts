@@ -20,7 +20,7 @@ namespace $.$$ {
 			const lord = this.lord_id()
 			const participants = session.participant_list()
 
-			return (participants.find(p => p.UserId()?.val() === lord) as $bog_quiz_participant) ?? null
+			return (participants.find(p => p.UserId(null)?.val() === lord) as $bog_quiz_participant) ?? null
 		}
 
 		@$mol_mem
@@ -28,8 +28,19 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return 'Play Quiz'
 
-			const quiz = session.Quiz()?.remote()
+			const quiz = session.Quiz(null)?.remote()
 			return quiz?.Title(null)?.str() || 'Quiz'
+		}
+
+		@$mol_mem
+		state_body() {
+			const s = this.state()
+			switch (s) {
+				case 'question': return [this.Question_view()]
+				case 'review': return [this.Review_view()]
+				case 'finished': return [this.Finished_view()]
+				default: return [this.Waiting_view()]
+			}
 		}
 
 		@$mol_mem
@@ -37,7 +48,7 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return 'waiting'
 
-			return session.State()?.val() || 'waiting'
+			return session.State(null)?.val() || 'waiting'
 		}
 
 		@$mol_mem
@@ -61,10 +72,10 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return ''
 
-			const startedAt = Number(session.QuestionStartedAt()?.val() ?? 0)
+			const startedAt = Number(session.QuestionStartedAt(null)?.val() ?? 0)
 			if (!startedAt) return ''
 
-			const timerSec = Number(session.QuestionTimerSec()?.val() ?? 30)
+			const timerSec = Number(session.QuestionTimerSec(null)?.val() ?? 30)
 			const elapsed = Math.floor((Date.now() - startedAt) / 1000)
 			const remaining = Math.max(0, timerSec - elapsed)
 
@@ -121,7 +132,7 @@ namespace $.$$ {
 				const option = this.option_entity(index)
 				if (!option) return 'transparent'
 
-				const is_correct = option.IsCorrect()?.val() ?? false
+				const is_correct = option.IsCorrect(null)?.val() ?? false
 				if (is_correct) return '#4caf50'
 				if (selected && !is_correct) return '#f44336'
 			}
@@ -138,7 +149,7 @@ namespace $.$$ {
 
 			if (!answer || !option || !question) return event
 
-			const type = question.Type()?.val() || 'single'
+			const type = question.Type(null)?.val() || 'single'
 			answer.toggle_option(option, type === 'single')
 			return event
 		}

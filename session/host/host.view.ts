@@ -1,6 +1,5 @@
 namespace $.$$ {
 	export class $bog_quiz_session_host extends $.$bog_quiz_session_host {
-		@$mol_mem
 		session() {
 			const id = this.session_id()
 			if (!id) return null
@@ -12,7 +11,7 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return 'Host Session'
 
-			const quiz = session.Quiz()?.remote()
+			const quiz = session.Quiz(null)?.remote()
 			const quiz_title = quiz?.Title(null)?.str() || 'Quiz'
 			return `Host: ${quiz_title}`
 		}
@@ -22,7 +21,7 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return 'Loading...'
 
-			const state = session.State()?.val() || 'waiting'
+			const state = session.State(null)?.val() || 'waiting'
 			const stateNames: Record<string, string> = {
 				waiting: 'Waiting for participants',
 				question: 'Question in progress',
@@ -39,7 +38,7 @@ namespace $.$$ {
 			if (!session) return ''
 
 			const session_id = session.link().toString()
-			return `${window.location.origin}${window.location.pathname}?session=${session_id}&join`
+			return `${window.location.origin}${window.location.pathname}#!session=${session_id}/join`
 		}
 
 		@$mol_mem
@@ -85,7 +84,7 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return ''
 
-			const state = session.State()?.val()
+			const state = session.State(null)?.val()
 
 			if (state === 'question') {
 				// TODO: Check if participant has answered
@@ -100,7 +99,7 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return false
 
-			const state = session.State()?.val()
+			const state = session.State(null)?.val() || 'waiting'
 			return state === 'waiting'
 		}
 
@@ -109,7 +108,7 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return false
 
-			const state = session.State()?.val()
+			const state = session.State(null)?.val()
 			return state === 'question' || state === 'review'
 		}
 
@@ -118,7 +117,7 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return false
 
-			const state = session.State()?.val()
+			const state = session.State(null)?.val()
 			return state !== 'finished'
 		}
 
@@ -127,13 +126,14 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return 'Next'
 
-			const state = session.State()?.val()
+			const state = session.State(null)?.val()
 			if (state === 'question') return 'Show Results'
 			if (state === 'review') return 'Next Question'
 
 			return 'Next'
 		}
 
+		@$mol_action
 		start(event?: Event) {
 			const session = this.session()
 			if (!session) return event
@@ -142,6 +142,7 @@ namespace $.$$ {
 			return event
 		}
 
+		@$mol_action
 		next(event?: Event) {
 			const session = this.session()
 			if (!session) return event
@@ -150,6 +151,7 @@ namespace $.$$ {
 			return event
 		}
 
+		@$mol_action
 		end(event?: Event) {
 			const session = this.session()
 			if (!session) return event

@@ -102,22 +102,22 @@ namespace $ {
 		 * Рассчитать очки для ответа
 		 */
 		static calculate_answer_score(answer: $bog_quiz_answer, session: $bog_quiz_session): number {
-			const question = answer.Question()?.remote()
+			const question = answer.Question(null)?.remote()
 			if (!question) return 0
 
-			const final_at = answer.FinalAt()?.val()
+			const final_at = answer.FinalAt(null)?.val()
 			if (!final_at) return 0 // Не финализирован
 
-			const question_type = question.Type()?.val() || 'single'
-			const base_points = question.BasePoints()?.val() ?? BigInt(100)
-			const speed_enabled = question.SpeedEnabled()?.val() ?? true
+			const question_type = question.Type(null)?.val() || 'single'
+			const base_points = question.BasePoints(null)?.val() ?? BigInt(100)
+			const speed_enabled = question.SpeedEnabled(null)?.val() ?? true
 
 			// Получить настройки сессии
-			const question_started_at = session.QuestionStartedAt()?.val() ?? BigInt(0)
-			const question_timer_sec = session.QuestionTimerSec()?.val() ?? BigInt(30)
-			const speed_k_max = session.SpeedKMax()?.val() ?? 2.0
-			const speed_k_min = session.SpeedKMin()?.val() ?? 1.0
-			const speed_skip_sec = session.SpeedSkipSec()?.val() ?? BigInt(1)
+			const question_started_at = session.QuestionStartedAt(null)?.val() ?? BigInt(0)
+			const question_timer_sec = session.QuestionTimerSec(null)?.val() ?? BigInt(30)
+			const speed_k_max = session.SpeedKMax(null)?.val() ?? 2.0
+			const speed_k_min = session.SpeedKMin(null)?.val() ?? 1.0
+			const speed_skip_sec = session.SpeedSkipSec(null)?.val() ?? BigInt(1)
 
 			// Рассчитать multiplier
 			const multiplier = this.speed_multiplier(
@@ -135,8 +135,8 @@ namespace $ {
 				if (selected.length === 0) return 0
 
 				const selected_option = selected[0]
-				const is_correct = selected_option.IsCorrect()?.val() ?? false
-				const wrong_penalty = question.WrongPenaltySingle()?.val() ?? BigInt(0)
+				const is_correct = selected_option.IsCorrect(null)?.val() ?? false
+				const wrong_penalty = question.WrongPenaltySingle(null)?.val() ?? BigInt(0)
 
 				return this.score_single(is_correct, base_points, wrong_penalty, multiplier, speed_enabled)
 			} else {
@@ -147,7 +147,7 @@ namespace $ {
 				const correct_options = question.correct_options()
 				const correct_refs = correct_options.map((opt: $bog_quiz_option) => opt.link().toString())
 
-				const wrong_penalty_per = question.WrongPenaltyMultiPerOption()?.val() ?? BigInt(0)
+				const wrong_penalty_per = question.WrongPenaltyMultiPerOption(null)?.val() ?? BigInt(0)
 
 				return this.score_multi(
 					selected_refs,
@@ -167,11 +167,11 @@ namespace $ {
 			participant: $bog_quiz_participant,
 			session: $bog_quiz_session,
 		): number {
-			const answers_list = session.Answers()?.remote_list() ?? []
+			const answers_list = session.Answers(null)?.remote_list() ?? []
 
 			// Найти все ответы этого участника
 			const participant_answers = answers_list.filter(ans => {
-				const ans_participant = ans.Participant()?.remote()
+				const ans_participant = ans.Participant(null)?.remote()
 				return ans_participant?.link().toString() === participant.link().toString()
 			})
 
