@@ -743,6 +743,39 @@ $mol_text_span $mol_paragraph
 		^
 		mol_text_type <= type \
 
+$mol_icon_upload $mol_icon path \M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z
+
+$mol_button_open $mol_button_minor
+	sub /
+		<= Icon $mol_icon_upload
+		<= Native $mol_button_open_native
+			files? <=> files_handled? <=> files? /File
+			accept <= accept \
+			multiple <= multiple true
+
+$mol_button_open_native $mol_view
+	dom_name \input
+	files? /File
+	attr *
+		type \file
+		accept <= accept \
+		multiple <= multiple true
+	event *
+		change?next <=> picked?next null
+
+$mol_attach $mol_view
+	items? /string
+	sub <= content /$mol_view
+		<= Item*0 $mol_button_minor
+			click?event <=> item_drop*?event null
+			sub /
+				<= Image* $mol_image
+					title \
+					uri <= item_uri* \
+		<= Add $mol_button_open
+			title <= attach_title \
+			files? <=> attach_new? null
+
 $mol_textarea $mol_stack
 	attr *
 		^
@@ -880,6 +913,7 @@ $giper_bot $mol_book2
 		rules <= context <= rules \Ты - Гипер Бот, универсальный интеллектуальный ассистент. Пользователь присылает тебе запрос в виде JSON строки. Твоя задача сформировать максимально точный и лаконичный ответ на запрос без лишней информации, о которой пользователь не просил. Ответ должен быть представлен в виде JSON объекта, где в поле "response" должен находиться собственно ответ в виде строки. В поле "confidence" отрази степень своей увернности в истинности ответа в диапазоне от 0 до 1. В поле "digest" должен находиться краткий пересказ всего вашего диалога от начала до конца. Говоря о пользователе в пересказе (и только в нём) используй эмодзи 🙂 вместо слова "пользователь", а вместо "Гипер Бота" - используй эмозди 🤖. В поле "title" должно быть придумано лаконичное название, ёмко характеризующее всё обсуждение целиком. Отвечай всегда на языке с кодом {lang}, если пользователь не попросил иное. Далее идёт пересказ прошлых ваших сообщений, не потеряй его в своём пересказе:
 	plugins /
 		<= Theme $mol_theme_auto
+	quote? \
 	pages /
 		<= Space $giper_web_frame
 		<= Dialog $mol_page
@@ -894,9 +928,14 @@ $giper_bot $mol_book2
 						<= Message*0 $mol_view sub /
 							<= Message_text* $mol_text text <= message_text* \
 			foot /
-				<= Avatar $mol_view sub / \🙂
+				<= Attach $mol_attach
+					items? <=> attach? /string
 				<= Prompt_text $mol_textarea
-					hint @ \Ask something
+					event *
+						^
+						pointerdown? <=> quote_start? null
+						pointerup? <=> quote_end? null
+					hint @ \Ask Giper Bot...
 					value? <=> prompt_text? \
 					submit? <=> prompt_submit? null
 				<= Prompt_submit $mol_button_minor
@@ -931,6 +970,108 @@ $giper_bot $mol_book2
 					Content <= Rules $mol_text
 						text <=
 
+$mol_button_major $mol_button_minor
+	theme \$mol_theme_base
+
+$bog_quiz_session_join $mol_page
+	session_id \
+	title @ \Join Quiz
+	body /
+		<= Join_form $mol_view
+			sub /
+				<= Quiz_info $mol_text
+					text <= quiz_info_text \
+				<= Name_field $mol_string
+					value? <=> participant_name? \
+					hint @ \Your Name
+				<= Join_button $mol_button_major
+					click?event <=> join?event null
+					title @ \Join Quiz
+					enabled <= can_join false
+
+$mol_section $mol_list
+	level 1
+	rows /
+		<= Head $mol_view
+			sub <= head /
+				<= Title $mol_view
+					dom_name <= title_dom_name \h1
+					sub / <= title
+				<= Tools $mol_view sub <= tools /
+		<= Content $mol_list
+			rows <= content /
+
+$mol_check_list $mol_view
+	dictionary *
+	Option* $mol_check
+		checked? <=> option_checked*? false
+		label <= option_label* /
+			<= option_title* \
+		enabled <= option_enabled* <= enabled true
+		hint <= option_hint* \
+		minimal_height 24
+	options *
+	keys /string
+	sub <= items /$mol_check
+
+$mol_switch $mol_check_list
+	value? \
+
+$bog_quiz_session_play $mol_page
+	session_id \
+	title <= session_title \
+	body /
+		<= State_view $mol_switch
+			value <= state \
+			options *
+				waiting <= Waiting_view $mol_view
+					sub /
+						<= Waiting_text $mol_text
+							text @ \Waiting for quiz to start...
+				question <= Question_view $mol_view
+					sub /
+						<= Question_text $mol_text
+							text <= question_text \
+						<= Timer_text $mol_text
+							text <= timer_text \
+						<= Options_list $mol_list
+							rows <= option_rows /
+						<= Submit_button $mol_button_major
+							click?event <=> submit_answer?event null
+							title @ \Submit Answer
+							enabled <= can_submit false
+				review <= Review_view $mol_view
+					sub /
+						<= Review_text $mol_text
+							text @ \Reviewing answers...
+						<= Your_answer $mol_text
+							text <= your_answer_text \
+						<= Correct_answer $mol_text
+							text <= correct_answer_text \
+						<= Score_text $mol_text
+							text <= score_text \
+				finished <= Finished_view $mol_view
+					sub /
+						<= Finished_text $mol_text
+							text @ \Quiz finished!
+						<= Final_score $mol_text
+							text <= final_score_text \
+						<= Leaderboard_section $mol_section
+							title @ \Leaderboard
+							content /
+								<= Leaderboard $mol_list
+									rows <= leaderboard_rows /
+	
+	Option_button* $mol_button
+		click?event <=> option_toggle*?event null
+		title <= option_text* \
+		style * background <= option_background* \
+	
+	Leaderboard_item* $mol_view
+		sub /
+			<= Leaderboard_text* $mol_text
+				text <= leaderboard_item_text* \
+
 $bog_quiz $mol_book2_catalog
 	param \quiz
 	realm <= Realm $giper_baza_glob
@@ -948,21 +1089,10 @@ $bog_quiz $mol_book2_catalog
 		\
 			<= Bot $giper_bot
 	Spread* <= Quiz_spread* $mol_view
-
-$mol_button_major $mol_button_minor
-	theme \$mol_theme_base
-
-$mol_section $mol_list
-	level 1
-	rows /
-		<= Head $mol_view
-			sub <= head /
-				<= Title $mol_view
-					dom_name <= title_dom_name \h1
-					sub / <= title
-				<= Tools $mol_view sub <= tools /
-		<= Content $mol_list
-			rows <= content /
+	Join_page $bog_quiz_session_join
+		session_id \
+	Play_page $bog_quiz_session_play
+		session_id \
 
 $mol_row $mol_view
 
@@ -1022,22 +1152,6 @@ $bog_quiz_session_host $mol_page
 			sub /
 				<= Participant_status* $mol_text
 					text <= participant_status_text* \
-
-$mol_check_list $mol_view
-	dictionary *
-	Option* $mol_check
-		checked? <=> option_checked*? false
-		label <= option_label* /
-			<= option_title* \
-		enabled <= option_enabled* <= enabled true
-		hint <= option_hint* \
-		minimal_height 24
-	options *
-	keys /string
-	sub <= items /$mol_check
-
-$mol_switch $mol_check_list
-	value? \
 
 $mol_icon_tick $mol_icon path \M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z
 
