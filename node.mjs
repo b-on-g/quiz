@@ -12783,10 +12783,10 @@ var $;
         LastSeenAt: $giper_baza_atom_bint,
     }) {
         display_name_text() {
-            const name = this.DisplayName()?.str();
+            const name = this.DisplayName(null)?.str();
             if (name && name.trim())
                 return name;
-            const userId = this.UserId()?.val() ?? '';
+            const userId = this.UserId(null)?.val() ?? '';
             const shortId = userId.substring(0, 8);
             return `Игрок ${shortId}`;
         }
@@ -12842,13 +12842,13 @@ var $;
             return option;
         }
         options_ordered() {
-            const options = this.Options()?.remote_list() ?? [];
+            const options = this.Options(null)?.remote_list() ?? [];
             return [...options].sort((a, b) => {
-                return Number(a.Order()?.val() ?? 0) - Number(b.Order()?.val() ?? 0);
+                return Number(a.Order(null)?.val() ?? 0) - Number(b.Order(null)?.val() ?? 0);
             });
         }
         correct_options() {
-            return this.options_ordered().filter((opt) => opt.IsCorrect()?.val() ?? false);
+            return this.options_ordered().filter((opt) => opt.IsCorrect(null)?.val() ?? false);
         }
         has_correct_answer() {
             return this.correct_options().length > 0;
@@ -12915,7 +12915,7 @@ var $;
             this.UpdatedAt(null).val(BigInt(Date.now()));
         }
         selected_option_list() {
-            return this.SelectedOptions()?.remote_list() ?? [];
+            return this.SelectedOptions(null)?.remote_list() ?? [];
         }
         is_option_selected(option) {
             return this.selected_option_list().some(opt => opt.link().toString() === option.link().toString());
@@ -12976,10 +12976,10 @@ var $;
         SpeedSkipSec: $giper_baza_atom_bint,
     }) {
         current_question() {
-            const quiz = this.Quiz()?.remote();
+            const quiz = this.Quiz(null)?.remote();
             if (!quiz)
                 return null;
-            const index = Number(this.QuestionIndex()?.val() ?? 0);
+            const index = Number(this.QuestionIndex(null)?.val() ?? 0);
             const questions = quiz.questions_ordered();
             return questions[index] ?? null;
         }
@@ -12989,17 +12989,17 @@ var $;
             this.QuestionStartedAt(null).val(BigInt(Date.now()));
         }
         next() {
-            const state = this.State()?.val();
+            const state = this.State(null)?.val();
             if (state === 'question') {
                 this.finalize_answers();
                 this.State(null).val('review');
                 this.ReviewStartedAt(null).val(BigInt(Date.now()));
             }
             else if (state === 'review') {
-                const quiz = this.Quiz()?.remote();
+                const quiz = this.Quiz(null)?.remote();
                 if (!quiz)
                     return;
-                const currentIndex = Number(this.QuestionIndex()?.val() ?? 0);
+                const currentIndex = Number(this.QuestionIndex(null)?.val() ?? 0);
                 const totalQuestions = quiz.questions_ordered().length;
                 if (currentIndex + 1 < totalQuestions) {
                     this.State(null).val('question');
@@ -13019,18 +13019,18 @@ var $;
             if (!question)
                 return;
             const now = BigInt(Date.now());
-            const answers = this.Answers()?.remote_list() ?? [];
+            const answers = this.Answers(null)?.remote_list() ?? [];
             answers.forEach(answer => {
-                const answerQuestion = answer.Question()?.remote();
+                const answerQuestion = answer.Question(null)?.remote();
                 if (answerQuestion?.link().toString() === question.link().toString()) {
-                    if (!answer.FinalAt()?.val()) {
+                    if (!answer.FinalAt(null)?.val()) {
                         answer.FinalAt(null).val(now);
                     }
                 }
             });
         }
         participant_list() {
-            return this.Participants()?.remote_list() ?? [];
+            return this.Participants(null)?.remote_list() ?? [];
         }
         participant_make() {
             const participants = this.Participants(null);
@@ -13049,8 +13049,8 @@ var $;
             const q_link = question.link().toString();
             const p_link = participant.link().toString();
             const existing = existing_answers.find(ans => {
-                return (ans.Question()?.remote()?.link().toString() === q_link &&
-                    ans.Participant()?.remote()?.link().toString() === p_link);
+                return (ans.Question(null)?.remote()?.link().toString() === q_link &&
+                    ans.Participant(null)?.remote()?.link().toString() === p_link);
             });
             if (existing)
                 return existing;
@@ -13150,28 +13150,28 @@ var $;
             return points_positive - points_negative;
         }
         static calculate_answer_score(answer, session) {
-            const question = answer.Question()?.remote();
+            const question = answer.Question(null)?.remote();
             if (!question)
                 return 0;
-            const final_at = answer.FinalAt()?.val();
+            const final_at = answer.FinalAt(null)?.val();
             if (!final_at)
                 return 0;
-            const question_type = question.Type()?.val() || 'single';
-            const base_points = question.BasePoints()?.val() ?? BigInt(100);
-            const speed_enabled = question.SpeedEnabled()?.val() ?? true;
-            const question_started_at = session.QuestionStartedAt()?.val() ?? BigInt(0);
-            const question_timer_sec = session.QuestionTimerSec()?.val() ?? BigInt(30);
-            const speed_k_max = session.SpeedKMax()?.val() ?? 2.0;
-            const speed_k_min = session.SpeedKMin()?.val() ?? 1.0;
-            const speed_skip_sec = session.SpeedSkipSec()?.val() ?? BigInt(1);
+            const question_type = question.Type(null)?.val() || 'single';
+            const base_points = question.BasePoints(null)?.val() ?? BigInt(100);
+            const speed_enabled = question.SpeedEnabled(null)?.val() ?? true;
+            const question_started_at = session.QuestionStartedAt(null)?.val() ?? BigInt(0);
+            const question_timer_sec = session.QuestionTimerSec(null)?.val() ?? BigInt(30);
+            const speed_k_max = session.SpeedKMax(null)?.val() ?? 2.0;
+            const speed_k_min = session.SpeedKMin(null)?.val() ?? 1.0;
+            const speed_skip_sec = session.SpeedSkipSec(null)?.val() ?? BigInt(1);
             const multiplier = this.speed_multiplier(question_started_at, final_at, question_timer_sec, speed_k_max, speed_k_min, speed_skip_sec);
             if (question_type === 'single') {
                 const selected = answer.selected_option_list();
                 if (selected.length === 0)
                     return 0;
                 const selected_option = selected[0];
-                const is_correct = selected_option.IsCorrect()?.val() ?? false;
-                const wrong_penalty = question.WrongPenaltySingle()?.val() ?? BigInt(0);
+                const is_correct = selected_option.IsCorrect(null)?.val() ?? false;
+                const wrong_penalty = question.WrongPenaltySingle(null)?.val() ?? BigInt(0);
                 return this.score_single(is_correct, base_points, wrong_penalty, multiplier, speed_enabled);
             }
             else {
@@ -13179,14 +13179,14 @@ var $;
                 const selected_refs = selected.map(opt => opt.link().toString());
                 const correct_options = question.correct_options();
                 const correct_refs = correct_options.map((opt) => opt.link().toString());
-                const wrong_penalty_per = question.WrongPenaltyMultiPerOption()?.val() ?? BigInt(0);
+                const wrong_penalty_per = question.WrongPenaltyMultiPerOption(null)?.val() ?? BigInt(0);
                 return this.score_multi(selected_refs, correct_refs, base_points, wrong_penalty_per, multiplier, speed_enabled);
             }
         }
         static calculate_participant_total_score(participant, session) {
-            const answers_list = session.Answers()?.remote_list() ?? [];
+            const answers_list = session.Answers(null)?.remote_list() ?? [];
             const participant_answers = answers_list.filter(ans => {
-                const ans_participant = ans.Participant()?.remote();
+                const ans_participant = ans.Participant(null)?.remote();
                 return ans_participant?.link().toString() === participant.link().toString();
             });
             let total = 0;
@@ -13226,9 +13226,9 @@ var $;
             session.Host(null).remote(this);
             session.State(null).val('waiting');
             session.QuestionIndex(null).val(BigInt(0));
-            session.QuestionTimerSec(null).val(quiz.DefaultQuestionTimer()?.val() ?? BigInt(30));
-            session.ReviewTimerSec(null).val(quiz.DefaultReviewTimer()?.val() ?? BigInt(10));
-            session.ShowStats(null).val(quiz.DefaultSpeedEnabled()?.val() ?? false);
+            session.QuestionTimerSec(null).val(quiz.DefaultQuestionTimer(null)?.val() ?? BigInt(30));
+            session.ReviewTimerSec(null).val(quiz.DefaultReviewTimer(null)?.val() ?? BigInt(10));
+            session.ShowStats(null).val(quiz.DefaultSpeedEnabled(null)?.val() ?? false);
             session.ReactionsEnabled(null).val(false);
             session.LeaderboardEnabled(null).val(true);
             session.SpeedKMax(null).val(2.0);
@@ -13243,9 +13243,9 @@ var $;
             quizzes.cut(quiz.link());
         }
         total_questions() {
-            const quizzes = this.Quizzes()?.remote_list() ?? [];
+            const quizzes = this.Quizzes(null)?.remote_list() ?? [];
             return quizzes.reduce((sum, quiz) => {
-                return sum + (quiz.Questions()?.remote_list().length ?? 0);
+                return sum + (quiz.Questions(null)?.remote_list().length ?? 0);
             }, 0);
         }
     }
@@ -13280,7 +13280,7 @@ var $;
         DefaultSpeedEnabled: $giper_baza_atom_bool,
     }) {
         question_make() {
-            const owner = this.Owner()?.remote();
+            const owner = this.Owner(null)?.remote();
             if (owner && owner.total_questions() >= 1000) {
                 throw new Error('Maximum 1000 questions per owner');
             }
@@ -13291,9 +13291,9 @@ var $;
             return question;
         }
         questions_ordered() {
-            const questions = this.Questions()?.remote_list() ?? [];
+            const questions = this.Questions(null)?.remote_list() ?? [];
             return [...questions].sort((a, b) => {
-                return Number(a.Order()?.val() ?? 0) - Number(b.Order()?.val() ?? 0);
+                return Number(a.Order(null)?.val() ?? 0) - Number(b.Order(null)?.val() ?? 0);
             });
         }
     }
@@ -20346,8 +20346,8 @@ var $;
 			return obj;
 		}
 		Join_form(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([
 				(this.Quiz_info()), 
 				(this.Name_field()), 
 				(this.Join_button())
@@ -20392,13 +20392,10 @@ var $;
                 const session = this.session();
                 if (!session)
                     return 'Loading...';
-                const quiz = session.Quiz()?.remote();
+                const quiz = session.Quiz(null)?.remote();
                 const quiz_title = quiz?.Title(null)?.str() || 'Quiz';
                 const questions = quiz?.Questions(null)?.remote_list() ?? [];
                 return `"${quiz_title}" (${questions.length} questions)`;
-            }
-            participant_name(next) {
-                return next ?? '';
             }
             can_join() {
                 return this.participant_name().trim().length > 0;
@@ -20410,21 +20407,18 @@ var $;
                 const name = this.participant_name().trim();
                 if (!name)
                     return event;
+                const sid = this.session_id();
                 const lord_id = this.$.$giper_baza_auth.current().pass().lord().toString();
-                const existing = session.participant_list().find(p => p.UserId()?.val() === lord_id);
-                if (existing) {
-                    this.$.$mol_state_arg.value('session', null);
-                    this.$.$mol_state_arg.value('join', null);
-                    this.$.$mol_state_arg.value('play', this.session_id());
-                    return event;
+                const existing = session.participant_list().find(p => p.UserId(null)?.val() === lord_id);
+                if (!existing) {
+                    const participant = session.participant_make();
+                    participant.DisplayName(null).str(name);
+                    participant.UserId(null).val(lord_id);
+                    participant.JoinedAt(null).val(BigInt(Date.now()));
                 }
-                const participant = session.participant_make();
-                participant.DisplayName(null).str(name);
-                participant.UserId(null).val(lord_id);
-                participant.JoinedAt(null).val(BigInt(Date.now()));
                 this.$.$mol_state_arg.value('session', null);
                 this.$.$mol_state_arg.value('join', null);
-                this.$.$mol_state_arg.value('play', this.session_id());
+                this.$.$mol_state_arg.value('play', sid);
                 return event;
             }
         }
@@ -20515,173 +20509,32 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_check_list) = class $mol_check_list extends ($.$mol_view) {
-		option_checked(id, next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		option_title(id){
-			return "";
-		}
-		option_label(id){
-			return [(this.option_title(id))];
-		}
-		enabled(){
-			return true;
-		}
-		option_enabled(id){
-			return (this.enabled());
-		}
-		option_hint(id){
-			return "";
-		}
-		items(){
-			return [];
-		}
-		dictionary(){
-			return {};
-		}
-		Option(id){
-			const obj = new this.$.$mol_check();
-			(obj.checked) = (next) => ((this.option_checked(id, next)));
-			(obj.label) = () => ((this.option_label(id)));
-			(obj.enabled) = () => ((this.option_enabled(id)));
-			(obj.hint) = () => ((this.option_hint(id)));
-			(obj.minimal_height) = () => (24);
-			return obj;
-		}
-		options(){
-			return {};
-		}
-		keys(){
-			return [];
-		}
-		sub(){
-			return (this.items());
-		}
-	};
-	($mol_mem_key(($.$mol_check_list.prototype), "option_checked"));
-	($mol_mem_key(($.$mol_check_list.prototype), "Option"));
-
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_check_list extends $.$mol_check_list {
-            options() {
-                return {};
-            }
-            dictionary(next) {
-                return next ?? {};
-            }
-            option_checked(id, next) {
-                const prev = this.dictionary();
-                if (next === undefined)
-                    return prev[id] ?? null;
-                const next_rec = { ...prev, [id]: next };
-                if (next === null)
-                    delete next_rec[id];
-                return this.dictionary(next_rec)[id] ?? null;
-            }
-            keys() {
-                return Object.keys(this.options());
-            }
-            items() {
-                return this.keys().map(key => this.Option(key));
-            }
-            option_title(key) {
-                return this.options()[key] || key;
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_check_list.prototype, "keys", null);
-        __decorate([
-            $mol_mem
-        ], $mol_check_list.prototype, "items", null);
-        $$.$mol_check_list = $mol_check_list;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/check/list/list.view.css", "[mol_check_list] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tflex: 1 1 auto;\n\tborder-radius: var(--mol_gap_round);\n\tgap: 1px;\n}\n\n[mol_check_list_option] {\n\tflex: 0 1 auto;\n}\n\n[mol_check_list_option]:where([mol_check_checked=\"true\"]) {\n\ttext-shadow: 0 0;\n\tcolor: var(--mol_theme_current);\n}\n\n[mol_check_list_option]:where([mol_check_checked=\"true\"][disabled]) {\n\tcolor: var(--mol_theme_text);\n}\n");
-})($ || ($ = {}));
-
-;
-	($.$mol_switch) = class $mol_switch extends ($.$mol_check_list) {
-		value(next){
-			if(next !== undefined) return next;
-			return "";
-		}
-	};
-	($mol_mem(($.$mol_switch.prototype), "value"));
-
-
-;
-"use strict";
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_switch extends $.$mol_switch {
-            value(next) {
-                return $mol_state_session.value(`${this}.value()`, next) ?? '';
-            }
-            option_checked(key, next) {
-                if (next === undefined)
-                    return this.value() == key;
-                this.value(next ? key : '');
-                return next;
-            }
-        }
-        $$.$mol_switch = $mol_switch;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
 	($.$bog_quiz_session_play) = class $bog_quiz_session_play extends ($.$mol_page) {
 		session_title(){
 			return "";
 		}
-		state(){
-			return "";
+		state_body(){
+			return [];
 		}
 		Waiting_text(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.$.$mol_locale.text("$bog_quiz_session_play_Waiting_text_text")));
-			return obj;
-		}
-		Waiting_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.Waiting_text())]);
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_quiz_session_play_Waiting_text_title")));
 			return obj;
 		}
 		question_text(){
 			return "";
 		}
 		Question_text(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.question_text()));
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.question_text()));
 			return obj;
 		}
 		timer_text(){
 			return "";
 		}
 		Timer_text(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.timer_text()));
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.timer_text()));
 			return obj;
 		}
 		option_rows(){
@@ -20706,66 +20559,46 @@ var $;
 			(obj.enabled) = () => ((this.can_submit()));
 			return obj;
 		}
-		Question_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.Question_text()), 
-				(this.Timer_text()), 
-				(this.Options_list()), 
-				(this.Submit_button())
-			]);
-			return obj;
-		}
 		Review_text(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.$.$mol_locale.text("$bog_quiz_session_play_Review_text_text")));
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_quiz_session_play_Review_text_title")));
 			return obj;
 		}
 		your_answer_text(){
 			return "";
 		}
 		Your_answer(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.your_answer_text()));
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.your_answer_text()));
 			return obj;
 		}
 		correct_answer_text(){
 			return "";
 		}
 		Correct_answer(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.correct_answer_text()));
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.correct_answer_text()));
 			return obj;
 		}
 		score_text(){
 			return "";
 		}
 		Score_text(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.score_text()));
-			return obj;
-		}
-		Review_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.Review_text()), 
-				(this.Your_answer()), 
-				(this.Correct_answer()), 
-				(this.Score_text())
-			]);
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.score_text()));
 			return obj;
 		}
 		Finished_text(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.$.$mol_locale.text("$bog_quiz_session_play_Finished_text_text")));
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_quiz_session_play_Finished_text_title")));
 			return obj;
 		}
 		final_score_text(){
 			return "";
 		}
 		Final_score(){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.final_score_text()));
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.final_score_text()));
 			return obj;
 		}
 		leaderboard_rows(){
@@ -20782,26 +20615,6 @@ var $;
 			(obj.content) = () => ([(this.Leaderboard())]);
 			return obj;
 		}
-		Finished_view(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([
-				(this.Finished_text()), 
-				(this.Final_score()), 
-				(this.Leaderboard_section())
-			]);
-			return obj;
-		}
-		State_view(){
-			const obj = new this.$.$mol_switch();
-			(obj.value) = () => ((this.state()));
-			(obj.options) = () => ({
-				"waiting": (this.Waiting_view()), 
-				"question": (this.Question_view()), 
-				"review": (this.Review_view()), 
-				"finished": (this.Finished_view())
-			});
-			return obj;
-		}
 		option_toggle(id, next){
 			if(next !== undefined) return next;
 			return null;
@@ -20816,8 +20629,8 @@ var $;
 			return "";
 		}
 		Leaderboard_text(id){
-			const obj = new this.$.$mol_text();
-			(obj.text) = () => ((this.leaderboard_item_text(id)));
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.leaderboard_item_text(id)));
 			return obj;
 		}
 		session_id(){
@@ -20827,7 +20640,41 @@ var $;
 			return (this.session_title());
 		}
 		body(){
-			return [(this.State_view())];
+			return (this.state_body());
+		}
+		Waiting_view(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([(this.Waiting_text())]);
+			return obj;
+		}
+		Question_view(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([
+				(this.Question_text()), 
+				(this.Timer_text()), 
+				(this.Options_list()), 
+				(this.Submit_button())
+			]);
+			return obj;
+		}
+		Review_view(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([
+				(this.Review_text()), 
+				(this.Your_answer()), 
+				(this.Correct_answer()), 
+				(this.Score_text())
+			]);
+			return obj;
+		}
+		Finished_view(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([
+				(this.Finished_text()), 
+				(this.Final_score()), 
+				(this.Leaderboard_section())
+			]);
+			return obj;
 		}
 		Option_button(id){
 			const obj = new this.$.$mol_button();
@@ -20843,26 +20690,25 @@ var $;
 		}
 	};
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Waiting_text"));
-	($mol_mem(($.$bog_quiz_session_play.prototype), "Waiting_view"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Question_text"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Timer_text"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Options_list"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "submit_answer"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Submit_button"));
-	($mol_mem(($.$bog_quiz_session_play.prototype), "Question_view"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Review_text"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Your_answer"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Correct_answer"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Score_text"));
-	($mol_mem(($.$bog_quiz_session_play.prototype), "Review_view"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Finished_text"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Final_score"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Leaderboard"));
 	($mol_mem(($.$bog_quiz_session_play.prototype), "Leaderboard_section"));
-	($mol_mem(($.$bog_quiz_session_play.prototype), "Finished_view"));
-	($mol_mem(($.$bog_quiz_session_play.prototype), "State_view"));
 	($mol_mem_key(($.$bog_quiz_session_play.prototype), "option_toggle"));
 	($mol_mem_key(($.$bog_quiz_session_play.prototype), "Leaderboard_text"));
+	($mol_mem(($.$bog_quiz_session_play.prototype), "Waiting_view"));
+	($mol_mem(($.$bog_quiz_session_play.prototype), "Question_view"));
+	($mol_mem(($.$bog_quiz_session_play.prototype), "Review_view"));
+	($mol_mem(($.$bog_quiz_session_play.prototype), "Finished_view"));
 	($mol_mem_key(($.$bog_quiz_session_play.prototype), "Option_button"));
 	($mol_mem_key(($.$bog_quiz_session_play.prototype), "Leaderboard_item"));
 
@@ -20892,20 +20738,29 @@ var $;
                     return null;
                 const lord = this.lord_id();
                 const participants = session.participant_list();
-                return participants.find(p => p.UserId()?.val() === lord) ?? null;
+                return participants.find(p => p.UserId(null)?.val() === lord) ?? null;
             }
             session_title() {
                 const session = this.session();
                 if (!session)
                     return 'Play Quiz';
-                const quiz = session.Quiz()?.remote();
+                const quiz = session.Quiz(null)?.remote();
                 return quiz?.Title(null)?.str() || 'Quiz';
+            }
+            state_body() {
+                const s = this.state();
+                switch (s) {
+                    case 'question': return [this.Question_view()];
+                    case 'review': return [this.Review_view()];
+                    case 'finished': return [this.Finished_view()];
+                    default: return [this.Waiting_view()];
+                }
             }
             state() {
                 const session = this.session();
                 if (!session)
                     return 'waiting';
-                return session.State()?.val() || 'waiting';
+                return session.State(null)?.val() || 'waiting';
             }
             current_question() {
                 const session = this.session();
@@ -20923,10 +20778,10 @@ var $;
                 const session = this.session();
                 if (!session)
                     return '';
-                const startedAt = Number(session.QuestionStartedAt()?.val() ?? 0);
+                const startedAt = Number(session.QuestionStartedAt(null)?.val() ?? 0);
                 if (!startedAt)
                     return '';
-                const timerSec = Number(session.QuestionTimerSec()?.val() ?? 30);
+                const timerSec = Number(session.QuestionTimerSec(null)?.val() ?? 30);
                 const elapsed = Math.floor((Date.now() - startedAt) / 1000);
                 const remaining = Math.max(0, timerSec - elapsed);
                 return `${remaining}s`;
@@ -20969,7 +20824,7 @@ var $;
                     const option = this.option_entity(index);
                     if (!option)
                         return 'transparent';
-                    const is_correct = option.IsCorrect()?.val() ?? false;
+                    const is_correct = option.IsCorrect(null)?.val() ?? false;
                     if (is_correct)
                         return '#4caf50';
                     if (selected && !is_correct)
@@ -20985,7 +20840,7 @@ var $;
                 const question = this.current_question();
                 if (!answer || !option || !question)
                     return event;
-                const type = question.Type()?.val() || 'single';
+                const type = question.Type(null)?.val() || 'single';
                 answer.toggle_option(option, type === 'single');
                 return event;
             }
@@ -21069,6 +20924,9 @@ var $;
         __decorate([
             $mol_mem
         ], $bog_quiz_session_play.prototype, "session_title", null);
+        __decorate([
+            $mol_mem
+        ], $bog_quiz_session_play.prototype, "state_body", null);
         __decorate([
             $mol_mem
         ], $bog_quiz_session_play.prototype, "state", null);
@@ -21455,7 +21313,7 @@ var $;
                 const session = this.session();
                 if (!session)
                     return 'Host Session';
-                const quiz = session.Quiz()?.remote();
+                const quiz = session.Quiz(null)?.remote();
                 const quiz_title = quiz?.Title(null)?.str() || 'Quiz';
                 return `Host: ${quiz_title}`;
             }
@@ -21463,7 +21321,7 @@ var $;
                 const session = this.session();
                 if (!session)
                     return 'Loading...';
-                const state = session.State()?.val() || 'waiting';
+                const state = session.State(null)?.val() || 'waiting';
                 const stateNames = {
                     waiting: 'Waiting for participants',
                     question: 'Question in progress',
@@ -21477,7 +21335,7 @@ var $;
                 if (!session)
                     return '';
                 const session_id = session.link().toString();
-                return `${window.location.origin}${window.location.pathname}?session=${session_id}&join`;
+                return `${window.location.origin}${window.location.pathname}#!session=${session_id}/join`;
             }
             participant_rows() {
                 const session = this.session();
@@ -21514,7 +21372,7 @@ var $;
                 const session = this.session();
                 if (!session)
                     return '';
-                const state = session.State()?.val();
+                const state = session.State(null)?.val();
                 if (state === 'question') {
                     return 'Waiting for answer';
                 }
@@ -21524,28 +21382,28 @@ var $;
                 const session = this.session();
                 if (!session)
                     return false;
-                const state = session.State()?.val();
+                const state = session.State(null)?.val() || 'waiting';
                 return state === 'waiting';
             }
             can_next() {
                 const session = this.session();
                 if (!session)
                     return false;
-                const state = session.State()?.val();
+                const state = session.State(null)?.val();
                 return state === 'question' || state === 'review';
             }
             can_end() {
                 const session = this.session();
                 if (!session)
                     return false;
-                const state = session.State()?.val();
+                const state = session.State(null)?.val();
                 return state !== 'finished';
             }
             next_button_title() {
                 const session = this.session();
                 if (!session)
                     return 'Next';
-                const state = session.State()?.val();
+                const state = session.State(null)?.val();
                 if (state === 'question')
                     return 'Show Results';
                 if (state === 'review')
@@ -21574,9 +21432,6 @@ var $;
                 return event;
             }
         }
-        __decorate([
-            $mol_mem
-        ], $bog_quiz_session_host.prototype, "session", null);
         __decorate([
             $mol_mem
         ], $bog_quiz_session_host.prototype, "session_title", null);
@@ -21610,6 +21465,15 @@ var $;
         __decorate([
             $mol_mem
         ], $bog_quiz_session_host.prototype, "next_button_title", null);
+        __decorate([
+            $mol_action
+        ], $bog_quiz_session_host.prototype, "start", null);
+        __decorate([
+            $mol_action
+        ], $bog_quiz_session_host.prototype, "next", null);
+        __decorate([
+            $mol_action
+        ], $bog_quiz_session_host.prototype, "end", null);
         $$.$bog_quiz_session_host = $bog_quiz_session_host;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -21879,6 +21743,142 @@ var $;
 var $;
 (function ($) {
     $mol_style_attach("mol/textarea/textarea.view.css", "[mol_textarea] {\n\tflex: 1 0 auto;\n\tflex-direction: column;\n\tvertical-align: top;\n\tmin-height: max-content;\n\twhite-space: pre-wrap;\n\tword-break: break-word;\n\tborder-radius: var(--mol_gap_round);\n\tfont-family: monospace;\n\tposition: relative;\n\ttab-size: 4;\n}\n\n[mol_textarea_view] {\n\tpointer-events: none;\n\twhite-space: inherit;\n\tfont-family: inherit;\n\ttab-size: inherit;\n\tuser-select: none;\n}\n\n[mol_textarea_view_copy] {\n\tpointer-events: all;\n}\n\n[mol_textarea_clickable] > [mol_textarea_view] {\n\tpointer-events: all;\n\tuser-select: auto;\n}\n\n[mol_textarea_clickable] > [mol_textarea_edit] {\n\tuser-select: none;\n}\n\n[mol_textarea_edit] {\n\tfont-family: inherit;\n\tpadding: var(--mol_gap_text);\n\tcolor: transparent !important;\n\tcaret-color: var(--mol_theme_text);\n\tresize: none;\n\ttext-align: inherit;\n\twhite-space: inherit;\n\tborder-radius: inherit;\n\toverflow-anchor: none;\n\tposition: absolute;\n\theight: 100%;\n\twidth: 100%;\n\ttab-size: inherit;\n}\n\n[mol_textarea_sidebar_showed] [mol_textarea_edit] {\n\tleft: 1.75rem;\n\twidth: calc( 100% - 1.75rem );\n}\n\n[mol_textarea_edit]:hover + [mol_textarea_view] {\n\tz-index: var(--mol_layer_hover);\n}\n\n[mol_textarea_edit]:focus + [mol_textarea_view] {\n\tz-index: var(--mol_layer_focus);\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$mol_check_list) = class $mol_check_list extends ($.$mol_view) {
+		option_checked(id, next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		option_title(id){
+			return "";
+		}
+		option_label(id){
+			return [(this.option_title(id))];
+		}
+		enabled(){
+			return true;
+		}
+		option_enabled(id){
+			return (this.enabled());
+		}
+		option_hint(id){
+			return "";
+		}
+		items(){
+			return [];
+		}
+		dictionary(){
+			return {};
+		}
+		Option(id){
+			const obj = new this.$.$mol_check();
+			(obj.checked) = (next) => ((this.option_checked(id, next)));
+			(obj.label) = () => ((this.option_label(id)));
+			(obj.enabled) = () => ((this.option_enabled(id)));
+			(obj.hint) = () => ((this.option_hint(id)));
+			(obj.minimal_height) = () => (24);
+			return obj;
+		}
+		options(){
+			return {};
+		}
+		keys(){
+			return [];
+		}
+		sub(){
+			return (this.items());
+		}
+	};
+	($mol_mem_key(($.$mol_check_list.prototype), "option_checked"));
+	($mol_mem_key(($.$mol_check_list.prototype), "Option"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_check_list extends $.$mol_check_list {
+            options() {
+                return {};
+            }
+            dictionary(next) {
+                return next ?? {};
+            }
+            option_checked(id, next) {
+                const prev = this.dictionary();
+                if (next === undefined)
+                    return prev[id] ?? null;
+                const next_rec = { ...prev, [id]: next };
+                if (next === null)
+                    delete next_rec[id];
+                return this.dictionary(next_rec)[id] ?? null;
+            }
+            keys() {
+                return Object.keys(this.options());
+            }
+            items() {
+                return this.keys().map(key => this.Option(key));
+            }
+            option_title(key) {
+                return this.options()[key] || key;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_check_list.prototype, "keys", null);
+        __decorate([
+            $mol_mem
+        ], $mol_check_list.prototype, "items", null);
+        $$.$mol_check_list = $mol_check_list;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/list/list.view.css", "[mol_check_list] {\n\tdisplay: flex;\n\tflex-wrap: wrap;\n\tflex: 1 1 auto;\n\tborder-radius: var(--mol_gap_round);\n\tgap: 1px;\n}\n\n[mol_check_list_option] {\n\tflex: 0 1 auto;\n}\n\n[mol_check_list_option]:where([mol_check_checked=\"true\"]) {\n\ttext-shadow: 0 0;\n\tcolor: var(--mol_theme_current);\n}\n\n[mol_check_list_option]:where([mol_check_checked=\"true\"][disabled]) {\n\tcolor: var(--mol_theme_text);\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$mol_switch) = class $mol_switch extends ($.$mol_check_list) {
+		value(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+	};
+	($mol_mem(($.$mol_switch.prototype), "value"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_switch extends $.$mol_switch {
+            value(next) {
+                return $mol_state_session.value(`${this}.value()`, next) ?? '';
+            }
+            option_checked(key, next) {
+                if (next === undefined)
+                    return this.value() == key;
+                this.value(next ? key : '');
+                return next;
+            }
+        }
+        $$.$mol_switch = $mol_switch;
+    })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
 ;

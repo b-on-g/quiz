@@ -14695,10 +14695,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_button_major['enabled'] >
 	>
-	type $mol_view__sub_bog_quiz_session_join_7 = $mol_type_enforce<
+	type $mol_list__rows_bog_quiz_session_join_7 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $mol_view['sub'] >
+		ReturnType< $mol_list['rows'] >
 	>
 	export class $bog_quiz_session_join extends $mol_page {
 		quiz_info_text( ): string
@@ -14708,7 +14708,7 @@ declare namespace $ {
 		join( next?: any ): any
 		can_join( ): boolean
 		Join_button( ): $mol_button_major
-		Join_form( ): $mol_view
+		Join_form( ): $mol_list
 		session_id( ): string
 		title( ): string
 		body( ): readonly(any)[]
@@ -14721,7 +14721,6 @@ declare namespace $.$$ {
     class $bog_quiz_session_join extends $.$bog_quiz_session_join {
         session(): $bog_quiz_session | null;
         quiz_info_text(): string;
-        participant_name(next?: string): string;
         can_join(): boolean;
         join(event?: Event): Event | undefined;
     }
@@ -14781,264 +14780,171 @@ declare namespace $ {
 
 declare namespace $ {
 
-	type $mol_check__checked_mol_check_list_1 = $mol_type_enforce<
-		ReturnType< $mol_check_list['option_checked'] >
-		,
-		ReturnType< $mol_check['checked'] >
-	>
-	type $mol_check__label_mol_check_list_2 = $mol_type_enforce<
-		ReturnType< $mol_check_list['option_label'] >
-		,
-		ReturnType< $mol_check['label'] >
-	>
-	type $mol_check__enabled_mol_check_list_3 = $mol_type_enforce<
-		ReturnType< $mol_check_list['option_enabled'] >
-		,
-		ReturnType< $mol_check['enabled'] >
-	>
-	type $mol_check__hint_mol_check_list_4 = $mol_type_enforce<
-		ReturnType< $mol_check_list['option_hint'] >
-		,
-		ReturnType< $mol_check['hint'] >
-	>
-	type $mol_check__minimal_height_mol_check_list_5 = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_check['minimal_height'] >
-	>
-	export class $mol_check_list extends $mol_view {
-		option_checked( id: any, next?: boolean ): boolean
-		option_title( id: any): string
-		option_label( id: any): readonly(any)[]
-		enabled( ): boolean
-		option_enabled( id: any): ReturnType< $mol_check_list['enabled'] >
-		option_hint( id: any): string
-		items( ): readonly($mol_check)[]
-		dictionary( ): Record<string, any>
-		Option( id: any): $mol_check
-		options( ): Record<string, any>
-		keys( ): readonly(string)[]
-		sub( ): ReturnType< $mol_check_list['items'] >
-	}
-	
-}
-
-//# sourceMappingURL=list.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_check_list extends $.$mol_check_list {
-        options(): {
-            [key: string]: string;
-        };
-        dictionary(next?: Record<string, boolean>): Record<string, boolean>;
-        option_checked(id: string, next?: boolean | null): boolean;
-        keys(): readonly string[];
-        items(): $.$mol_check[];
-        option_title(key: string): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_switch extends $mol_check_list {
-		value( next?: string ): string
-	}
-	
-}
-
-//# sourceMappingURL=switch.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_switch extends $.$mol_switch {
-        value(next?: string): string;
-        option_checked(key: string, next?: boolean): boolean;
-    }
-}
-
-declare namespace $ {
-
-	type $mol_text__text_bog_quiz_session_play_1 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_1 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_view__sub_bog_quiz_session_play_2 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_text__text_bog_quiz_session_play_3 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_2 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['question_text'] >
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_text__text_bog_quiz_session_play_4 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_3 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['timer_text'] >
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_list__rows_bog_quiz_session_play_5 = $mol_type_enforce<
+	type $mol_list__rows_bog_quiz_session_play_4 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['option_rows'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_button_major__click_bog_quiz_session_play_6 = $mol_type_enforce<
+	type $mol_button_major__click_bog_quiz_session_play_5 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['submit_answer'] >
 		,
 		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_button_major__title_bog_quiz_session_play_7 = $mol_type_enforce<
+	type $mol_button_major__title_bog_quiz_session_play_6 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_major['title'] >
 	>
-	type $mol_button_major__enabled_bog_quiz_session_play_8 = $mol_type_enforce<
+	type $mol_button_major__enabled_bog_quiz_session_play_7 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['can_submit'] >
 		,
 		ReturnType< $mol_button_major['enabled'] >
 	>
-	type $mol_view__sub_bog_quiz_session_play_9 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_text__text_bog_quiz_session_play_10 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_8 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_text__text_bog_quiz_session_play_11 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_9 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['your_answer_text'] >
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_text__text_bog_quiz_session_play_12 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_10 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['correct_answer_text'] >
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_text__text_bog_quiz_session_play_13 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_11 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['score_text'] >
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_view__sub_bog_quiz_session_play_14 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_text__text_bog_quiz_session_play_15 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_12 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_text__text_bog_quiz_session_play_16 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_13 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['final_score_text'] >
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_list__rows_bog_quiz_session_play_17 = $mol_type_enforce<
+	type $mol_list__rows_bog_quiz_session_play_14 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['leaderboard_rows'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_section__title_bog_quiz_session_play_18 = $mol_type_enforce<
+	type $mol_section__title_bog_quiz_session_play_15 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_section['title'] >
 	>
-	type $mol_section__content_bog_quiz_session_play_19 = $mol_type_enforce<
+	type $mol_section__content_bog_quiz_session_play_16 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_section['content'] >
 	>
-	type $mol_view__sub_bog_quiz_session_play_20 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_switch__value_bog_quiz_session_play_21 = $mol_type_enforce<
-		ReturnType< $bog_quiz_session_play['state'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options_bog_quiz_session_play_22 = $mol_type_enforce<
-		({ 
-			'waiting': ReturnType< $bog_quiz_session_play['Waiting_view'] >,
-			'question': ReturnType< $bog_quiz_session_play['Question_view'] >,
-			'review': ReturnType< $bog_quiz_session_play['Review_view'] >,
-			'finished': ReturnType< $bog_quiz_session_play['Finished_view'] >,
-		}) 
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $mol_text__text_bog_quiz_session_play_23 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_quiz_session_play_17 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['leaderboard_item_text'] >
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_button__click_bog_quiz_session_play_24 = $mol_type_enforce<
+	type $mol_list__rows_bog_quiz_session_play_18 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_list__rows_bog_quiz_session_play_19 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_list__rows_bog_quiz_session_play_20 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_list__rows_bog_quiz_session_play_21 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_button__click_bog_quiz_session_play_22 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['option_toggle'] >
 		,
 		ReturnType< $mol_button['click'] >
 	>
-	type $mol_button__title_bog_quiz_session_play_25 = $mol_type_enforce<
+	type $mol_button__title_bog_quiz_session_play_23 = $mol_type_enforce<
 		ReturnType< $bog_quiz_session_play['option_text'] >
 		,
 		ReturnType< $mol_button['title'] >
 	>
-	type $mol_button__style_bog_quiz_session_play_26 = $mol_type_enforce<
+	type $mol_button__style_bog_quiz_session_play_24 = $mol_type_enforce<
 		({ 
 			'background': ReturnType< $bog_quiz_session_play['option_background'] >,
 		}) 
 		,
 		ReturnType< $mol_button['style'] >
 	>
-	type $mol_view__sub_bog_quiz_session_play_27 = $mol_type_enforce<
+	type $mol_view__sub_bog_quiz_session_play_25 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
 	export class $bog_quiz_session_play extends $mol_page {
 		session_title( ): string
-		state( ): string
-		Waiting_text( ): $mol_text
-		Waiting_view( ): $mol_view
+		state_body( ): readonly(any)[]
+		Waiting_text( ): $mol_paragraph
 		question_text( ): string
-		Question_text( ): $mol_text
+		Question_text( ): $mol_paragraph
 		timer_text( ): string
-		Timer_text( ): $mol_text
+		Timer_text( ): $mol_paragraph
 		option_rows( ): readonly(any)[]
 		Options_list( ): $mol_list
 		submit_answer( next?: any ): any
 		can_submit( ): boolean
 		Submit_button( ): $mol_button_major
-		Question_view( ): $mol_view
-		Review_text( ): $mol_text
+		Review_text( ): $mol_paragraph
 		your_answer_text( ): string
-		Your_answer( ): $mol_text
+		Your_answer( ): $mol_paragraph
 		correct_answer_text( ): string
-		Correct_answer( ): $mol_text
+		Correct_answer( ): $mol_paragraph
 		score_text( ): string
-		Score_text( ): $mol_text
-		Review_view( ): $mol_view
-		Finished_text( ): $mol_text
+		Score_text( ): $mol_paragraph
+		Finished_text( ): $mol_paragraph
 		final_score_text( ): string
-		Final_score( ): $mol_text
+		Final_score( ): $mol_paragraph
 		leaderboard_rows( ): readonly(any)[]
 		Leaderboard( ): $mol_list
 		Leaderboard_section( ): $mol_section
-		Finished_view( ): $mol_view
-		State_view( ): $mol_switch
 		option_toggle( id: any, next?: any ): any
 		option_text( id: any): string
 		option_background( id: any): string
 		leaderboard_item_text( id: any): string
-		Leaderboard_text( id: any): $mol_text
+		Leaderboard_text( id: any): $mol_paragraph
 		session_id( ): string
 		title( ): ReturnType< $bog_quiz_session_play['session_title'] >
-		body( ): readonly(any)[]
+		body( ): ReturnType< $bog_quiz_session_play['state_body'] >
+		Waiting_view( ): $mol_list
+		Question_view( ): $mol_list
+		Review_view( ): $mol_list
+		Finished_view( ): $mol_list
 		Option_button( id: any): $mol_button
 		Leaderboard_item( id: any): $mol_view
 	}
@@ -15052,6 +14958,7 @@ declare namespace $.$$ {
         lord_id(): string;
         participant(): $bog_quiz_participant | null;
         session_title(): string;
+        state_body(): $.$mol_list[];
         state(): string;
         current_question(): $bog_quiz_question | null;
         question_text(): string;
@@ -15295,6 +15202,83 @@ declare namespace $.$$ {
         start(event?: Event): Event | undefined;
         next(event?: Event): Event | undefined;
         end(event?: Event): Event | undefined;
+    }
+}
+
+declare namespace $ {
+
+	type $mol_check__checked_mol_check_list_1 = $mol_type_enforce<
+		ReturnType< $mol_check_list['option_checked'] >
+		,
+		ReturnType< $mol_check['checked'] >
+	>
+	type $mol_check__label_mol_check_list_2 = $mol_type_enforce<
+		ReturnType< $mol_check_list['option_label'] >
+		,
+		ReturnType< $mol_check['label'] >
+	>
+	type $mol_check__enabled_mol_check_list_3 = $mol_type_enforce<
+		ReturnType< $mol_check_list['option_enabled'] >
+		,
+		ReturnType< $mol_check['enabled'] >
+	>
+	type $mol_check__hint_mol_check_list_4 = $mol_type_enforce<
+		ReturnType< $mol_check_list['option_hint'] >
+		,
+		ReturnType< $mol_check['hint'] >
+	>
+	type $mol_check__minimal_height_mol_check_list_5 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_check['minimal_height'] >
+	>
+	export class $mol_check_list extends $mol_view {
+		option_checked( id: any, next?: boolean ): boolean
+		option_title( id: any): string
+		option_label( id: any): readonly(any)[]
+		enabled( ): boolean
+		option_enabled( id: any): ReturnType< $mol_check_list['enabled'] >
+		option_hint( id: any): string
+		items( ): readonly($mol_check)[]
+		dictionary( ): Record<string, any>
+		Option( id: any): $mol_check
+		options( ): Record<string, any>
+		keys( ): readonly(string)[]
+		sub( ): ReturnType< $mol_check_list['items'] >
+	}
+	
+}
+
+//# sourceMappingURL=list.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_check_list extends $.$mol_check_list {
+        options(): {
+            [key: string]: string;
+        };
+        dictionary(next?: Record<string, boolean>): Record<string, boolean>;
+        option_checked(id: string, next?: boolean | null): boolean;
+        keys(): readonly string[];
+        items(): $.$mol_check[];
+        option_title(key: string): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_switch extends $mol_check_list {
+		value( next?: string ): string
+	}
+	
+}
+
+//# sourceMappingURL=switch.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_switch extends $.$mol_switch {
+        value(next?: string): string;
+        option_checked(key: string, next?: boolean): boolean;
     }
 }
 

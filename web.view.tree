@@ -2136,8 +2136,8 @@ $bog_quiz_session_join $mol_page
 	session_id \
 	title @ \Join Quiz
 	body /
-		<= Join_form $mol_view
-			sub /
+		<= Join_form $mol_list
+			rows /
 				<= Quiz_info $mol_text
 					text <= quiz_info_text \
 				<= Name_field $mol_string
@@ -2160,76 +2160,55 @@ $mol_section $mol_list
 		<= Content $mol_list
 			rows <= content /
 
-$mol_check_list $mol_view
-	dictionary *
-	Option* $mol_check
-		checked? <=> option_checked*? false
-		label <= option_label* /
-			<= option_title* \
-		enabled <= option_enabled* <= enabled true
-		hint <= option_hint* \
-		minimal_height 24
-	options *
-	keys /string
-	sub <= items /$mol_check
-
-$mol_switch $mol_check_list
-	value? \
-
 $bog_quiz_session_play $mol_page
 	session_id \
 	title <= session_title \
-	body /
-		<= State_view $mol_switch
-			value <= state \
-			options *
-				waiting <= Waiting_view $mol_view
-					sub /
-						<= Waiting_text $mol_text
-							text @ \Waiting for quiz to start...
-				question <= Question_view $mol_view
-					sub /
-						<= Question_text $mol_text
-							text <= question_text \
-						<= Timer_text $mol_text
-							text <= timer_text \
-						<= Options_list $mol_list
-							rows <= option_rows /
-						<= Submit_button $mol_button_major
-							click?event <=> submit_answer?event null
-							title @ \Submit Answer
-							enabled <= can_submit false
-				review <= Review_view $mol_view
-					sub /
-						<= Review_text $mol_text
-							text @ \Reviewing answers...
-						<= Your_answer $mol_text
-							text <= your_answer_text \
-						<= Correct_answer $mol_text
-							text <= correct_answer_text \
-						<= Score_text $mol_text
-							text <= score_text \
-				finished <= Finished_view $mol_view
-					sub /
-						<= Finished_text $mol_text
-							text @ \Quiz finished!
-						<= Final_score $mol_text
-							text <= final_score_text \
-						<= Leaderboard_section $mol_section
-							title @ \Leaderboard
-							content /
-								<= Leaderboard $mol_list
-									rows <= leaderboard_rows /
-	
+	body <= state_body /
+	Waiting_view $mol_list
+		rows /
+			<= Waiting_text $mol_paragraph
+				title @ \Waiting for quiz to start...
+	Question_view $mol_list
+		rows /
+			<= Question_text $mol_paragraph
+				title <= question_text \
+			<= Timer_text $mol_paragraph
+				title <= timer_text \
+			<= Options_list $mol_list
+				rows <= option_rows /
+			<= Submit_button $mol_button_major
+				click?event <=> submit_answer?event null
+				title @ \Submit Answer
+				enabled <= can_submit false
+	Review_view $mol_list
+		rows /
+			<= Review_text $mol_paragraph
+				title @ \Reviewing answers...
+			<= Your_answer $mol_paragraph
+				title <= your_answer_text \
+			<= Correct_answer $mol_paragraph
+				title <= correct_answer_text \
+			<= Score_text $mol_paragraph
+				title <= score_text \
+	Finished_view $mol_list
+		rows /
+			<= Finished_text $mol_paragraph
+				title @ \Quiz finished!
+			<= Final_score $mol_paragraph
+				title <= final_score_text \
+			<= Leaderboard_section $mol_section
+				title @ \Leaderboard
+				content /
+					<= Leaderboard $mol_list
+						rows <= leaderboard_rows /
 	Option_button* $mol_button
 		click?event <=> option_toggle*?event null
 		title <= option_text* \
 		style * background <= option_background* \
-	
 	Leaderboard_item* $mol_view
 		sub /
-			<= Leaderboard_text* $mol_text
-				text <= leaderboard_item_text* \
+			<= Leaderboard_text* $mol_paragraph
+				title <= leaderboard_item_text* \
 
 $bog_quiz $mol_book2_catalog
 	param \quiz
@@ -2307,6 +2286,22 @@ $bog_quiz_session_host $mol_page
 			sub /
 				<= Participant_status* $mol_text
 					text <= participant_status_text* \
+
+$mol_check_list $mol_view
+	dictionary *
+	Option* $mol_check
+		checked? <=> option_checked*? false
+		label <= option_label* /
+			<= option_title* \
+		enabled <= option_enabled* <= enabled true
+		hint <= option_hint* \
+		minimal_height 24
+	options *
+	keys /string
+	sub <= items /$mol_check
+
+$mol_switch $mol_check_list
+	value? \
 
 $bog_quiz_editor $mol_page
 	quiz_id \
