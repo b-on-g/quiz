@@ -8459,6 +8459,21 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=off.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $giper_baza_status extends $.$giper_baza_status {
+        message(): string;
+        link_content(): $mol_icon_sync_off[];
+        options(): string[];
+        master_link(): string;
+        master_id(uri: string): string;
+        option_label(uri: string): string;
+        value(next?: string): string;
+    }
+}
+
+declare namespace $ {
+}
+
 declare namespace $ {
 
 	type $mol_avatar__id_giper_baza_status_1 = $mol_type_enforce<
@@ -8506,21 +8521,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=status.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $giper_baza_status extends $.$giper_baza_status {
-        message(): string;
-        link_content(): $mol_icon_sync_off[];
-        options(): string[];
-        master_link(): string;
-        master_id(uri: string): string;
-        option_label(uri: string): string;
-        value(next?: string): string;
-    }
-}
-
-declare namespace $ {
-}
-
 declare namespace $ {
 
 	export class $mol_icon_account extends $mol_icon {
@@ -8539,18 +8539,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=security.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $giper_baza_link_chip extends $mol_link {
-		icon( ): string
-		param( ): string
-		link( ): $giper_baza_link
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=chip.view.tree.d.ts.map
 declare namespace $.$$ {
     class $giper_baza_link_chip extends $.$giper_baza_link_chip {
         subj(): $giper_baza_flex_subj;
@@ -8564,6 +8552,18 @@ declare namespace $.$$ {
     }
 }
 
+declare namespace $ {
+
+	export class $giper_baza_link_chip extends $mol_link {
+		icon( ): string
+		param( ): string
+		link( ): $giper_baza_link
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=chip.view.tree.d.ts.map
 declare namespace $ {
 }
 
@@ -9228,6 +9228,13 @@ declare namespace $.$$ {
 declare namespace $ {
 }
 
+declare namespace $.$$ {
+    class $giper_baza_unit_sand_dump extends $.$giper_baza_unit_sand_dump {
+        value(): $giper_baza_vary_type;
+        sub(): $.$mol_dump_value[] | $.$giper_baza_link_chip[];
+    }
+}
+
 declare namespace $ {
 
 	type $giper_baza_link_chip__link_giper_baza_unit_sand_dump_1 = $mol_type_enforce<
@@ -9251,13 +9258,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=dump.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $giper_baza_unit_sand_dump extends $.$giper_baza_unit_sand_dump {
-        value(): $giper_baza_vary_type;
-        sub(): $.$mol_dump_value[] | $.$giper_baza_link_chip[];
-    }
-}
-
 declare namespace $.$$ {
 }
 
@@ -10098,6 +10098,45 @@ declare namespace $.$$ {
 declare namespace $ {
 }
 
+declare namespace $.$$ {
+    class $giper_baza_flex_field extends $.$giper_baza_flex_field {
+        dict_pawn(): $giper_baza_dict;
+        Sub(): $.$mol_select | $.$mol_expander | $.$mol_drop | $.$mol_number | $.$mol_textarea | $.$mol_date | $mol_check_box | $mol_bar;
+        enum(next?: $giper_baza_vary_type): string | number | bigint | boolean | Element | $giper_baza_link | Uint8Array<ArrayBuffer> | Uint16Array<ArrayBuffer> | Uint32Array<ArrayBuffer> | BigUint64Array<ArrayBuffer> | Int8Array<ArrayBuffer> | Int16Array<ArrayBuffer> | Int32Array<ArrayBuffer> | BigInt64Array<ArrayBuffer> | Float64Array<ArrayBuffer> | Float32Array<ArrayBuffer> | $mol_time_moment | $mol_time_duration | $mol_time_interval | $mol_tree2 | readonly $giper_baza_vary_type[] | Readonly<{
+            [x: string]: $giper_baza_vary_type;
+        }> | null;
+        enum_options(): readonly $giper_baza_vary_type[];
+        enum_label(option: $giper_baza_vary_type): string;
+        bool(next?: boolean): boolean;
+        int(next?: number): number;
+        real(next?: number): number;
+        str(next?: string): string;
+        str_selection(next?: readonly [begin: number, end: number]): number[] | readonly [begin: number, end: number];
+        time(next?: $mol_time_moment): $mol_time_moment;
+        link(next?: $giper_baza_link): null;
+        link_content(): ($.$mol_select | $.$giper_baza_unit_sand_dump)[];
+        link_value(): string | number | bigint | boolean | Element | $giper_baza_link | Uint8Array<ArrayBuffer> | Uint16Array<ArrayBuffer> | Uint32Array<ArrayBuffer> | BigUint64Array<ArrayBuffer> | Int8Array<ArrayBuffer> | Int16Array<ArrayBuffer> | Int32Array<ArrayBuffer> | BigInt64Array<ArrayBuffer> | Float64Array<ArrayBuffer> | Float32Array<ArrayBuffer> | $mol_time_moment | $mol_time_duration | $mol_time_interval | $mol_tree2 | readonly $giper_baza_vary_type[] | Readonly<{
+            [x: string]: $giper_baza_vary_type;
+        }> | null;
+        link_options(): readonly $giper_baza_vary_type[];
+        link_label(link: $giper_baza_vary_type): string;
+        link_remote(): $giper_baza_dict;
+        link_new(rights?: string): null;
+        text(next?: string): string;
+        text_selection(next?: readonly [begin: number, end: number]): readonly [begin: number, end: number];
+        dict_title(): string;
+        list_items(): ($mol_button_minor | $.$mol_select | $.$mol_drop)[];
+        list_pick(next?: $giper_baza_link): null;
+        list_item_add(): void;
+        list_sand(sand: $giper_baza_unit_sand): $giper_baza_unit_sand;
+        list_item_value(sand: $giper_baza_unit_sand): string;
+        list_item_adopt(transfer: DataTransfer): string | $giper_baza_link | null;
+        list_item_receive(sand: $giper_baza_unit_sand, value: string): void;
+        list_receive(value: string): void;
+        list_item_drag_end(sand: $giper_baza_unit_sand, event: DragEvent): void;
+    }
+}
+
 declare namespace $ {
 
 	type $giper_baza_unit_sand_dump__land_giper_baza_flex_field_1 = $mol_type_enforce<
@@ -10446,45 +10485,6 @@ declare namespace $ {
 
 //# sourceMappingURL=field.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $giper_baza_flex_field extends $.$giper_baza_flex_field {
-        dict_pawn(): $giper_baza_dict;
-        Sub(): $.$mol_select | $.$mol_expander | $.$mol_drop | $.$mol_number | $.$mol_textarea | $.$mol_date | $mol_check_box | $mol_bar;
-        enum(next?: $giper_baza_vary_type): string | number | bigint | boolean | Element | $giper_baza_link | Uint8Array<ArrayBuffer> | Uint16Array<ArrayBuffer> | Uint32Array<ArrayBuffer> | BigUint64Array<ArrayBuffer> | Int8Array<ArrayBuffer> | Int16Array<ArrayBuffer> | Int32Array<ArrayBuffer> | BigInt64Array<ArrayBuffer> | Float64Array<ArrayBuffer> | Float32Array<ArrayBuffer> | $mol_time_moment | $mol_time_duration | $mol_time_interval | $mol_tree2 | readonly $giper_baza_vary_type[] | Readonly<{
-            [x: string]: $giper_baza_vary_type;
-        }> | null;
-        enum_options(): readonly $giper_baza_vary_type[];
-        enum_label(option: $giper_baza_vary_type): string;
-        bool(next?: boolean): boolean;
-        int(next?: number): number;
-        real(next?: number): number;
-        str(next?: string): string;
-        str_selection(next?: readonly [begin: number, end: number]): number[] | readonly [begin: number, end: number];
-        time(next?: $mol_time_moment): $mol_time_moment;
-        link(next?: $giper_baza_link): null;
-        link_content(): ($.$mol_select | $.$giper_baza_unit_sand_dump)[];
-        link_value(): string | number | bigint | boolean | Element | $giper_baza_link | Uint8Array<ArrayBuffer> | Uint16Array<ArrayBuffer> | Uint32Array<ArrayBuffer> | BigUint64Array<ArrayBuffer> | Int8Array<ArrayBuffer> | Int16Array<ArrayBuffer> | Int32Array<ArrayBuffer> | BigInt64Array<ArrayBuffer> | Float64Array<ArrayBuffer> | Float32Array<ArrayBuffer> | $mol_time_moment | $mol_time_duration | $mol_time_interval | $mol_tree2 | readonly $giper_baza_vary_type[] | Readonly<{
-            [x: string]: $giper_baza_vary_type;
-        }> | null;
-        link_options(): readonly $giper_baza_vary_type[];
-        link_label(link: $giper_baza_vary_type): string;
-        link_remote(): $giper_baza_dict;
-        link_new(rights?: string): null;
-        text(next?: string): string;
-        text_selection(next?: readonly [begin: number, end: number]): readonly [begin: number, end: number];
-        dict_title(): string;
-        list_items(): ($mol_button_minor | $.$mol_select | $.$mol_drop)[];
-        list_pick(next?: $giper_baza_link): null;
-        list_item_add(): void;
-        list_sand(sand: $giper_baza_unit_sand): $giper_baza_unit_sand;
-        list_item_value(sand: $giper_baza_unit_sand): string;
-        list_item_adopt(transfer: DataTransfer): string | $giper_baza_link | null;
-        list_item_receive(sand: $giper_baza_unit_sand, value: string): void;
-        list_receive(value: string): void;
-        list_item_drag_end(sand: $giper_baza_unit_sand, event: DragEvent): void;
-    }
-}
-
-declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -10679,6 +10679,17 @@ declare namespace $.$$ {
     }
 }
 
+declare namespace $.$$ {
+    class $giper_baza_flex_form extends $.$giper_baza_flex_form {
+        meta(): $giper_baza_flex_meta;
+        fields(): $.$mol_form_field[];
+        field_name(prop: $giper_baza_flex_prop): string;
+        field_pawn(prop: $giper_baza_flex_prop, auto?: any): $giper_baza_pawn;
+        field_prop(prop: $giper_baza_flex_prop): $giper_baza_flex_prop;
+        enabled(): boolean;
+    }
+}
+
 declare namespace $ {
 
 	type $giper_baza_flex_field__pawn_giper_baza_flex_form_1 = $mol_type_enforce<
@@ -10729,13 +10740,22 @@ declare namespace $ {
 
 //# sourceMappingURL=form.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $giper_baza_flex_form extends $.$giper_baza_flex_form {
-        meta(): $giper_baza_flex_meta;
-        fields(): $.$mol_form_field[];
-        field_name(prop: $giper_baza_flex_prop): string;
-        field_pawn(prop: $giper_baza_flex_prop, auto?: any): $giper_baza_pawn;
-        field_prop(prop: $giper_baza_flex_prop): $giper_baza_flex_prop;
-        enabled(): boolean;
+    class $giper_baza_pawn_dump extends $.$giper_baza_pawn_dump {
+        title(): string;
+        value(): $giper_baza_vary_type;
+        items(): readonly $giper_baza_vary_type[];
+        units(): $giper_baza_unit_sand[];
+        pawns(): $mol_view[];
+        unit_tag(index: number, next?: keyof typeof $giper_baza_unit_sand_tag): "keys" | "term" | "solo" | "vals";
+        unit_time(index: number): string;
+        unit_value(index: number): $giper_baza_unit_sand;
+        unit_wipe(index: number, event?: Event): void;
+        pawn_inner(index: number): $giper_baza_dict;
+        add_key(event: Event): void;
+        add_value(event: Event): void;
+        value_str(next?: string): string;
+        text(next?: string): string;
+        editors(): $.$mol_textarea[];
     }
 }
 
@@ -10923,26 +10943,6 @@ declare namespace $ {
 
 //# sourceMappingURL=dump.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $giper_baza_pawn_dump extends $.$giper_baza_pawn_dump {
-        title(): string;
-        value(): $giper_baza_vary_type;
-        items(): readonly $giper_baza_vary_type[];
-        units(): $giper_baza_unit_sand[];
-        pawns(): $mol_view[];
-        unit_tag(index: number, next?: keyof typeof $giper_baza_unit_sand_tag): "keys" | "term" | "solo" | "vals";
-        unit_time(index: number): string;
-        unit_value(index: number): $giper_baza_unit_sand;
-        unit_wipe(index: number, event?: Event): void;
-        pawn_inner(index: number): $giper_baza_dict;
-        add_key(event: Event): void;
-        add_value(event: Event): void;
-        value_str(next?: string): string;
-        text(next?: string): string;
-        editors(): $.$mol_textarea[];
-    }
-}
-
-declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -11032,6 +11032,22 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_si_short(numb: number, unit?: string): string;
+}
+
+declare namespace $.$$ {
+    class $giper_baza_land_page extends $.$giper_baza_land_page {
+        theme(): "$mol_theme_special" | null;
+        encrypted(): boolean;
+        Meta_link(): $.$giper_baza_link_chip;
+        meta_link(): $giper_baza_link;
+        tine(): $giper_baza_list_link;
+        dump_data_pawn(): $giper_baza_dict;
+        fork(): void;
+        pack(): $giper_baza_pack;
+        size(): string;
+        dump(): Blob;
+        dump_name(): string;
+    }
 }
 
 declare namespace $ {
@@ -11157,22 +11173,6 @@ declare namespace $ {
 
 //# sourceMappingURL=page.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $giper_baza_land_page extends $.$giper_baza_land_page {
-        theme(): "$mol_theme_special" | null;
-        encrypted(): boolean;
-        Meta_link(): $.$giper_baza_link_chip;
-        meta_link(): $giper_baza_link;
-        tine(): $giper_baza_list_link;
-        dump_data_pawn(): $giper_baza_dict;
-        fork(): void;
-        pack(): $giper_baza_pack;
-        size(): string;
-        dump(): Blob;
-        dump_name(): string;
-    }
-}
-
-declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -11211,6 +11211,12 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=outline.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $giper_baza_land_grab extends $.$giper_baza_land_grab {
+        value(rights?: string): string;
+    }
+}
+
 declare namespace $ {
 
 	export class $giper_baza_land_grab extends $mol_select {
@@ -11229,12 +11235,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=grab.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $giper_baza_land_grab extends $.$giper_baza_land_grab {
-        value(rights?: string): string;
-    }
-}
-
 declare namespace $ {
 
 	export class $mol_icon_upload extends $mol_icon {
@@ -11301,6 +11301,26 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $giper_baza_land_rights extends $.$giper_baza_land_rights {
+        rows(): readonly any[];
+        gifts(): $mol_view[];
+        peer_link(lord: $giper_baza_link): $giper_baza_link;
+        peer_id(lord: $giper_baza_link): string;
+        gift_tier(lord: $giper_baza_link, next?: keyof typeof $giper_baza_rank_tier): keyof typeof $giper_baza_rank_tier;
+        gift_rate(lord: $giper_baza_link, next?: string): string;
+        add_commit(): void;
+        tier_options(): {
+            deny: string;
+            read: string;
+            post: string;
+            pull: string;
+            rule: string;
+        };
+        enabled(): boolean;
+    }
 }
 
 declare namespace $ {
@@ -11471,26 +11491,6 @@ declare namespace $ {
 
 //# sourceMappingURL=rights.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $giper_baza_land_rights extends $.$giper_baza_land_rights {
-        rows(): readonly any[];
-        gifts(): $mol_view[];
-        peer_link(lord: $giper_baza_link): $giper_baza_link;
-        peer_id(lord: $giper_baza_link): string;
-        gift_tier(lord: $giper_baza_link, next?: keyof typeof $giper_baza_rank_tier): keyof typeof $giper_baza_rank_tier;
-        gift_rate(lord: $giper_baza_link, next?: string): string;
-        add_commit(): void;
-        tier_options(): {
-            deny: string;
-            read: string;
-            post: string;
-            pull: string;
-            rule: string;
-        };
-        enabled(): boolean;
-    }
-}
-
-declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -11499,6 +11499,28 @@ declare namespace $ {
 
 declare namespace $ {
     function $mol_compare_text<Item>(item?: (item: Item) => string): (a: Item, b: Item) => number;
+}
+
+declare namespace $.$$ {
+    class $giper_baza_glob_book extends $.$giper_baza_glob_book {
+        spread_ids(): string[];
+        pages(): any[];
+        side(): string;
+        home_link(): string;
+        land_current(): $giper_baza_land;
+        land(id: string): $giper_baza_land;
+        pawn(id: string): $giper_baza_dict;
+        spread_title(id: string): string;
+        land_add(preset: $giper_baza_rank_preset): null;
+        update(files: File[]): never[];
+        wipe(): Promise<void>;
+        seed_make(): void;
+        lands_checked(): string[];
+        dump_enabled(): boolean;
+        dump_pack(): $giper_baza_pack | null;
+        dump(): Blob;
+        dump_name(): string;
+    }
 }
 
 declare namespace $ {
@@ -11710,28 +11732,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=book.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $giper_baza_glob_book extends $.$giper_baza_glob_book {
-        spread_ids(): string[];
-        pages(): any[];
-        side(): string;
-        home_link(): string;
-        land_current(): $giper_baza_land;
-        land(id: string): $giper_baza_land;
-        pawn(id: string): $giper_baza_dict;
-        spread_title(id: string): string;
-        land_add(preset: $giper_baza_rank_preset): null;
-        update(files: File[]): never[];
-        wipe(): Promise<void>;
-        seed_make(): void;
-        lands_checked(): string[];
-        dump_enabled(): boolean;
-        dump_pack(): $giper_baza_pack | null;
-        dump(): Blob;
-        dump_name(): string;
-    }
-}
-
 declare namespace $.$$ {
 }
 
@@ -12909,6 +12909,26 @@ declare namespace $ {
     }
 }
 
+declare namespace $.$$ {
+    class $giper_baza_app_stat_page extends $.$giper_baza_app_stat_page {
+        home(): $giper_baza_app_home;
+        stat(): $giper_baza_app_stat | null;
+        uptime(): string;
+        cpu_user(): number[];
+        cpu_system(): number[];
+        mem_used(): number[];
+        mem_free(): number[];
+        fs_free(): number[];
+        land_active(): number[];
+        fs_reads(): number[];
+        fs_writes(): number[];
+        port_slaves(): number[];
+        port_masters(): number[];
+        errors(): number[];
+        times(): string[];
+    }
+}
+
 declare namespace $ {
 
 	type $giper_baza_link_chip__link_giper_baza_app_stat_page_1 = $mol_type_enforce<
@@ -13214,26 +13234,6 @@ declare namespace $ {
 
 //# sourceMappingURL=page.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $giper_baza_app_stat_page extends $.$giper_baza_app_stat_page {
-        home(): $giper_baza_app_home;
-        stat(): $giper_baza_app_stat | null;
-        uptime(): string;
-        cpu_user(): number[];
-        cpu_system(): number[];
-        mem_used(): number[];
-        mem_free(): number[];
-        fs_free(): number[];
-        land_active(): number[];
-        fs_reads(): number[];
-        fs_writes(): number[];
-        port_slaves(): number[];
-        port_masters(): number[];
-        errors(): number[];
-        times(): string[];
-    }
-}
-
-declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -13267,6 +13267,20 @@ declare namespace $ {
         static value<Value>(key: string, next?: Value): Value;
         prefix(): string;
         value(key: string, next?: Value): Value;
+    }
+}
+
+declare namespace $.$$ {
+    class $giper_baza_auth_slot extends $.$giper_baza_auth_slot {
+        prefix(next?: string): string;
+        found(prefix: string, next?: readonly string[]): readonly string[];
+        run(): void;
+        running(next?: boolean): boolean;
+        run_enabled(): boolean;
+        grabbing(): number | null;
+        keys(): $.$mol_button_copy[];
+        link(index: number): string;
+        key(index: number): string;
     }
 }
 
@@ -13351,20 +13365,12 @@ declare namespace $ {
 
 //# sourceMappingURL=slot.view.tree.d.ts.map
 declare namespace $.$$ {
-    class $giper_baza_auth_slot extends $.$giper_baza_auth_slot {
-        prefix(next?: string): string;
-        found(prefix: string, next?: readonly string[]): readonly string[];
-        run(): void;
-        running(next?: boolean): boolean;
-        run_enabled(): boolean;
-        grabbing(): number | null;
-        keys(): $.$mol_button_copy[];
-        link(index: number): string;
-        key(index: number): string;
-    }
 }
 
 declare namespace $.$$ {
+    class $giper_baza_app extends $.$giper_baza_app {
+        auto(): void;
+    }
 }
 
 declare namespace $ {
@@ -13409,12 +13415,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=app.web.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $giper_baza_app extends $.$giper_baza_app {
-        auto(): void;
-    }
-}
-
 declare namespace $.$$ {
 }
 
@@ -13652,114 +13652,6 @@ declare namespace $.$$ {
     class $mol_theme_auto extends $.$mol_theme_auto {
         theme(): string;
     }
-}
-
-declare namespace $ {
-    function $mol_wait_timeout_async(this: $, timeout: number): Promise<void>;
-    function $mol_wait_timeout(this: $, timeout: number): void;
-}
-
-declare namespace $ {
-
-	type $mol_link__uri_mol_embed_native_1 = $mol_type_enforce<
-		ReturnType< $mol_embed_native['uri'] >
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_link__sub_mol_embed_native_2 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_link['sub'] >
-	>
-	export class $mol_embed_native extends $mol_scroll {
-		uri( next?: string ): string
-		title( ): string
-		Fallback( ): $mol_link
-		uri_change( next?: any ): any
-		dom_name( ): string
-		window( ): any
-		attr( ): ({ 
-			'src': ReturnType< $mol_embed_native['uri'] >,
-		})  & ReturnType< $mol_scroll['attr'] >
-		sub( ): readonly(any)[]
-		message( ): ({ 
-			hashchange( next?: ReturnType< $mol_embed_native['uri_change'] > ): ReturnType< $mol_embed_native['uri_change'] >,
-		}) 
-	}
-	
-}
-
-//# sourceMappingURL=native.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_embed_native extends $.$mol_embed_native {
-        window(): Window;
-        load(frame: HTMLIFrameElement): Promise<Window>;
-        uri_resource(): string;
-        message_listener(): $mol_dom_listener;
-        sub_visible(): readonly $mol_view_content[];
-        message_receive(event?: MessageEvent<[string, string]>): void;
-        uri_change(event: MessageEvent<[string, string]>): void;
-        auto(): (Window | $mol_dom_listener)[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_frame extends $mol_embed_native {
-		allow( ): string
-		html( ): any
-		attr( ): ({ 
-			'tabindex': ReturnType< $mol_frame['tabindex'] >,
-			'allow': ReturnType< $mol_frame['allow'] >,
-			'src': ReturnType< $mol_frame['uri'] >,
-			'srcdoc': ReturnType< $mol_frame['html'] >,
-		}) 
-		fullscreen( ): boolean
-		accelerometer( ): boolean
-		autoplay( ): boolean
-		encription( ): boolean
-		gyroscope( ): boolean
-		pip( ): boolean
-		clipboard_read( ): boolean
-		clipboard_write( ): boolean
-	}
-	
-}
-
-//# sourceMappingURL=frame.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_frame extends $.$mol_frame {
-        window(): any;
-        allow(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $giper_web_frame extends $.$giper_web_frame {
-        uri(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $giper_web_frame extends $mol_frame {
-		uri( ): string
-		query( ): string
-	}
-	
-}
-
-//# sourceMappingURL=frame.view.tree.d.ts.map
-declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -14020,6 +13912,58 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    function $mol_wait_timeout_async(this: $, timeout: number): Promise<void>;
+    function $mol_wait_timeout(this: $, timeout: number): void;
+}
+
+declare namespace $ {
+
+	type $mol_link__uri_mol_embed_native_1 = $mol_type_enforce<
+		ReturnType< $mol_embed_native['uri'] >
+		,
+		ReturnType< $mol_link['uri'] >
+	>
+	type $mol_link__sub_mol_embed_native_2 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	export class $mol_embed_native extends $mol_scroll {
+		uri( next?: string ): string
+		title( ): string
+		Fallback( ): $mol_link
+		uri_change( next?: any ): any
+		dom_name( ): string
+		window( ): any
+		attr( ): ({ 
+			'src': ReturnType< $mol_embed_native['uri'] >,
+		})  & ReturnType< $mol_scroll['attr'] >
+		sub( ): readonly(any)[]
+		message( ): ({ 
+			hashchange( next?: ReturnType< $mol_embed_native['uri_change'] > ): ReturnType< $mol_embed_native['uri_change'] >,
+		}) 
+	}
+	
+}
+
+//# sourceMappingURL=native.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_embed_native extends $.$mol_embed_native {
+        window(): Window;
+        load(frame: HTMLIFrameElement): Promise<Window>;
+        uri_resource(): string;
+        message_listener(): $mol_dom_listener;
+        sub_visible(): readonly $mol_view_content[];
+        message_receive(event?: MessageEvent<[string, string]>): void;
+        uri_change(event: MessageEvent<[string, string]>): void;
+        auto(): (Window | $mol_dom_listener)[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
 
 	export class $mol_icon_youtube extends $mol_icon {
 		path( ): string
@@ -14028,6 +13972,40 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=youtube.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_frame extends $mol_embed_native {
+		allow( ): string
+		html( ): any
+		attr( ): ({ 
+			'tabindex': ReturnType< $mol_frame['tabindex'] >,
+			'allow': ReturnType< $mol_frame['allow'] >,
+			'src': ReturnType< $mol_frame['uri'] >,
+			'srcdoc': ReturnType< $mol_frame['html'] >,
+		}) 
+		fullscreen( ): boolean
+		accelerometer( ): boolean
+		autoplay( ): boolean
+		encription( ): boolean
+		gyroscope( ): boolean
+		pip( ): boolean
+		clipboard_read( ): boolean
+		clipboard_write( ): boolean
+	}
+	
+}
+
+//# sourceMappingURL=frame.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_frame extends $.$mol_frame {
+        window(): any;
+        allow(): string;
+    }
+}
+
+declare namespace $ {
+}
+
 declare namespace $ {
 
 	type $mol_image__title_mol_embed_service_1 = $mol_type_enforce<
@@ -14652,1146 +14630,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-
-	type $mol_image__title_mol_attach_1 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_image['title'] >
-	>
-	type $mol_image__uri_mol_attach_2 = $mol_type_enforce<
-		ReturnType< $mol_attach['item_uri'] >
-		,
-		ReturnType< $mol_image['uri'] >
-	>
-	type $mol_button_minor__click_mol_attach_3 = $mol_type_enforce<
-		ReturnType< $mol_attach['item_drop'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__sub_mol_attach_4 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_button_open__title_mol_attach_5 = $mol_type_enforce<
-		ReturnType< $mol_attach['attach_title'] >
-		,
-		ReturnType< $mol_button_open['title'] >
-	>
-	type $mol_button_open__files_mol_attach_6 = $mol_type_enforce<
-		ReturnType< $mol_attach['attach_new'] >
-		,
-		ReturnType< $mol_button_open['files'] >
-	>
-	export class $mol_attach extends $mol_view {
-		item_drop( id: any, next?: any ): any
-		item_uri( id: any): string
-		Image( id: any): $mol_image
-		Item( id: any): $mol_button_minor
-		attach_title( ): string
-		attach_new( next?: any ): any
-		Add( ): $mol_button_open
-		content( ): readonly($mol_view)[]
-		items( next?: readonly(string)[] ): readonly(string)[]
-		sub( ): ReturnType< $mol_attach['content'] >
-	}
-	
-}
-
-//# sourceMappingURL=attach.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_attach extends $.$mol_attach {
-        attach_new(files: File[]): void;
-        content(): ($mol_button_minor | $.$mol_button_open)[];
-        item_uri(index: number): string;
-        item_drop(index: number, event?: Event): void;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_icon_send extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=send.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_gift extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=gift.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_gift_outline extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=outline.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_link_donate extends $mol_link {
-		Icon( ): $mol_icon_gift_outline
-		hint( ): string
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=donate.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_face extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=face.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_face_agent extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=agent.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_link_support extends $mol_link {
-		Icon( ): $mol_icon_face_agent
-		hint( ): string
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=support.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_brightness_4 extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=4.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_lights_toggle extends $mol_check_icon {
-		Lights_icon( ): $mol_icon_brightness_4
-		lights( next?: boolean ): boolean
-		Icon( ): ReturnType< $mol_lights_toggle['Lights_icon'] >
-		hint( ): string
-		checked( next?: ReturnType< $mol_lights_toggle['lights'] > ): ReturnType< $mol_lights_toggle['lights'] >
-	}
-	
-}
-
-//# sourceMappingURL=toggle.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_lights_toggle extends $.$mol_lights_toggle {
-        lights(next?: boolean): boolean;
-    }
-}
-
-declare namespace $ {
-    type $mol_type_partial_undefined<Val> = $mol_type_merge<$mol_type_override<Partial<Val>, Pick<Val, {
-        [Field in keyof Val]: undefined extends Val[Field] ? never : Field;
-    }[keyof Val]>>>;
-}
-
-declare namespace $ {
-    function $mol_data_record<Sub extends Record<string, $mol_data_value>>(sub: Sub): ((val: $mol_type_merge<$mol_type_override<Partial<{ [key in keyof Sub]: Parameters<Sub[key]>[0]; }>, Pick<{ [key in keyof Sub]: Parameters<Sub[key]>[0]; }, { [Field in keyof { [key in keyof Sub]: Parameters<Sub[key]>[0]; }]: undefined extends { [key in keyof Sub]: Parameters<Sub[key]>[0]; }[Field] ? never : Field; }[keyof Sub]>>>) => Readonly<$mol_type_merge<$mol_type_override<Partial<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }>, Pick<{ [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }, { [Field_1 in keyof { [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }]: undefined extends { [key_1 in keyof Sub]: ReturnType<Sub[key_1]>; }[Field_1] ? never : Field_1; }[keyof Sub]>>>>) & {
-        config: Sub;
-        Value: Readonly<$mol_type_merge<$mol_type_override<Partial<{ [key in keyof Sub]: ReturnType<Sub[key]>; }>, Pick<{ [key in keyof Sub]: ReturnType<Sub[key]>; }, { [Field in keyof { [key in keyof Sub]: ReturnType<Sub[key]>; }]: undefined extends { [key in keyof Sub]: ReturnType<Sub[key]>; }[Field] ? never : Field; }[keyof Sub]>>>>;
-    };
-}
-
-declare namespace $ {
-    function $mol_data_const<const Val>(ref: Val): ((val: Val) => Val) & {
-        config: Val;
-        Value: Val;
-    };
-}
-
-declare namespace $ {
-    let $mol_data_string: (val: string) => string;
-}
-
-declare namespace $ {
-    function $mol_data_variant<Sub extends $mol_data_value[]>(...sub: Sub): ((val: Parameters<Sub[number]>[0]) => ReturnType<Sub[number]>) & {
-        config: Sub;
-        Value: ReturnType<Sub[number]>;
-    };
-}
-
-declare namespace $ {
-    function $mol_data_array<Sub extends $mol_data_value>(sub: Sub): ((val: readonly Parameters<Sub>[0][]) => readonly ReturnType<Sub>[]) & {
-        config: Sub;
-        Value: readonly ReturnType<Sub>[];
-    };
-}
-
-declare namespace $ {
-    function $mol_data_nullable<Sub extends $mol_data_value>(sub: Sub): ((val: Parameters<Sub>[0] | null) => ReturnType<Sub> | null) & {
-        config: Sub;
-        Value: ReturnType<Sub> | null;
-    };
-}
-
-declare namespace $ {
-    function $mol_data_optional<Sub extends $mol_data_value, Fallback extends undefined | (() => ReturnType<Sub>)>(sub: Sub, fallback?: Fallback): ((val: Parameters<Sub>[0] | undefined) => ReturnType<Sub> | (Fallback extends undefined ? undefined : ReturnType<Extract<Fallback, () => any>>)) & {
-        config: {
-            sub: Sub;
-            fallback: Fallback | undefined;
-        };
-        Value: ReturnType<Sub> | (Fallback extends undefined ? undefined : ReturnType<Extract<Fallback, () => any>>);
-    };
-}
-
-declare namespace $ {
-    function $mol_array_shuffle<Item>(array: readonly Item[]): any[];
-}
-
-declare namespace $ {
-    let $mol_array_shuffle_sync: typeof $mol_array_shuffle;
-}
-
-declare namespace $ {
-    export const $mol_github_model_keys: string[];
-    export const $mol_github_model_polyglots: string[];
-    const Message: ((val: {
-        tool_calls?: readonly {
-            function: {
-                name: string;
-                arguments: string;
-            };
-            type: "function";
-            id: string;
-        }[] | undefined;
-        role: "assistant";
-        content: string | readonly ({
-            text: string;
-            type: "text";
-        } | {
-            type: "image_url";
-            image_url: {
-                url: string;
-            };
-        })[] | null;
-    } | {
-        role: "user";
-        content: string | readonly ({
-            text: string;
-            type: "text";
-        } | {
-            type: "image_url";
-            image_url: {
-                url: string;
-            };
-        })[];
-    } | {
-        role: "tool";
-        content: string | readonly ({
-            text: string;
-            type: "text";
-        } | {
-            type: "image_url";
-            image_url: {
-                url: string;
-            };
-        })[];
-        tool_call_id: string;
-    }) => Readonly<{
-        tool_calls?: readonly Readonly<{
-            function: Readonly<{
-                name: string;
-                arguments: string;
-            }>;
-            type: "function";
-            id: string;
-        }>[] | undefined;
-        role: "assistant";
-        content: string | readonly (Readonly<{
-            text: string;
-            type: "text";
-        }> | Readonly<{
-            type: "image_url";
-            image_url: Readonly<{
-                url: string;
-            }>;
-        }>)[] | null;
-    }> | Readonly<{
-        role: "user";
-        content: string | readonly (Readonly<{
-            text: string;
-            type: "text";
-        }> | Readonly<{
-            type: "image_url";
-            image_url: Readonly<{
-                url: string;
-            }>;
-        }>)[];
-    }> | Readonly<{
-        role: "tool";
-        content: string | readonly (Readonly<{
-            text: string;
-            type: "text";
-        }> | Readonly<{
-            type: "image_url";
-            image_url: Readonly<{
-                url: string;
-            }>;
-        }>)[];
-        tool_call_id: string;
-    }>) & {
-        config: [((val: {
-            tool_calls?: readonly {
-                function: {
-                    name: string;
-                    arguments: string;
-                };
-                type: "function";
-                id: string;
-            }[] | undefined;
-            role: "assistant";
-            content: string | readonly ({
-                text: string;
-                type: "text";
-            } | {
-                type: "image_url";
-                image_url: {
-                    url: string;
-                };
-            })[] | null;
-        }) => Readonly<{
-            tool_calls?: readonly Readonly<{
-                function: Readonly<{
-                    name: string;
-                    arguments: string;
-                }>;
-                type: "function";
-                id: string;
-            }>[] | undefined;
-            role: "assistant";
-            content: string | readonly (Readonly<{
-                text: string;
-                type: "text";
-            }> | Readonly<{
-                type: "image_url";
-                image_url: Readonly<{
-                    url: string;
-                }>;
-            }>)[] | null;
-        }>) & {
-            config: {
-                role: ((val: "assistant") => "assistant") & {
-                    config: "assistant";
-                    Value: "assistant";
-                };
-                content: ((val: string | readonly ({
-                    text: string;
-                    type: "text";
-                } | {
-                    type: "image_url";
-                    image_url: {
-                        url: string;
-                    };
-                })[] | null) => string | readonly (Readonly<{
-                    text: string;
-                    type: "text";
-                }> | Readonly<{
-                    type: "image_url";
-                    image_url: Readonly<{
-                        url: string;
-                    }>;
-                }>)[] | null) & {
-                    config: ((val: string | readonly ({
-                        text: string;
-                        type: "text";
-                    } | {
-                        type: "image_url";
-                        image_url: {
-                            url: string;
-                        };
-                    })[]) => string | readonly (Readonly<{
-                        text: string;
-                        type: "text";
-                    }> | Readonly<{
-                        type: "image_url";
-                        image_url: Readonly<{
-                            url: string;
-                        }>;
-                    }>)[]) & {
-                        config: [(val: string) => string, ((val: readonly ({
-                            text: string;
-                            type: "text";
-                        } | {
-                            type: "image_url";
-                            image_url: {
-                                url: string;
-                            };
-                        })[]) => readonly (Readonly<{
-                            text: string;
-                            type: "text";
-                        }> | Readonly<{
-                            type: "image_url";
-                            image_url: Readonly<{
-                                url: string;
-                            }>;
-                        }>)[]) & {
-                            config: ((val: {
-                                text: string;
-                                type: "text";
-                            } | {
-                                type: "image_url";
-                                image_url: {
-                                    url: string;
-                                };
-                            }) => Readonly<{
-                                text: string;
-                                type: "text";
-                            }> | Readonly<{
-                                type: "image_url";
-                                image_url: Readonly<{
-                                    url: string;
-                                }>;
-                            }>) & {
-                                config: [((val: {
-                                    text: string;
-                                    type: "text";
-                                }) => Readonly<{
-                                    text: string;
-                                    type: "text";
-                                }>) & {
-                                    config: {
-                                        type: ((val: "text") => "text") & {
-                                            config: "text";
-                                            Value: "text";
-                                        };
-                                        text: (val: string) => string;
-                                    };
-                                    Value: Readonly<{
-                                        text: string;
-                                        type: "text";
-                                    }>;
-                                }, ((val: {
-                                    type: "image_url";
-                                    image_url: {
-                                        url: string;
-                                    };
-                                }) => Readonly<{
-                                    type: "image_url";
-                                    image_url: Readonly<{
-                                        url: string;
-                                    }>;
-                                }>) & {
-                                    config: {
-                                        type: ((val: "image_url") => "image_url") & {
-                                            config: "image_url";
-                                            Value: "image_url";
-                                        };
-                                        image_url: ((val: {
-                                            url: string;
-                                        }) => Readonly<{
-                                            url: string;
-                                        }>) & {
-                                            config: {
-                                                url: (val: string) => string;
-                                            };
-                                            Value: Readonly<{
-                                                url: string;
-                                            }>;
-                                        };
-                                    };
-                                    Value: Readonly<{
-                                        type: "image_url";
-                                        image_url: Readonly<{
-                                            url: string;
-                                        }>;
-                                    }>;
-                                }];
-                                Value: Readonly<{
-                                    text: string;
-                                    type: "text";
-                                }> | Readonly<{
-                                    type: "image_url";
-                                    image_url: Readonly<{
-                                        url: string;
-                                    }>;
-                                }>;
-                            };
-                            Value: readonly (Readonly<{
-                                text: string;
-                                type: "text";
-                            }> | Readonly<{
-                                type: "image_url";
-                                image_url: Readonly<{
-                                    url: string;
-                                }>;
-                            }>)[];
-                        }];
-                        Value: string | readonly (Readonly<{
-                            text: string;
-                            type: "text";
-                        }> | Readonly<{
-                            type: "image_url";
-                            image_url: Readonly<{
-                                url: string;
-                            }>;
-                        }>)[];
-                    };
-                    Value: string | readonly (Readonly<{
-                        text: string;
-                        type: "text";
-                    }> | Readonly<{
-                        type: "image_url";
-                        image_url: Readonly<{
-                            url: string;
-                        }>;
-                    }>)[] | null;
-                };
-                tool_calls: ((val: readonly {
-                    function: {
-                        name: string;
-                        arguments: string;
-                    };
-                    type: "function";
-                    id: string;
-                }[] | undefined) => readonly Readonly<{
-                    function: Readonly<{
-                        name: string;
-                        arguments: string;
-                    }>;
-                    type: "function";
-                    id: string;
-                }>[] | undefined) & {
-                    config: {
-                        sub: ((val: readonly {
-                            function: {
-                                name: string;
-                                arguments: string;
-                            };
-                            type: "function";
-                            id: string;
-                        }[]) => readonly Readonly<{
-                            function: Readonly<{
-                                name: string;
-                                arguments: string;
-                            }>;
-                            type: "function";
-                            id: string;
-                        }>[]) & {
-                            config: ((val: {
-                                function: {
-                                    name: string;
-                                    arguments: string;
-                                };
-                                type: "function";
-                                id: string;
-                            }) => Readonly<{
-                                function: Readonly<{
-                                    name: string;
-                                    arguments: string;
-                                }>;
-                                type: "function";
-                                id: string;
-                            }>) & {
-                                config: {
-                                    type: ((val: "function") => "function") & {
-                                        config: "function";
-                                        Value: "function";
-                                    };
-                                    id: (val: string) => string;
-                                    function: ((val: {
-                                        name: string;
-                                        arguments: string;
-                                    }) => Readonly<{
-                                        name: string;
-                                        arguments: string;
-                                    }>) & {
-                                        config: {
-                                            name: (val: string) => string;
-                                            arguments: (val: string) => string;
-                                        };
-                                        Value: Readonly<{
-                                            name: string;
-                                            arguments: string;
-                                        }>;
-                                    };
-                                };
-                                Value: Readonly<{
-                                    function: Readonly<{
-                                        name: string;
-                                        arguments: string;
-                                    }>;
-                                    type: "function";
-                                    id: string;
-                                }>;
-                            };
-                            Value: readonly Readonly<{
-                                function: Readonly<{
-                                    name: string;
-                                    arguments: string;
-                                }>;
-                                type: "function";
-                                id: string;
-                            }>[];
-                        };
-                        fallback: (() => readonly Readonly<{
-                            function: Readonly<{
-                                name: string;
-                                arguments: string;
-                            }>;
-                            type: "function";
-                            id: string;
-                        }>[]) | undefined;
-                    };
-                    Value: readonly Readonly<{
-                        function: Readonly<{
-                            name: string;
-                            arguments: string;
-                        }>;
-                        type: "function";
-                        id: string;
-                    }>[] | undefined;
-                };
-            };
-            Value: Readonly<{
-                tool_calls?: readonly Readonly<{
-                    function: Readonly<{
-                        name: string;
-                        arguments: string;
-                    }>;
-                    type: "function";
-                    id: string;
-                }>[] | undefined;
-                role: "assistant";
-                content: string | readonly (Readonly<{
-                    text: string;
-                    type: "text";
-                }> | Readonly<{
-                    type: "image_url";
-                    image_url: Readonly<{
-                        url: string;
-                    }>;
-                }>)[] | null;
-            }>;
-        }, ((val: {
-            role: "user";
-            content: string | readonly ({
-                text: string;
-                type: "text";
-            } | {
-                type: "image_url";
-                image_url: {
-                    url: string;
-                };
-            })[];
-        }) => Readonly<{
-            role: "user";
-            content: string | readonly (Readonly<{
-                text: string;
-                type: "text";
-            }> | Readonly<{
-                type: "image_url";
-                image_url: Readonly<{
-                    url: string;
-                }>;
-            }>)[];
-        }>) & {
-            config: {
-                role: ((val: "user") => "user") & {
-                    config: "user";
-                    Value: "user";
-                };
-                content: ((val: string | readonly ({
-                    text: string;
-                    type: "text";
-                } | {
-                    type: "image_url";
-                    image_url: {
-                        url: string;
-                    };
-                })[]) => string | readonly (Readonly<{
-                    text: string;
-                    type: "text";
-                }> | Readonly<{
-                    type: "image_url";
-                    image_url: Readonly<{
-                        url: string;
-                    }>;
-                }>)[]) & {
-                    config: [(val: string) => string, ((val: readonly ({
-                        text: string;
-                        type: "text";
-                    } | {
-                        type: "image_url";
-                        image_url: {
-                            url: string;
-                        };
-                    })[]) => readonly (Readonly<{
-                        text: string;
-                        type: "text";
-                    }> | Readonly<{
-                        type: "image_url";
-                        image_url: Readonly<{
-                            url: string;
-                        }>;
-                    }>)[]) & {
-                        config: ((val: {
-                            text: string;
-                            type: "text";
-                        } | {
-                            type: "image_url";
-                            image_url: {
-                                url: string;
-                            };
-                        }) => Readonly<{
-                            text: string;
-                            type: "text";
-                        }> | Readonly<{
-                            type: "image_url";
-                            image_url: Readonly<{
-                                url: string;
-                            }>;
-                        }>) & {
-                            config: [((val: {
-                                text: string;
-                                type: "text";
-                            }) => Readonly<{
-                                text: string;
-                                type: "text";
-                            }>) & {
-                                config: {
-                                    type: ((val: "text") => "text") & {
-                                        config: "text";
-                                        Value: "text";
-                                    };
-                                    text: (val: string) => string;
-                                };
-                                Value: Readonly<{
-                                    text: string;
-                                    type: "text";
-                                }>;
-                            }, ((val: {
-                                type: "image_url";
-                                image_url: {
-                                    url: string;
-                                };
-                            }) => Readonly<{
-                                type: "image_url";
-                                image_url: Readonly<{
-                                    url: string;
-                                }>;
-                            }>) & {
-                                config: {
-                                    type: ((val: "image_url") => "image_url") & {
-                                        config: "image_url";
-                                        Value: "image_url";
-                                    };
-                                    image_url: ((val: {
-                                        url: string;
-                                    }) => Readonly<{
-                                        url: string;
-                                    }>) & {
-                                        config: {
-                                            url: (val: string) => string;
-                                        };
-                                        Value: Readonly<{
-                                            url: string;
-                                        }>;
-                                    };
-                                };
-                                Value: Readonly<{
-                                    type: "image_url";
-                                    image_url: Readonly<{
-                                        url: string;
-                                    }>;
-                                }>;
-                            }];
-                            Value: Readonly<{
-                                text: string;
-                                type: "text";
-                            }> | Readonly<{
-                                type: "image_url";
-                                image_url: Readonly<{
-                                    url: string;
-                                }>;
-                            }>;
-                        };
-                        Value: readonly (Readonly<{
-                            text: string;
-                            type: "text";
-                        }> | Readonly<{
-                            type: "image_url";
-                            image_url: Readonly<{
-                                url: string;
-                            }>;
-                        }>)[];
-                    }];
-                    Value: string | readonly (Readonly<{
-                        text: string;
-                        type: "text";
-                    }> | Readonly<{
-                        type: "image_url";
-                        image_url: Readonly<{
-                            url: string;
-                        }>;
-                    }>)[];
-                };
-            };
-            Value: Readonly<{
-                role: "user";
-                content: string | readonly (Readonly<{
-                    text: string;
-                    type: "text";
-                }> | Readonly<{
-                    type: "image_url";
-                    image_url: Readonly<{
-                        url: string;
-                    }>;
-                }>)[];
-            }>;
-        }, ((val: {
-            role: "tool";
-            content: string | readonly ({
-                text: string;
-                type: "text";
-            } | {
-                type: "image_url";
-                image_url: {
-                    url: string;
-                };
-            })[];
-            tool_call_id: string;
-        }) => Readonly<{
-            role: "tool";
-            content: string | readonly (Readonly<{
-                text: string;
-                type: "text";
-            }> | Readonly<{
-                type: "image_url";
-                image_url: Readonly<{
-                    url: string;
-                }>;
-            }>)[];
-            tool_call_id: string;
-        }>) & {
-            config: {
-                role: ((val: "tool") => "tool") & {
-                    config: "tool";
-                    Value: "tool";
-                };
-                tool_call_id: (val: string) => string;
-                content: ((val: string | readonly ({
-                    text: string;
-                    type: "text";
-                } | {
-                    type: "image_url";
-                    image_url: {
-                        url: string;
-                    };
-                })[]) => string | readonly (Readonly<{
-                    text: string;
-                    type: "text";
-                }> | Readonly<{
-                    type: "image_url";
-                    image_url: Readonly<{
-                        url: string;
-                    }>;
-                }>)[]) & {
-                    config: [(val: string) => string, ((val: readonly ({
-                        text: string;
-                        type: "text";
-                    } | {
-                        type: "image_url";
-                        image_url: {
-                            url: string;
-                        };
-                    })[]) => readonly (Readonly<{
-                        text: string;
-                        type: "text";
-                    }> | Readonly<{
-                        type: "image_url";
-                        image_url: Readonly<{
-                            url: string;
-                        }>;
-                    }>)[]) & {
-                        config: ((val: {
-                            text: string;
-                            type: "text";
-                        } | {
-                            type: "image_url";
-                            image_url: {
-                                url: string;
-                            };
-                        }) => Readonly<{
-                            text: string;
-                            type: "text";
-                        }> | Readonly<{
-                            type: "image_url";
-                            image_url: Readonly<{
-                                url: string;
-                            }>;
-                        }>) & {
-                            config: [((val: {
-                                text: string;
-                                type: "text";
-                            }) => Readonly<{
-                                text: string;
-                                type: "text";
-                            }>) & {
-                                config: {
-                                    type: ((val: "text") => "text") & {
-                                        config: "text";
-                                        Value: "text";
-                                    };
-                                    text: (val: string) => string;
-                                };
-                                Value: Readonly<{
-                                    text: string;
-                                    type: "text";
-                                }>;
-                            }, ((val: {
-                                type: "image_url";
-                                image_url: {
-                                    url: string;
-                                };
-                            }) => Readonly<{
-                                type: "image_url";
-                                image_url: Readonly<{
-                                    url: string;
-                                }>;
-                            }>) & {
-                                config: {
-                                    type: ((val: "image_url") => "image_url") & {
-                                        config: "image_url";
-                                        Value: "image_url";
-                                    };
-                                    image_url: ((val: {
-                                        url: string;
-                                    }) => Readonly<{
-                                        url: string;
-                                    }>) & {
-                                        config: {
-                                            url: (val: string) => string;
-                                        };
-                                        Value: Readonly<{
-                                            url: string;
-                                        }>;
-                                    };
-                                };
-                                Value: Readonly<{
-                                    type: "image_url";
-                                    image_url: Readonly<{
-                                        url: string;
-                                    }>;
-                                }>;
-                            }];
-                            Value: Readonly<{
-                                text: string;
-                                type: "text";
-                            }> | Readonly<{
-                                type: "image_url";
-                                image_url: Readonly<{
-                                    url: string;
-                                }>;
-                            }>;
-                        };
-                        Value: readonly (Readonly<{
-                            text: string;
-                            type: "text";
-                        }> | Readonly<{
-                            type: "image_url";
-                            image_url: Readonly<{
-                                url: string;
-                            }>;
-                        }>)[];
-                    }];
-                    Value: string | readonly (Readonly<{
-                        text: string;
-                        type: "text";
-                    }> | Readonly<{
-                        type: "image_url";
-                        image_url: Readonly<{
-                            url: string;
-                        }>;
-                    }>)[];
-                };
-            };
-            Value: Readonly<{
-                role: "tool";
-                content: string | readonly (Readonly<{
-                    text: string;
-                    type: "text";
-                }> | Readonly<{
-                    type: "image_url";
-                    image_url: Readonly<{
-                        url: string;
-                    }>;
-                }>)[];
-                tool_call_id: string;
-            }>;
-        }];
-        Value: Readonly<{
-            tool_calls?: readonly Readonly<{
-                function: Readonly<{
-                    name: string;
-                    arguments: string;
-                }>;
-                type: "function";
-                id: string;
-            }>[] | undefined;
-            role: "assistant";
-            content: string | readonly (Readonly<{
-                text: string;
-                type: "text";
-            }> | Readonly<{
-                type: "image_url";
-                image_url: Readonly<{
-                    url: string;
-                }>;
-            }>)[] | null;
-        }> | Readonly<{
-            role: "user";
-            content: string | readonly (Readonly<{
-                text: string;
-                type: "text";
-            }> | Readonly<{
-                type: "image_url";
-                image_url: Readonly<{
-                    url: string;
-                }>;
-            }>)[];
-        }> | Readonly<{
-            role: "tool";
-            content: string | readonly (Readonly<{
-                text: string;
-                type: "text";
-            }> | Readonly<{
-                type: "image_url";
-                image_url: Readonly<{
-                    url: string;
-                }>;
-            }>)[];
-            tool_call_id: string;
-        }>;
-    };
-    type Primitive<Type extends 'string' | 'number' | 'integer' | 'boolean'> = Readonly<{
-        type: Type;
-        enum?: Type[];
-    }>;
-    type Obj<Params extends Record<string, Type>> = Readonly<{
-        type: 'object';
-        parameters: Params;
-        required: keyof Params;
-    }>;
-    type List<Item extends Type> = Readonly<{
-        type: 'array';
-        items: Item;
-    }>;
-    type Type = Obj<any> | List<any> | Primitive<any>;
-    export class $mol_github_model extends $mol_object {
-        names(): string[];
-        rules(): string;
-        tools(): Map<string, {
-            descr: string;
-            params: Obj<any>;
-            func: Function;
-        }>;
-        params(next?: {}): {};
-        history(next?: typeof Message.Value[]): (Readonly<{
-            tool_calls?: readonly Readonly<{
-                function: Readonly<{
-                    name: string;
-                    arguments: string;
-                }>;
-                type: "function";
-                id: string;
-            }>[] | undefined;
-            role: "assistant";
-            content: string | readonly (Readonly<{
-                text: string;
-                type: "text";
-            }> | Readonly<{
-                type: "image_url";
-                image_url: Readonly<{
-                    url: string;
-                }>;
-            }>)[] | null;
-        }> | Readonly<{
-            role: "user";
-            content: string | readonly (Readonly<{
-                text: string;
-                type: "text";
-            }> | Readonly<{
-                type: "image_url";
-                image_url: Readonly<{
-                    url: string;
-                }>;
-            }>)[];
-        }> | Readonly<{
-            role: "tool";
-            content: string | readonly (Readonly<{
-                text: string;
-                type: "text";
-            }> | Readonly<{
-                type: "image_url";
-                image_url: Readonly<{
-                    url: string;
-                }>;
-            }>)[];
-            tool_call_id: string;
-        }>)[];
-        fork(): $mol_github_model;
-        shot(prompt: any[], context?: any, params?: {}): any;
-        ask(chunks: any[]): this;
-        tell(chunks: any[]): this;
-        answer(id: string, chunks: any[]): this;
-        request_body(model: string): string;
-        request(model: string, key: string): Readonly<{
-            choices: readonly Readonly<{
-                message: Readonly<{
-                    tool_calls?: readonly Readonly<{
-                        function: Readonly<{
-                            name: string;
-                            arguments: string;
-                        }>;
-                        type: "function";
-                        id: string;
-                    }>[] | undefined;
-                    role: "assistant";
-                    content: string | readonly (Readonly<{
-                        text: string;
-                        type: "text";
-                    }> | Readonly<{
-                        type: "image_url";
-                        image_url: Readonly<{
-                            url: string;
-                        }>;
-                    }>)[] | null;
-                }>;
-            }>[];
-        }>;
-        response(): any;
-    }
-    export {};
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
@@ -15825,240 +14663,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=list.view.tree.d.ts.map
-declare namespace $ {
-    class $mol_picture extends $mol_object2 {
-        readonly canvas: HTMLCanvasElement;
-        constructor(canvas: HTMLCanvasElement);
-        get context(): CanvasRenderingContext2D | null;
-        get bitmap(): ImageData;
-        static fit(image: Exclude<CanvasImageSource, VideoFrame> | Blob | string, width?: number, height?: number): $mol_picture;
-        static make(image: Exclude<CanvasImageSource, VideoFrame>, width: number, height?: number): $mol_picture;
-        static sizes(image: Exclude<CanvasImageSource, VideoFrame>): number[];
-        static load(uri: string): Promise<HTMLImageElement>;
-        format(type: 'image/png' | 'image/jpeg' | 'image/webp', quality?: number): Blob | null;
-        url(type?: "image/png" | "image/jpeg" | "image/webp", quality?: number): string;
-    }
-}
-
-declare namespace $ {
-    function $mol_offline(): void;
-}
-
-declare namespace $ {
-    function $mol_offline_web(): void;
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_status__status_giper_bot_1 = $mol_type_enforce<
-		ReturnType< $giper_bot['communication'] >
-		,
-		ReturnType< $mol_status['status'] >
-	>
-	type $mol_text__text_giper_bot_2 = $mol_type_enforce<
-		ReturnType< $giper_bot['message_text'] >
-		,
-		ReturnType< $mol_text['text'] >
-	>
-	type $mol_view__sub_giper_bot_3 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_list__rows_giper_bot_4 = $mol_type_enforce<
-		ReturnType< $giper_bot['messages'] >
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	type $mol_attach__items_giper_bot_5 = $mol_type_enforce<
-		ReturnType< $giper_bot['attach'] >
-		,
-		ReturnType< $mol_attach['items'] >
-	>
-	type $mol_textarea__event_giper_bot_6 = $mol_type_enforce<
-		({ 
-			pointerdown( next?: ReturnType< $giper_bot['quote_start'] > ): ReturnType< $giper_bot['quote_start'] >,
-			pointerup( next?: ReturnType< $giper_bot['quote_end'] > ): ReturnType< $giper_bot['quote_end'] >,
-		})  & ReturnType< $mol_textarea['event'] >
-		,
-		ReturnType< $mol_textarea['event'] >
-	>
-	type $mol_textarea__hint_giper_bot_7 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_textarea['hint'] >
-	>
-	type $mol_textarea__value_giper_bot_8 = $mol_type_enforce<
-		ReturnType< $giper_bot['prompt_text'] >
-		,
-		ReturnType< $mol_textarea['value'] >
-	>
-	type $mol_textarea__submit_giper_bot_9 = $mol_type_enforce<
-		ReturnType< $giper_bot['prompt_submit'] >
-		,
-		ReturnType< $mol_textarea['submit'] >
-	>
-	type $mol_button_minor__hint_giper_bot_10 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_minor['hint'] >
-	>
-	type $mol_button_minor__click_giper_bot_11 = $mol_type_enforce<
-		ReturnType< $giper_bot['prompt_submit'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__sub_giper_bot_12 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_page__title_content_giper_bot_13 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_page['title_content'] >
-	>
-	type $mol_page__body_content_giper_bot_14 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_page['body_content'] >
-	>
-	type $mol_page__foot_giper_bot_15 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_page['foot'] >
-	>
-	type $mol_button_minor__hint_giper_bot_16 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_minor['hint'] >
-	>
-	type $mol_button_minor__click_giper_bot_17 = $mol_type_enforce<
-		ReturnType< $giper_bot['reset'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__sub_giper_bot_18 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $mol_link_source__uri_giper_bot_19 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link_source['uri'] >
-	>
-	type $mol_link_donate__uri_giper_bot_20 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link_donate['uri'] >
-	>
-	type $mol_link_support__uri_giper_bot_21 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link_support['uri'] >
-	>
-	type $mol_text__text_giper_bot_22 = $mol_type_enforce<
-		ReturnType< $giper_bot['digest'] >
-		,
-		ReturnType< $mol_text['text'] >
-	>
-	type $mol_page__title_giper_bot_23 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_page['title'] >
-	>
-	type $mol_page__tools_giper_bot_24 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_page['tools'] >
-	>
-	type $mol_page__body_giper_bot_25 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_page['body'] >
-	>
-	type $mol_github_model__params_giper_bot_26 = $mol_type_enforce<
-		({ 
-			'temperature': number,
-		}) 
-		,
-		ReturnType< $mol_github_model['params'] >
-	>
-	type $mol_github_model__rules_giper_bot_27 = $mol_type_enforce<
-		ReturnType< $giper_bot['context'] >
-		,
-		ReturnType< $mol_github_model['rules'] >
-	>
-	export class $giper_bot extends $mol_book2 {
-		rules( ): string
-		context( ): ReturnType< $giper_bot['rules'] >
-		Theme( ): $mol_theme_auto
-		Space( ): $giper_web_frame
-		dialog_title( next?: string ): string
-		title( ): ReturnType< $giper_bot['dialog_title'] >
-		communication( ): any
-		Status( ): $mol_status
-		message_text( id: any): string
-		Message_text( id: any): $mol_text
-		Message( id: any): $mol_view
-		messages( ): readonly(any)[]
-		Messages( ): $mol_list
-		attach( next?: readonly(string)[] ): readonly(string)[]
-		Attach( ): $mol_attach
-		quote_start( next?: any ): any
-		quote_end( next?: any ): any
-		prompt_text( next?: string ): string
-		prompt_submit( next?: any ): any
-		Prompt_text( ): $mol_textarea
-		Prompt_submit_icon( ): $mol_icon_send
-		Prompt_submit( ): $mol_button_minor
-		Dialog( ): $mol_page
-		reset( next?: any ): any
-		Reset_icon( ): $mol_icon_trash_can_outline
-		Reset( ): $mol_button_minor
-		Sources( ): $mol_link_source
-		Donate( ): $mol_link_donate
-		Support( ): $mol_link_support
-		Lights( ): $mol_lights_toggle
-		digest( next?: string ): string
-		Digest( ): $mol_text
-		Context( ): $mol_page
-		Model( next?: $mol_github_model ): $mol_github_model
-		plugins( ): readonly(any)[]
-		quote( next?: string ): string
-		pages( ): readonly(any)[]
-		placeholders( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=bot.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $giper_bot extends $.$giper_bot {
-        dialog_title(next?: string | null): string;
-        digest(next?: string): string;
-        prompt_text(next?: string): string;
-        history(next?: string[][]): string[][];
-        messages(): $mol_view[];
-        message_text(index: number): string;
-        message_name(index: number): string;
-        rules(): string;
-        context(): string;
-        communication(): void;
-        prompt_submit(): void;
-        reset(): void;
-        quote_start(): void;
-        quote_end(): void;
-    }
-}
-
-declare namespace $.$$ {
-}
-
 declare namespace $ {
 
 	type $mol_text__text_bog_quiz_session_join_1 = $mol_type_enforce<
@@ -16746,15 +15350,15 @@ declare namespace $ {
 		,
 		ReturnType< $mol_row['sub'] >
 	>
-	type $mol_text__text_bog_quiz_editor_11 = $mol_type_enforce<
+	type $mol_textarea__value_bog_quiz_editor_11 = $mol_type_enforce<
 		ReturnType< $bog_quiz_editor['question_text'] >
 		,
-		ReturnType< $mol_text['text'] >
+		ReturnType< $mol_textarea['value'] >
 	>
-	type $mol_text__hint_bog_quiz_editor_12 = $mol_type_enforce<
+	type $mol_textarea__hint_bog_quiz_editor_12 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_text['hint'] >
+		ReturnType< $mol_textarea['hint'] >
 	>
 	type $mol_switch__value_bog_quiz_editor_13 = $mol_type_enforce<
 		ReturnType< $bog_quiz_editor['question_type'] >
@@ -16799,10 +15403,10 @@ declare namespace $ {
 		,
 		ReturnType< $mol_button_minor['title'] >
 	>
-	type $mol_view__sub_bog_quiz_editor_21 = $mol_type_enforce<
+	type $mol_list__rows_bog_quiz_editor_21 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $mol_view['sub'] >
+		ReturnType< $mol_list['rows'] >
 	>
 	type $mol_check_box__checked_bog_quiz_editor_22 = $mol_type_enforce<
 		ReturnType< $bog_quiz_editor['option_correct'] >
@@ -16863,7 +15467,7 @@ declare namespace $ {
 		Actions( ): $mol_row
 		question_number( id: any): string
 		question_text( id: any, next?: string ): string
-		Question_text_field( id: any): $mol_text
+		Question_text_field( id: any): $mol_textarea
 		question_type( id: any, next?: string ): string
 		Question_type_switch( id: any): $mol_switch
 		Options_label( id: any): $mol_paragraph
@@ -16873,7 +15477,7 @@ declare namespace $ {
 		Options_list( id: any): $mol_list
 		question_delete( id: any, next?: any ): any
 		Question_delete_button( id: any): $mol_button_minor
-		Question_content( id: any): $mol_view
+		Question_content( id: any): $mol_list
 		option_correct( id: any, next?: boolean ): boolean
 		Option_correct_check( id: any): $mol_check_box
 		option_text( id: any, next?: string ): string
@@ -16914,6 +15518,17 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    function $mol_offline(): void;
+}
+
+declare namespace $ {
+    function $mol_offline_web(): void;
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
 
 	type $mol_button_minor__click_bog_quiz_1 = $mol_type_enforce<
 		ReturnType< $bog_quiz['quiz_add'] >
@@ -16946,7 +15561,6 @@ declare namespace $ {
 		Quiz_add_icon( ): $mol_icon_plus
 		Quiz_add( ): $mol_button_minor
 		Theme( ): $mol_theme_auto
-		Bot( ): $giper_bot
 		Quiz_spread( id: any): $mol_view
 		param( ): string
 		realm( ): ReturnType< $bog_quiz['Realm'] >
@@ -16954,9 +15568,7 @@ declare namespace $ {
 		menu_tools( ): readonly(any)[]
 		plugins( ): readonly(any)[]
 		Placeholder( ): any
-		spreads( ): ({ 
-			'': ReturnType< $bog_quiz['Bot'] >,
-		}) 
+		spreads( ): Record<string, any>
 		Spread( id: any): ReturnType< $bog_quiz['Quiz_spread'] >
 		Join_page( ): $bog_quiz_session_join
 		Play_page( ): $bog_quiz_session_play

@@ -76,9 +76,6 @@
 	deploy \/giper/baza/docker/autopull_and_restart.sh
 \/mol/view
 	include \/mol/view/tree/test
-\/giper/bot
-	deploy \/giper/bot/logo
-	include \/mol/offline/install
 \/bog/quiz
 	include \/mol/offline/install
 	deploy \/bog/quiz/assets
