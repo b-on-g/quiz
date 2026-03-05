@@ -193,7 +193,7 @@ namespace $.$$ {
 			const questions = quiz.Questions(null)?.remote_list() ?? []
 			if (questions.length === 0) return event
 
-			const owner = this.$.$giper_baza_glob.home() as unknown as $bog_quiz_owner
+			const owner = this.$.$giper_baza_glob.home($bog_quiz_owner as any) as $bog_quiz_owner
 			const session = owner.session_make(quiz)
 
 			const session_id = session.link().toString()

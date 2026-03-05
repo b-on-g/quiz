@@ -7,7 +7,7 @@ namespace $.$$ {
 	export class $bog_quiz extends $.$bog_quiz {
 
 		profile() {
-			return this.$.$giper_baza_glob.home() as unknown as $bog_quiz_owner
+			return this.$.$giper_baza_glob.home($bog_quiz_owner as any) as $bog_quiz_owner
 		}
 
 		@$mol_mem

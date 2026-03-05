@@ -22,10 +22,10 @@ $bog_quiz_editor $mol_page
 	
 	Question_card* $mol_card
 		title <= question_number* \
-		Content <= Question_content* $mol_view
-			sub /
-				<= Question_text_field* $mol_text
-					text? <=> question_text*? \
+		Content <= Question_content* $mol_list
+			rows /
+				<= Question_text_field* $mol_textarea
+					value? <=> question_text*? \
 					hint @ \Question text
 				<= Question_type_switch* $mol_switch
 					value? <=> question_type*? \single
