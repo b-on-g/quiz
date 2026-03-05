@@ -4,7 +4,7 @@ namespace $.$$ {
 		quiz() {
 			const id = this.quiz_id()
 			if (!id) return null
-			return this.$.$giper_baza_glob.Node(new $giper_baza_link(id), $bog_quiz_quiz) as $bog_quiz_quiz
+			return this.$.$giper_baza_glob.Pawn(new $giper_baza_link(id), $bog_quiz_quiz) as $bog_quiz_quiz
 		}
 
 		@$mol_mem
@@ -187,33 +187,17 @@ namespace $.$$ {
 
 		@$mol_action
 		start_session(event?: Event) {
-			console.log('start_session() вызван')
 			const quiz = this.quiz()
-			console.log('quiz:', quiz)
-			if (!quiz) {
-				console.log('quiz не найден!')
-				return event
-			}
+			if (!quiz) return event
 
-			// Проверка, что есть хотя бы один вопрос
 			const questions = quiz.Questions(null)?.remote_list() ?? []
-			console.log('вопросов:', questions.length)
-			if (questions.length === 0) {
-				alert('Add at least one question before starting a session')
-				return event
-			}
+			if (questions.length === 0) return event
 
-			// Получить owner и создать сессию
-			const owner = this.$.$giper_baza_glob.home().hall_by($bog_quiz_owner, null)!
-			console.log('owner:', owner)
+			const owner = this.$.$giper_baza_glob.home() as unknown as $bog_quiz_owner
 			const session = owner.session_make(quiz)
-			console.log('session создана:', session)
 
-			// Навигация на host-экран с префиксом 'host:'
 			const session_id = session.link().toString()
-			console.log('session_id:', session_id)
 			this.$.$mol_state_arg.value('quiz', 'host:' + session_id)
-			console.log('Навигация на host:', 'host:' + session_id)
 
 			return event
 		}

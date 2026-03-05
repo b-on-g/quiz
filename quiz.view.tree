@@ -15,3 +15,7 @@ $bog_quiz $mol_book2_catalog
 		\
 			<= Bot $giper_bot
 	Spread* <= Quiz_spread* $mol_view
+	Join_page $bog_quiz_session_join
+		session_id \
+	Play_page $bog_quiz_session_play
+		session_id \

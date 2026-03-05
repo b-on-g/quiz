@@ -116,22 +116,18 @@ namespace $ {
 			return this.Participants()?.remote_list() ?? []
 		}
 
-		/**
-		 * Создать нового участника
-		 */
 		@$mol_action
 		participant_make() {
 			const participants = this.Participants(null)!
-			const participant = participants.make([[null, $giper_baza_rank_read]])!
+			const participant = participants.make([
+				[null, $giper_baza_rank_read],
+			])!
 
 			participant.update_last_seen()
 
 			return participant
 		}
 
-		/**
-		 * Получить или создать ответ участника на текущий вопрос
-		 */
 		@$mol_mem_key
 		answer_for_participant(participant: $bog_quiz_participant) {
 			const question = this.current_question()
@@ -140,20 +136,21 @@ namespace $ {
 			const answers_list = this.Answers(null)!
 			const existing_answers = answers_list.remote_list()
 
-			// Найти существующий ответ
+			const q_link = question.link().toString()
+			const p_link = participant.link().toString()
+
 			const existing = existing_answers.find(ans => {
-				const ans_question = ans.Question()?.remote()
-				const ans_participant = ans.Participant()?.remote()
 				return (
-					ans_question?.link().toString() === question.link().toString() &&
-					ans_participant?.link().toString() === participant.link().toString()
+					ans.Question()?.remote()?.link().toString() === q_link &&
+					ans.Participant()?.remote()?.link().toString() === p_link
 				)
 			})
 
 			if (existing) return existing as $bog_quiz_answer
 
-			// Создать новый ответ
-			const answer = answers_list.make([[null, $giper_baza_rank_read]])!
+			const answer = answers_list.make([
+				[null, $giper_baza_rank_read],
+			])!
 			answer.Session(null)!.remote(this)
 			answer.Question(null)!.remote(question)
 			answer.Participant(null)!.remote(participant)

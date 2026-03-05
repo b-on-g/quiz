@@ -1,26 +1,15 @@
 namespace $.$$ {
 	export class $bog_quiz_session_play extends $.$bog_quiz_session_play {
-		@$mol_mem
+
 		session() {
 			const id = this.session_id()
 			if (!id) return null
-			return this.$.$giper_baza_glob.Node($giper_baza_link.from(id), $bog_quiz_session) as $bog_quiz_session
+			return this.$.$giper_baza_glob.Pawn(new $giper_baza_link(id), $bog_quiz_session) as $bog_quiz_session
 		}
 
-		/**
-		 * ID текущего участника в localStorage
-		 */
 		@$mol_mem
-		participant_id(next?: string) {
-			const session_id = this.session_id()
-			const key = `quiz_participant_${session_id}`
-
-			if (next !== undefined) {
-				localStorage.setItem(key, next)
-				return next
-			}
-
-			return localStorage.getItem(key) || ''
+		lord_id() {
+			return this.$.$giper_baza_auth.current().pass().lord().toString()
 		}
 
 		@$mol_mem
@@ -28,16 +17,10 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return null
 
-			const stored_id = this.participant_id()
-			if (!stored_id) return null
+			const lord = this.lord_id()
+			const participants = session.participant_list()
 
-			const participants_list = session.Participants(null)
-			if (!participants_list) return null
-
-			const participants = participants_list.remote_list() ?? []
-			const found = participants.find(p => p.link().toString() === stored_id)
-
-			return (found as $bog_quiz_participant) || null
+			return (participants.find(p => p.UserId()?.val() === lord) as $bog_quiz_participant) ?? null
 		}
 
 		@$mol_mem
@@ -46,8 +29,7 @@ namespace $.$$ {
 			if (!session) return 'Play Quiz'
 
 			const quiz = session.Quiz()?.remote()
-			const quiz_title = quiz?.Title(null)?.str() || 'Quiz'
-			return quiz_title
+			return quiz?.Title(null)?.str() || 'Quiz'
 		}
 
 		@$mol_mem
@@ -63,13 +45,7 @@ namespace $.$$ {
 			const session = this.session()
 			if (!session) return null
 
-			const quiz = session.Quiz()?.remote()
-			if (!quiz) return null
-
-			const questionIndex = Number(session.QuestionIndex()?.val() ?? 0)
-			const questions = quiz.questions_ordered()
-
-			return questions[questionIndex] as $bog_quiz_question
+			return session.current_question() as $bog_quiz_question | null
 		}
 
 		@$mol_mem
@@ -77,7 +53,7 @@ namespace $.$$ {
 			const question = this.current_question()
 			if (!question) return ''
 
-			return question.Text(null)?.str() || 'Loading...'
+			return question.Text(null)?.str() || ''
 		}
 
 		@$mol_mem
@@ -88,10 +64,11 @@ namespace $.$$ {
 			const startedAt = Number(session.QuestionStartedAt()?.val() ?? 0)
 			if (!startedAt) return ''
 
-			const now = Date.now()
-			const elapsed = Math.floor((now - startedAt) / 1000)
+			const timerSec = Number(session.QuestionTimerSec()?.val() ?? 30)
+			const elapsed = Math.floor((Date.now() - startedAt) / 1000)
+			const remaining = Math.max(0, timerSec - elapsed)
 
-			return `Time: ${elapsed}s`
+			return `${remaining}s`
 		}
 
 		@$mol_mem
@@ -100,10 +77,7 @@ namespace $.$$ {
 			if (!question) return []
 
 			const options = question.options_ordered()
-
-			return options.map((option: $bog_quiz_option, index: number) => {
-				return this.Option_button(index)
-			})
+			return options.map((_: any, index: number) => this.Option_button(index))
 		}
 
 		@$mol_mem_key
@@ -111,21 +85,15 @@ namespace $.$$ {
 			const question = this.current_question()
 			if (!question) return null
 
-			const options = question.options_ordered()
-			return options[index] as $bog_quiz_option
+			return question.options_ordered()[index] as $bog_quiz_option
 		}
 
 		@$mol_mem_key
 		option_text(index: number) {
 			const option = this.option_entity(index)
-			if (!option) return ''
-
-			return option.Text(null)?.str() || ''
+			return option?.Text(null)?.str() || ''
 		}
 
-		/**
-		 * Получить текущий ответ участника
-		 */
 		@$mol_mem
 		current_answer() {
 			const session = this.session()
@@ -150,21 +118,19 @@ namespace $.$$ {
 			const selected = this.option_selected(index)
 
 			if (state === 'review') {
-				// В режиме review показываем правильные/неправильные
 				const option = this.option_entity(index)
 				if (!option) return 'transparent'
 
 				const is_correct = option.IsCorrect()?.val() ?? false
-				if (is_correct) return '#4caf50' // Зеленый для правильных
-				if (selected && !is_correct) return '#f44336' // Красный для неправильных выбранных
+				if (is_correct) return '#4caf50'
+				if (selected && !is_correct) return '#f44336'
 			}
 
-			return selected ? '#e0f7fa' : 'transparent'
+			return selected ? '#2196f3' : 'transparent'
 		}
 
 		option_toggle(index: number, event?: Event) {
-			const state = this.state()
-			if (state !== 'question') return event // Можно выбирать только в режиме question
+			if (this.state() !== 'question') return event
 
 			const answer = this.current_answer()
 			const option = this.option_entity(index)
@@ -173,9 +139,7 @@ namespace $.$$ {
 			if (!answer || !option || !question) return event
 
 			const type = question.Type()?.val() || 'single'
-			const is_single = type === 'single'
-
-			answer.toggle_option(option, is_single)
+			answer.toggle_option(option, type === 'single')
 			return event
 		}
 
@@ -184,8 +148,7 @@ namespace $.$$ {
 			const answer = this.current_answer()
 			if (!answer) return false
 
-			const selected = answer.selected_option_list()
-			return selected.length > 0
+			return answer.selected_option_list().length > 0
 		}
 
 		submit_answer(event?: Event) {
@@ -212,8 +175,8 @@ namespace $.$$ {
 			const question = this.current_question()
 			if (!question) return ''
 
-			const correct_options = question.correct_options()
-			const texts = correct_options.map((opt: $bog_quiz_option) => opt.Text(null)?.str() || '')
+			const correct = question.correct_options()
+			const texts = correct.map((opt: $bog_quiz_option) => opt.Text(null)?.str() || '')
 
 			return `Correct: ${texts.join(', ')}`
 		}
@@ -222,20 +185,20 @@ namespace $.$$ {
 		score_text() {
 			const session = this.session()
 			const answer = this.current_answer()
-			if (!session || !answer) return 'Score: 0 points'
+			if (!session || !answer) return 'Score: 0'
 
 			const score = $bog_quiz_scoring.calculate_answer_score(answer, session)
-			return `Score: ${Math.round(score)} points`
+			return `Score: ${Math.round(score)}`
 		}
 
 		@$mol_mem
 		final_score_text() {
 			const session = this.session()
 			const participant = this.participant()
-			if (!session || !participant) return 'Total score: 0 points'
+			if (!session || !participant) return 'Total: 0'
 
 			const total = session.participant_total_score(participant)
-			return `Total score: ${Math.round(total)} points`
+			return `Total: ${Math.round(total)}`
 		}
 
 		@$mol_mem
@@ -244,10 +207,7 @@ namespace $.$$ {
 			if (!session) return []
 
 			const leaderboard = session.leaderboard()
-
-			return leaderboard.map((entry, index) => {
-				return this.Leaderboard_item(index)
-			})
+			return leaderboard.map((_: any, index: number) => this.Leaderboard_item(index))
 		}
 
 		@$mol_mem_key
@@ -259,11 +219,9 @@ namespace $.$$ {
 			if (index >= leaderboard.length) return ''
 
 			const entry = leaderboard[index]
-			const participant = entry.participant
+			const name = entry.participant.display_name_text()
 			const score = entry.score
-			const name = participant.display_name_text()
 
-			// Определить место (с учетом tie)
 			let rank = 1
 			for (let i = 0; i < index; i++) {
 				if (leaderboard[i].score > score) {
@@ -271,7 +229,7 @@ namespace $.$$ {
 				}
 			}
 
-			return `${rank}. ${name} - ${Math.round(score)} points`
+			return `${rank}. ${name} - ${Math.round(score)}`
 		}
 	}
 }
