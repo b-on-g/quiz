@@ -1,0 +1,25 @@
+$bog_quiz_list $mol_page
+	title @ \My Quizzes
+	body /
+		<= Create_button $mol_button_major
+			click?event <=> create?event null
+			title @ \Create New Quiz
+		<= Quizzes $mol_list
+			rows <= quiz_rows /
+	
+	Quiz_card* $mol_card
+		title <= quiz_title* \
+		Content <= Quiz_content* $mol_view
+			sub /
+				<= Quiz_info* $mol_text
+					text <= quiz_questions_count* \
+				<= Quiz_actions* $mol_row
+					sub /
+						<= Quiz_edit_link* $mol_link
+							arg * quiz <= quiz_link* \
+							sub /
+								<= Quiz_edit_button* $mol_button_minor
+									title @ \Edit
+						<= Quiz_delete_button* $mol_button_minor
+							click?event <=> quiz_delete*?event null
+							title @ \Delete

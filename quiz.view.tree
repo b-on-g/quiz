@@ -1,0 +1,19 @@
+$bog_quiz $mol_book2_catalog
+	param \quiz
+	realm <= Realm $giper_baza_glob
+	menu_title @ \Quiz App
+	menu_tools /
+		<= Quiz_add $mol_button_minor
+			click?event <=> quiz_add?event null
+			hint @ \Create Quiz
+			sub /
+				<= Quiz_add_icon $mol_icon_plus
+	plugins /
+		<= Theme $mol_theme_auto
+	Placeholder null
+	spreads *
+	Spread* <= Quiz_spread* $mol_view
+	Join_page $bog_quiz_session_join
+		session_id \
+	Play_page $bog_quiz_session_play
+		session_id \

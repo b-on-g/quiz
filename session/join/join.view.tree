@@ -1,0 +1,15 @@
+$bog_quiz_session_join $mol_page
+	session_id \
+	title @ \Join Quiz
+	body /
+		<= Join_form $mol_list
+			rows /
+				<= Quiz_info $mol_text
+					text <= quiz_info_text \
+				<= Name_field $mol_string
+					value? <=> participant_name? \
+					hint @ \Your Name
+				<= Join_button $mol_button_major
+					click?event <=> join?event null
+					title @ \Join Quiz
+					enabled <= can_join false
