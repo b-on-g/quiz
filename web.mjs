@@ -4561,15 +4561,7 @@ var $;
                         offset += gift.byteLength;
                         continue;
                     }
-                    default:
-                        $$.$mol_log3_warn({
-                            place: '$giper_baza_pack..parts',
-                            message: 'Unknown Kind',
-                            kind,
-                            offset,
-                            hint: 'Try to update application',
-                        });
-                        return [...parts];
+                    default: return $mol_fail(new Error('Unknown Kind', { cause: { kind, offset } }));
                 }
             }
             return [...parts];
@@ -6693,9 +6685,8 @@ var $;
             this.name = name;
             this.handle = handle;
             try {
-                const channel = new BroadcastChannel(name);
-                channel.onmessage = (event) => this.handle(event.data);
-                this.channel = channel;
+                this.channel = new BroadcastChannel(name);
+                this.channel.onmessage = (event) => this.handle(event.data);
             }
             catch (error) {
                 console.warn(error);
@@ -8290,7 +8281,7 @@ var $;
             const link = this.master_current();
             if (!link)
                 return null;
-            const socket = new $mol_dom_context.WebSocket(link.replace(/^http/, 'ws'));
+            const socket = new $mol_dom_context.WebSocket(link.replace(/^http/, 'ws'), ['$giper_baza_yard']);
             socket.binaryType = 'arraybuffer';
             const port = $mol_rest_port_ws_std.make({ socket });
             socket.onmessage = async (event) => {
