@@ -8567,6 +8567,92 @@ declare namespace $ {
 
 //# sourceMappingURL=status.view.tree.d.ts.map
 declare namespace $ {
+    function $mol_wait_timeout_async(this: $, timeout: number): Promise<void>;
+    function $mol_wait_timeout(this: $, timeout: number): void;
+}
+
+declare namespace $ {
+
+	type $mol_link__uri_mol_embed_native_1 = $mol_type_enforce<
+		ReturnType< $mol_embed_native['uri'] >
+		,
+		ReturnType< $mol_link['uri'] >
+	>
+	type $mol_link__sub_mol_embed_native_2 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_link['sub'] >
+	>
+	export class $mol_embed_native extends $mol_scroll {
+		uri( next?: string ): string
+		title( ): string
+		Fallback( ): $mol_link
+		uri_change( next?: any ): any
+		dom_name( ): string
+		window( ): any
+		attr( ): ({ 
+			'src': ReturnType< $mol_embed_native['uri'] >,
+		})  & ReturnType< $mol_scroll['attr'] >
+		sub( ): readonly(any)[]
+		message( ): ({ 
+			hashchange( next?: ReturnType< $mol_embed_native['uri_change'] > ): ReturnType< $mol_embed_native['uri_change'] >,
+		}) 
+	}
+	
+}
+
+//# sourceMappingURL=native.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_embed_native extends $.$mol_embed_native {
+        window(): Window;
+        load(frame: HTMLIFrameElement): Promise<Window>;
+        uri_resource(): string;
+        message_listener(): $mol_dom_listener;
+        sub_visible(): readonly $mol_view_content[];
+        message_receive(event?: MessageEvent<[string, string]>): void;
+        uri_change(event: MessageEvent<[string, string]>): void;
+        auto(): (Window | $mol_dom_listener)[];
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_frame extends $mol_embed_native {
+		allow( ): string
+		html( ): any
+		attr( ): ({ 
+			'tabindex': ReturnType< $mol_frame['tabindex'] >,
+			'allow': ReturnType< $mol_frame['allow'] >,
+			'src': ReturnType< $mol_frame['uri'] >,
+			'srcdoc': ReturnType< $mol_frame['html'] >,
+		}) 
+		fullscreen( ): boolean
+		accelerometer( ): boolean
+		autoplay( ): boolean
+		encription( ): boolean
+		gyroscope( ): boolean
+		pip( ): boolean
+		clipboard_read( ): boolean
+		clipboard_write( ): boolean
+	}
+	
+}
+
+//# sourceMappingURL=frame.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_frame extends $.$mol_frame {
+        window(): any;
+        allow(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
 
 	export class $mol_icon_account extends $mol_icon {
 		path( ): string
@@ -11238,24 +11324,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=forever.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_sprout extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=sprout.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_sprout_outline extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=outline.view.tree.d.ts.map
 declare namespace $.$$ {
     class $giper_baza_land_grab extends $.$giper_baza_land_grab {
         value(rights?: string): string;
@@ -11559,7 +11627,6 @@ declare namespace $.$$ {
         land_add(preset: $giper_baza_rank_preset): null;
         update(files: File[]): never[];
         wipe(): Promise<void>;
-        seed_make(): void;
         lands_checked(): string[];
         dump_enabled(): boolean;
         dump_pack(): $giper_baza_pack | null;
@@ -11644,94 +11711,79 @@ declare namespace $ {
 		,
 		ReturnType< $mol_pick['bubble_content'] >
 	>
-	type $mol_button_minor__hint_giper_baza_glob_book_15 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_button_minor['hint'] >
-	>
-	type $mol_button_minor__click_giper_baza_glob_book_16 = $mol_type_enforce<
-		ReturnType< $giper_baza_glob_book['seed_make'] >
-		,
-		ReturnType< $mol_button_minor['click'] >
-	>
-	type $mol_button_minor__sub_giper_baza_glob_book_17 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_button_minor['sub'] >
-	>
-	type $giper_baza_land_grab__hint_giper_baza_glob_book_18 = $mol_type_enforce<
+	type $giper_baza_land_grab__hint_giper_baza_glob_book_15 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $giper_baza_land_grab['hint'] >
 	>
-	type $giper_baza_land_grab__align_hor_giper_baza_glob_book_19 = $mol_type_enforce<
+	type $giper_baza_land_grab__align_hor_giper_baza_glob_book_16 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $giper_baza_land_grab['align_hor'] >
 	>
-	type $giper_baza_land_grab__grab_giper_baza_glob_book_20 = $mol_type_enforce<
+	type $giper_baza_land_grab__grab_giper_baza_glob_book_17 = $mol_type_enforce<
 		ReturnType< $giper_baza_glob_book['land_add'] >
 		,
 		ReturnType< $giper_baza_land_grab['grab'] >
 	>
-	type $mol_button_open__hint_giper_baza_glob_book_21 = $mol_type_enforce<
+	type $mol_button_open__hint_giper_baza_glob_book_18 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_open['hint'] >
 	>
-	type $mol_button_open__files_giper_baza_glob_book_22 = $mol_type_enforce<
+	type $mol_button_open__files_giper_baza_glob_book_19 = $mol_type_enforce<
 		ReturnType< $giper_baza_glob_book['update'] >
 		,
 		ReturnType< $mol_button_open['files'] >
 	>
-	type $mol_button_download__hint_giper_baza_glob_book_23 = $mol_type_enforce<
+	type $mol_button_download__hint_giper_baza_glob_book_20 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_download['hint'] >
 	>
-	type $mol_button_download__enabled_giper_baza_glob_book_24 = $mol_type_enforce<
+	type $mol_button_download__enabled_giper_baza_glob_book_21 = $mol_type_enforce<
 		ReturnType< $giper_baza_glob_book['dump_enabled'] >
 		,
 		ReturnType< $mol_button_download['enabled'] >
 	>
-	type $mol_button_download__blob_giper_baza_glob_book_25 = $mol_type_enforce<
+	type $mol_button_download__blob_giper_baza_glob_book_22 = $mol_type_enforce<
 		ReturnType< $giper_baza_glob_book['dump'] >
 		,
 		ReturnType< $mol_button_download['blob'] >
 	>
-	type $mol_button_download__file_name_giper_baza_glob_book_26 = $mol_type_enforce<
+	type $mol_button_download__file_name_giper_baza_glob_book_23 = $mol_type_enforce<
 		ReturnType< $giper_baza_glob_book['dump_name'] >
 		,
 		ReturnType< $mol_button_download['file_name'] >
 	>
-	type $mol_link__arg_giper_baza_glob_book_27 = $mol_type_enforce<
+	type $mol_link__arg_giper_baza_glob_book_24 = $mol_type_enforce<
 		({ 
 			'side': any,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__sub_giper_baza_glob_book_28 = $mol_type_enforce<
+	type $mol_link__sub_giper_baza_glob_book_25 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $giper_baza_land_rights__land_giper_baza_glob_book_29 = $mol_type_enforce<
+	type $giper_baza_land_rights__land_giper_baza_glob_book_26 = $mol_type_enforce<
 		ReturnType< $giper_baza_glob_book['land_current'] >
 		,
 		ReturnType< $giper_baza_land_rights['land'] >
 	>
-	type $mol_page__title_giper_baza_glob_book_30 = $mol_type_enforce<
+	type $mol_page__title_giper_baza_glob_book_27 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_giper_baza_glob_book_31 = $mol_type_enforce<
+	type $mol_page__tools_giper_baza_glob_book_28 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_giper_baza_glob_book_32 = $mol_type_enforce<
+	type $mol_page__body_giper_baza_glob_book_29 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
@@ -11750,9 +11802,6 @@ declare namespace $ {
 		wipe( next?: any ): any
 		Wipe_icon( ): $mol_icon_delete_forever
 		Wipe_pick( ): $mol_pick
-		seed_make( next?: any ): any
-		Seed_make_icon( ): $mol_icon_sprout_outline
-		Seed_make( ): $mol_button_minor
 		land_add( next?: $giper_baza_rank_preset | null ): $giper_baza_rank_preset | null
 		Land_add( ): $giper_baza_land_grab
 		update( next?: readonly(any)[] ): readonly(any)[]
@@ -13425,17 +13474,27 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link_source['uri'] >
 	>
-	type $giper_baza_glob_book__addon_tools_giper_baza_app_2 = $mol_type_enforce<
+	type $mol_frame__title_giper_baza_app_2 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_frame['title'] >
+	>
+	type $mol_frame__uri_giper_baza_app_3 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_frame['uri'] >
+	>
+	type $giper_baza_glob_book__addon_tools_giper_baza_app_4 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $giper_baza_glob_book['addon_tools'] >
 	>
-	type $giper_baza_app_stat_page__tools_giper_baza_app_3 = $mol_type_enforce<
+	type $giper_baza_app_stat_page__tools_giper_baza_app_5 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $giper_baza_app_stat_page['tools'] >
 	>
-	type $giper_baza_auth_slot__tools_giper_baza_app_4 = $mol_type_enforce<
+	type $giper_baza_auth_slot__tools_giper_baza_app_6 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $giper_baza_auth_slot['tools'] >
@@ -13443,6 +13502,7 @@ declare namespace $ {
 	export class $giper_baza_app extends $mol_book2_catalog {
 		Source( ): $mol_link_source
 		Status( ): $giper_baza_status
+		Info( ): $mol_frame
 		Glob( ): $giper_baza_glob_book
 		Stat( ): $giper_baza_app_stat_page
 		Slot( ): $giper_baza_auth_slot
@@ -13450,6 +13510,7 @@ declare namespace $ {
 		param( ): string
 		menu_foot( ): readonly(any)[]
 		spreads( ): ({ 
+			'info': ReturnType< $giper_baza_app['Info'] >,
 			'glob': ReturnType< $giper_baza_app['Glob'] >,
 			'stat': ReturnType< $giper_baza_app['Stat'] >,
 			'slot': ReturnType< $giper_baza_app['Slot'] >,
@@ -13957,58 +14018,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    function $mol_wait_timeout_async(this: $, timeout: number): Promise<void>;
-    function $mol_wait_timeout(this: $, timeout: number): void;
-}
-
-declare namespace $ {
-
-	type $mol_link__uri_mol_embed_native_1 = $mol_type_enforce<
-		ReturnType< $mol_embed_native['uri'] >
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_link__sub_mol_embed_native_2 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_link['sub'] >
-	>
-	export class $mol_embed_native extends $mol_scroll {
-		uri( next?: string ): string
-		title( ): string
-		Fallback( ): $mol_link
-		uri_change( next?: any ): any
-		dom_name( ): string
-		window( ): any
-		attr( ): ({ 
-			'src': ReturnType< $mol_embed_native['uri'] >,
-		})  & ReturnType< $mol_scroll['attr'] >
-		sub( ): readonly(any)[]
-		message( ): ({ 
-			hashchange( next?: ReturnType< $mol_embed_native['uri_change'] > ): ReturnType< $mol_embed_native['uri_change'] >,
-		}) 
-	}
-	
-}
-
-//# sourceMappingURL=native.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_embed_native extends $.$mol_embed_native {
-        window(): Window;
-        load(frame: HTMLIFrameElement): Promise<Window>;
-        uri_resource(): string;
-        message_listener(): $mol_dom_listener;
-        sub_visible(): readonly $mol_view_content[];
-        message_receive(event?: MessageEvent<[string, string]>): void;
-        uri_change(event: MessageEvent<[string, string]>): void;
-        auto(): (Window | $mol_dom_listener)[];
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
 
 	export class $mol_icon_youtube extends $mol_icon {
 		path( ): string
@@ -14017,40 +14026,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=youtube.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_frame extends $mol_embed_native {
-		allow( ): string
-		html( ): any
-		attr( ): ({ 
-			'tabindex': ReturnType< $mol_frame['tabindex'] >,
-			'allow': ReturnType< $mol_frame['allow'] >,
-			'src': ReturnType< $mol_frame['uri'] >,
-			'srcdoc': ReturnType< $mol_frame['html'] >,
-		}) 
-		fullscreen( ): boolean
-		accelerometer( ): boolean
-		autoplay( ): boolean
-		encription( ): boolean
-		gyroscope( ): boolean
-		pip( ): boolean
-		clipboard_read( ): boolean
-		clipboard_write( ): boolean
-	}
-	
-}
-
-//# sourceMappingURL=frame.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_frame extends $.$mol_frame {
-        window(): any;
-        allow(): string;
-    }
-}
-
-declare namespace $ {
-}
-
 declare namespace $ {
 
 	type $mol_image__title_mol_embed_service_1 = $mol_type_enforce<

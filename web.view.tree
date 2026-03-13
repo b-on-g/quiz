@@ -457,6 +457,35 @@ $giper_baza_status $mol_select
 				<= Fail $mol_icon_sync_off
 			hint <= message <= hint \Sync status
 
+$mol_embed_native $mol_scroll
+	dom_name \iframe
+	window null
+	attr *
+		^
+		src <= uri? \about:config
+	sub /
+		<= Fallback $mol_link
+			uri <= uri
+			sub /
+				<= title \
+	message *
+		hashchange? <=> uri_change? null
+
+$mol_frame $mol_embed_native
+	attr *
+		tabindex <= tabindex
+		allow <= allow \
+		src <= uri
+		srcdoc <= html null
+	fullscreen true
+	accelerometer true
+	autoplay true
+	encription true
+	gyroscope true
+	pip true
+	clipboard_read true
+	clipboard_write true
+
 $mol_icon_account $mol_icon path \M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z
 
 $mol_icon_security $mol_icon path \M12,12H19C18.47,16.11 15.72,19.78 12,20.92V12H5V6.3L12,3.19M12,1L3,5V11C3,16.55 6.84,21.73 12,23C17.16,21.73 21,16.55 21,11V5L12,1Z
@@ -1158,10 +1187,6 @@ $mol_icon_delete $mol_icon path \M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0
 
 $mol_icon_delete_forever $mol_icon path \M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8.46,11.88L9.87,10.47L12,12.59L14.12,10.47L15.53,11.88L13.41,14L15.53,16.12L14.12,17.53L12,15.41L9.88,17.53L8.47,16.12L10.59,14L8.46,11.88M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z
 
-$mol_icon_sprout $mol_icon path \M2,22V20C2,20 7,18 12,18C17,18 22,20 22,20V22H2M11.3,9.1C10.1,5.2 4,6.1 4,6.1C4,6.1 4.2,13.9 9.9,12.7C9.5,9.8 8,9 8,9C10.8,9 11,12.4 11,12.4V17C11.3,17 11.7,17 12,17C12.3,17 12.7,17 13,17V12.8C13,12.8 13,8.9 16,7.9C16,7.9 14,10.9 14,12.9C21,13.6 21,4 21,4C21,4 12.1,3 11.3,9.1Z
-
-$mol_icon_sprout_outline $mol_icon path \M23,4.1V2.3L21.2,2.1C21.1,2.1 20.5,2 19.5,2C15.4,2 12.4,3.2 10.7,5.3C9.4,4.5 7.6,4 5.5,4C4.5,4 3.8,4.1 3.8,4.1L1.9,4.4L2,6.1C2.1,9.1 3.6,14.8 8.8,14.8C8.9,14.8 8.9,14.8 9,14.8V18.2C5.2,18.7 2,20 2,20V22H22V20C22,20 18.8,18.7 15,18.2V15C21.3,14.9 23,7.8 23,4.1M12,18C11.7,18 11.3,18 11,18V12.4C11,12.4 10.8,9 8,9C8,9 9.5,9.8 9.9,12.7C9.5,12.8 9.1,12.8 8.8,12.8C4.2,12.8 4,6.1 4,6.1C4,6.1 4.6,6 5.5,6C7.4,6 10.5,6.4 11.4,9.1C11.9,4.6 17,4 19.5,4C20.4,4 21,4.1 21,4.1C21,4.1 21,13.1 14.7,13.1C14.5,13.1 14.2,13.1 14,13.1C14,11.1 16,8.1 16,8.1C13,9.1 13,13 13,13V18C12.7,18 12.3,18 12,18Z
-
 $giper_baza_land_grab $mol_select
 	Filter null
 	trigger_content /
@@ -1251,7 +1276,7 @@ $giper_baza_land_rights $mol_list
 						^
 
 $giper_baza_glob_book $mol_book2_catalog
-	menu_title \🌐 Glob
+	menu_title \🌐 Global Explorer
 	menu_tools /
 		<= Home_link $mol_link
 			hint \Your Home
@@ -1282,7 +1307,7 @@ $giper_baza_glob_book $mol_book2_catalog
 				<= Wipe_icon $mol_icon_delete_forever
 			bubble_content /
 				\Double to wipe database
-		<= Seed_make $mol_button_minor
+		- <= Seed_make $mol_button_minor
 			hint \Make Seed
 			click? <=> seed_make? null
 			sub / <= Seed_make_icon $mol_icon_sprout_outline
@@ -1714,7 +1739,7 @@ $mol_chart $mol_view
 $giper_baza_app_stat_page $mol_page
 	home $giper_baza_app_home
 		link => home_link
-	title \📊 Stat
+	title \📊 Server Statistics
 	head /
 		<= Main $mol_view sub / 
 			<= Land $giper_baza_link_chip
@@ -1818,7 +1843,7 @@ $mol_icon_play $mol_icon path \M8,5.14V19.14L19,12.14L8,5.14Z
 $mol_check_icon $mol_check
 
 $giper_baza_auth_slot $mol_page
-	title \🎰 Grab
+	title \🎰 Beautiful Keys Mining
 	glob $giper_baza_glob
 	prefix? \
 	found*? /string
@@ -1848,6 +1873,9 @@ $giper_baza_app $mol_book2_catalog
 			uri \https://github.com/giper-dev/baza
 		<= Status $giper_baza_status
 	spreads *
+		info <= Info $mol_frame
+			title \💨 Giper Encyclopedy
+			uri \https://page.hyoo.ru/#!=sy2u0y_9rb8zj
 		glob <= Glob $giper_baza_glob_book
 			addon_tools /
 				<= Spread_close
@@ -1947,36 +1975,7 @@ $mol_link_iconed $mol_link
 		<= title <= uri
 	host \
 
-$mol_embed_native $mol_scroll
-	dom_name \iframe
-	window null
-	attr *
-		^
-		src <= uri? \about:config
-	sub /
-		<= Fallback $mol_link
-			uri <= uri
-			sub /
-				<= title \
-	message *
-		hashchange? <=> uri_change? null
-
 $mol_icon_youtube $mol_icon path \M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.07C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,14.19 21.84,15.8 21.56,16.83C21.31,17.73 20.73,18.31 19.83,18.56C19.36,18.69 18.5,18.78 17.18,18.84C15.88,18.91 14.69,18.94 13.59,18.94L12,19C7.81,19 5.2,18.84 4.17,18.56C3.27,18.31 2.69,17.73 2.44,16.83C2.31,16.36 2.22,15.73 2.16,14.93C2.09,14.13 2.06,13.44 2.06,12.84L2,12C2,9.81 2.16,8.2 2.44,7.17C2.69,6.27 3.27,5.69 4.17,5.44C4.64,5.31 5.5,5.22 6.82,5.16C8.12,5.09 9.31,5.06 10.41,5.06L12,5C16.19,5 18.8,5.16 19.83,5.44C20.73,5.69 21.31,6.27 21.56,7.17Z
-
-$mol_frame $mol_embed_native
-	attr *
-		tabindex <= tabindex
-		allow <= allow \
-		src <= uri
-		srcdoc <= html null
-	fullscreen true
-	accelerometer true
-	autoplay true
-	encription true
-	gyroscope true
-	pip true
-	clipboard_read true
-	clipboard_write true
 
 $mol_embed_service $mol_check
 	uri \
