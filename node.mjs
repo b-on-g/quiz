@@ -8128,7 +8128,14 @@ var $;
                 if (unit instanceof $giper_baza_auth_pass)
                     continue;
                 if (this.lord_tier(unit.lord()) < unit.tier_min()) {
-                    return this.$.$mol_fail(new Error('Too low Tier'));
+                    this.$.$mol_log3_warn({
+                        message: 'Too low Tier',
+                        tier_min: unit.tier_min().toString(2),
+                        tier_actual: this.lord_tier(unit.lord()).toString(2),
+                        hint: 'Relax. Unit is skipped.',
+                        place: `${this}.diff_apply()`,
+                    });
+                    continue;
                 }
                 const lord_pass = this.lord_pass(unit.lord()) ?? passes.get(unit.lord().str);
                 if (!lord_pass)
@@ -8566,13 +8573,14 @@ var $;
                 const wide = Boolean(land.link().area().str);
                 return $mol_array_chunks(hashes, $giper_baza_unit_seal_limit).map(async (hashes) => {
                     const seal = $giper_baza_unit_seal.make(hashes.length, wide);
-                    seal.time_tick(this.faces.tick().time_tick);
                     seal.lord(auth.pass().lord());
                     seal.hash_list(hashes);
                     seal._land = this;
-                    const shot = seal.shot().mix(this.link());
                     do {
-                        seal.sign(await auth.signer().sign(shot));
+                        seal.time_tick(this.faces.tick().time_tick);
+                        const sens = seal.shot().mix(this.link());
+                        const sign = await auth.signer().sign(sens);
+                        seal.sign(sign);
                     } while (seal.rate_min() > rate);
                     return seal;
                 });
@@ -9873,9 +9881,8 @@ var $;
                 return this._hash_list = list;
             }
         }
-        _shot;
         shot() {
-            return this._shot ?? (this._shot = $giper_baza_link.hash_bin(new Uint8Array(this.buffer, this.byteOffset, this.byteLength - 64)));
+            return $giper_baza_link.hash_bin(new Uint8Array(this.buffer, this.byteOffset, this.byteLength - 64));
         }
         sign(next) {
             const buf = new Uint8Array(this.buffer, this.byteOffset + this.byteLength - 64, 64);
@@ -9884,7 +9891,7 @@ var $;
             return buf;
         }
         work() {
-            let int = this.uint32(this.byteLength - 64);
+            let int = new Uint32Array(this.hash().toBin().buffer)[0];
             let count = 0;
             while (int & 1) {
                 int >>>= 1;
@@ -12066,7 +12073,7 @@ var $;
                     message: error.message ?? '',
                     origin: msg.origin(),
                     address: msg.address(),
-                    casue: error.cause,
+                    cause: error.cause,
                     stack: error.stack,
                 });
                 $mol_wire_sync(res).writeHead(500, error.name || 'Server Error');
@@ -12095,7 +12102,7 @@ var $;
                     message: error.message ?? '',
                     origin: upgrade.origin(),
                     address: upgrade.address(),
-                    casue: error.cause,
+                    cause: error.cause,
                     stack: error.stack,
                 });
                 socket.end();
@@ -12121,7 +12128,7 @@ var $;
                         message: error.message ?? '',
                         origin: upgrade.origin(),
                         address: upgrade.address(),
-                        casue: error.cause,
+                        cause: error.cause,
                         stack: error.stack,
                     });
                     return;
@@ -12236,7 +12243,7 @@ var $;
                     message: error.message ?? '',
                     origin: upgrade.origin(),
                     address: upgrade.address(),
-                    casue: error.cause,
+                    cause: error.cause,
                     stack: error.stack,
                 });
                 sock.end();
@@ -17064,6 +17071,8 @@ var $;
                 }
                 catch (error) {
                     $mol_fail_log(error);
+                    if (error instanceof Error)
+                        return '💥' + error.message;
                     return '';
                 }
             }
