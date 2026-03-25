@@ -41,6 +41,7 @@
 	pack quiz git \https://github.com/b-on-g/quiz.git
 	pack docs git \https://github.com/b-on-g/quiz.git
 	pack blitz git \https://github.com/b-on-g/blitz.git
+	pack wikilive git \https://github.com/b-on-g/WikiLive.git
 \/giper
 	pack balls git \https://github.com/giper-dev/balls.git
 	pack baza git \https://github.com/giper-dev/baza.git
