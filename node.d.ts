@@ -6999,20 +6999,7 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_media extends $mol_object2 {
-        static match(query: string, next?: boolean): boolean;
-    }
-}
-
-declare namespace $ {
-    function $mol_lights(this: $, next?: boolean): boolean;
-}
-
-declare namespace $ {
     const $mol_theme: Record<"image" | "line" | "text" | "field" | "current" | "focus" | "back" | "hover" | "card" | "special" | "control" | "shade" | "spirit", $mol_style_func<"var", unknown>>;
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
@@ -8481,6 +8468,16 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=plus.view.tree.d.ts.map
+declare namespace $ {
+    class $mol_media extends $mol_object2 {
+        static match(query: string, next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
+    function $mol_lights(this: $, next?: boolean): boolean;
+}
+
 declare namespace $ {
 
 	export class $mol_theme_auto extends $mol_plugin {
