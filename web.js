@@ -2470,7 +2470,7 @@ var $;
         handler = handler2;
         error = undefined;
         result = undefined;
-        window.dispatchEvent(new Event('$mol_try'));
+        self.dispatchEvent(new Event('$mol_try'));
         const error2 = error;
         const result2 = result;
         error = undefined;
@@ -11501,9 +11501,7 @@ var $;
 var $;
 (function ($) {
     class $mol_file_web extends $mol_file_webdav {
-        static base = $mol_dom_context.document?.currentScript
-            ? new URL('.', $mol_dom_context.document.currentScript['src']).toString()
-            : '';
+        static base = new URL('.', ($mol_dom_context.document?.currentScript)['src'] ?? globalThis.location.href).toString();
         version() { return '1'; }
         info() {
             try {
@@ -17463,6 +17461,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -17528,9 +17529,6 @@ var $;
 (function ($) {
     $mol_style_attach("giper/baza/status/status.view.css", "[giper_baza_status_option_row] {\n\tpadding: var(--mol_gap_text);\n}\n\n[giper_baza_status_well] {\n\tcolor: var(--mol_theme_current);\n}\n\n[giper_baza_status_fail] {\n\tcolor: var(--mol_theme_focus);\n}\n\n[giper_baza_status][mol_view_error=\"Promise\"] {\n\tanimation: giper_baza_status_wait 1s linear infinite;\n}\n\n@keyframes giper_baza_status_wait {\n\tfrom {\n\t\topacity: 1;\n\t}\n\tto {\n\t\topacity: .5;\n\t}\n}\n");
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 	($.$mol_embed_native) = class $mol_embed_native extends ($.$mol_scroll) {
@@ -17799,6 +17797,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -17850,9 +17851,6 @@ var $;
         $$.$giper_baza_link_chip = $giper_baza_link_chip;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -19140,6 +19138,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -19161,9 +19162,6 @@ var $;
         $$.$giper_baza_unit_sand_dump = $giper_baza_unit_sand_dump;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -21114,6 +21112,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -21303,9 +21304,6 @@ var $;
         $$.$giper_baza_flex_field = $giper_baza_flex_field;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -21781,6 +21779,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -21819,9 +21820,6 @@ var $;
         $$.$giper_baza_flex_form = $giper_baza_flex_form;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 	($.$giper_baza_pawn_dump) = class $giper_baza_pawn_dump extends ($.$mol_expander) {
@@ -22023,6 +22021,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -22103,9 +22104,6 @@ var $;
         $$.$giper_baza_pawn_dump = $giper_baza_pawn_dump;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -22505,6 +22503,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -22566,9 +22567,6 @@ var $;
         $$.$giper_baza_land_page = $giper_baza_land_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -22646,6 +22644,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -22666,9 +22667,6 @@ var $;
         $$.$giper_baza_land_grab = $giper_baza_land_grab;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 	($.$mol_icon_upload) = class $mol_icon_upload extends ($.$mol_icon) {
@@ -22942,6 +22940,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -23023,9 +23024,6 @@ var $;
         $$.$giper_baza_land_rights = $giper_baza_land_rights;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -23297,6 +23295,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -23424,9 +23425,6 @@ var $;
         $$.$giper_baza_glob_book = $giper_baza_glob_book;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -26169,6 +26167,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -26285,9 +26286,6 @@ var $;
         $$.$giper_baza_app_stat_page = $giper_baza_app_stat_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -26489,6 +26487,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -26556,9 +26557,6 @@ var $;
         $$.$giper_baza_auth_slot = $giper_baza_auth_slot;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
@@ -26642,6 +26640,9 @@ var $;
 
 ;
 "use strict";
+
+;
+"use strict";
 var $;
 (function ($) {
     var $$;
@@ -26658,9 +26659,6 @@ var $;
         $$.$giper_baza_app = $giper_baza_app;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-"use strict";
 
 ;
 "use strict";
